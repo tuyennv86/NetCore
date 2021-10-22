@@ -1,0 +1,58 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "NetCoreApp.Data.EF/1.0.0": {
+        "dependencies": {
+          "NetCoreApp.Data": "1.0.0",
+          "NetCoreApp.Infrastructure": "1.0.0",
+          "NetCoreApp.Utilities": "1.0.0"
+        },
+        "runtime": {
+          "NetCoreApp.Data.EF.dll": {}
+        }
+      },
+      "NetCoreApp.Data/1.0.0": {
+        "runtime": {
+          "NetCoreApp.Data.dll": {}
+        }
+      },
+      "NetCoreApp.Infrastructure/1.0.0": {
+        "runtime": {
+          "NetCoreApp.Infrastructure.dll": {}
+        }
+      },
+      "NetCoreApp.Utilities/1.0.0": {
+        "runtime": {
+          "NetCoreApp.Utilities.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NetCoreApp.Data.EF/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetCoreApp.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetCoreApp.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetCoreApp.Utilities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

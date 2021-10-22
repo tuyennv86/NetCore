@@ -1,0 +1,149 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "NetCoreApp.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/NetCoreApp.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NetCoreApp.Data.dll": {}
+        }
+      },
+      "NetCoreApp.Data.EF/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "NetCoreApp.Data": "1.0.0",
+          "NetCoreApp.Infrastructure": "1.0.0",
+          "NetCoreApp.Utilities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/NetCoreApp.Data.EF.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NetCoreApp.Data.EF.dll": {}
+        }
+      },
+      "NetCoreApp.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/NetCoreApp.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NetCoreApp.Infrastructure.dll": {}
+        }
+      },
+      "NetCoreApp.Utilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/NetCoreApp.Utilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NetCoreApp.Utilities.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NetCoreApp.Data/1.0.0": {
+      "type": "project",
+      "path": "../NetCoreApp.Data/NetCoreApp.Data.csproj",
+      "msbuildProject": "../NetCoreApp.Data/NetCoreApp.Data.csproj"
+    },
+    "NetCoreApp.Data.EF/1.0.0": {
+      "type": "project",
+      "path": "../NetCoreApp.Data.EF/NetCoreApp.Data.EF.csproj",
+      "msbuildProject": "../NetCoreApp.Data.EF/NetCoreApp.Data.EF.csproj"
+    },
+    "NetCoreApp.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../NetCoreApp.Infrastructure/NetCoreApp.Infrastructure.csproj",
+      "msbuildProject": "../NetCoreApp.Infrastructure/NetCoreApp.Infrastructure.csproj"
+    },
+    "NetCoreApp.Utilities/1.0.0": {
+      "type": "project",
+      "path": "../NetCoreApp.Utilities/NetCoreApp.Utilities.csproj",
+      "msbuildProject": "../NetCoreApp.Utilities/NetCoreApp.Utilities.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "NetCoreApp.Data >= 1.0.0",
+      "NetCoreApp.Data.EF >= 1.0.0",
+      "NetCoreApp.Utilities >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Welcome\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
+      "projectName": "NetCoreApp.Application",
+      "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
+      "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\Welcome\\source\\repos\\Play.Catalog\\packages": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "projectReferences": {
+            "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
+              "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj"
+            },
+            "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
+              "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
+            },
+            "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
+              "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
