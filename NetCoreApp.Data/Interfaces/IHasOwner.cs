@@ -6,6 +6,8 @@ namespace NetCoreApp.Data.Interfaces
 {
     public interface IHasOwner<T>
     {
-        T OwnerId { get; set; }
+        T OwnerId { set; get; }
+
+
     }
 }

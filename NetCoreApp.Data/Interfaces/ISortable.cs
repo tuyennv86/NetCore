@@ -6,6 +6,6 @@ namespace NetCoreApp.Data.Interfaces
 {
     public interface ISortable
     {
-        int SorOrder { get; set; }
+        int SortOrder { set; get; }
     }
 }

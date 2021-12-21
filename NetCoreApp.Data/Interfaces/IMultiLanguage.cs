@@ -6,6 +6,6 @@ namespace NetCoreApp.Data.Interfaces
 {
     public interface IMultiLanguage<T>
     {
-        T LanguageId { get; set; }
+        T LanguageId { set; get; }
     }
 }

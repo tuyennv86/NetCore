@@ -6,6 +6,6 @@ namespace NetCoreApp.Data.Interfaces
 {
     public interface IHasSoftDelete
     {
-        bool IsDelete { get; set; }
+        bool IsDeleted { set; get; }
     }
 }

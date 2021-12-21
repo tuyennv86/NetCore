@@ -1,7 +1,6 @@
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Utilities\bin\Debug\netcoreapp3.1\NetCoreApp.Utilities.deps.json
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Utilities\bin\Debug\netcoreapp3.1\NetCoreApp.Utilities.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Utilities\bin\Debug\netcoreapp3.1\NetCoreApp.Utilities.pdb
-C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Utilities\obj\Debug\netcoreapp3.1\NetCoreApp.Utilities.csproj.AssemblyReference.cache
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Utilities\obj\Debug\netcoreapp3.1\NetCoreApp.Utilities.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Utilities\obj\Debug\netcoreapp3.1\NetCoreApp.Utilities.AssemblyInfoInputs.cache
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Utilities\obj\Debug\netcoreapp3.1\NetCoreApp.Utilities.AssemblyInfo.cs

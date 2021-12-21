@@ -1,0 +1,94 @@
+﻿using NetCoreApp.Data.Enums;
+using NetCoreApp.Data.Interfaces;
+using NetCoreApp.Infrastructure.SharedKernel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace NetCoreApp.Data.Entities
+{
+    [Table("Blogs")]
+    public class Blog : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
+    {
+        public Blog(){ }
+
+        public Blog(string name, string thumbnailImage,
+           string description, string content, bool? homeFlag, bool? hotFlag,
+           string tags, Status status, string seoPageTitle,
+           string seoAlias, string seoMetaKeyword,
+           string seoMetaDescription)
+        {
+            Name = name;
+            Image = thumbnailImage;
+            Description = description;
+            Content = content;
+            HomeFlag = homeFlag;
+            HotFlag = hotFlag;
+            Tags = tags;
+            Status = status;
+            SeoPageTile = seoPageTitle;
+            SeoAlias = seoAlias;
+            SeoKeyworks = seoMetaKeyword;
+            SeoDescription = seoMetaDescription;
+        }
+
+        public Blog(int id, string name, string thumbnailImage,
+             string description, string content, bool? homeFlag, bool? hotFlag,
+             string tags, Status status, string seoPageTitle,
+             string seoAlias, string seoMetaKeyword,
+             string seoMetaDescription)
+        {
+            Id = id;
+            Name = name;
+            Image = thumbnailImage;
+            Description = description;
+            Content = content;
+            HomeFlag = homeFlag;
+            HotFlag = hotFlag;
+            Tags = tags;
+            Status = status;
+            SeoPageTile = seoPageTitle;
+            SeoAlias = seoAlias;
+            SeoKeyworks = seoMetaKeyword;
+            SeoDescription = seoMetaDescription;
+        }
+
+        [Required]
+        [MaxLength(256)]
+        public string Name { set; get; }
+
+        [MaxLength(256)]
+        public string Image { set; get; }
+
+        [MaxLength(500)]
+        public string Description { set; get; }
+
+        public string Content { set; get; }
+
+        public bool? HomeFlag { set; get; }
+        public bool? HotFlag { set; get; }
+        public int? ViewCount { set; get; }
+
+        public string Tags { get; set; }
+
+        public virtual ICollection<BlogTag> BlogTags { set; get; }
+        public DateTime DateCreated { set; get; }
+        public DateTime DateModified { set; get; }
+        public Status Status { set; get; }
+
+        [MaxLength(256)]
+        public string SeoAlias { set; get; }
+
+        [MaxLength(256)]
+        public string SeoDescription { set; get; }
+
+        [MaxLength(256)]
+        public string SeoPageTile { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        [MaxLength(256)]
+        public string SeoKeyworks { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SeoPageTitle { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SeoKeywords { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    }
+}

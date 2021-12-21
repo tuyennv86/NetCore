@@ -6,9 +6,9 @@ namespace NetCoreApp.Data.Interfaces
 {
     public interface IHasSeoMetaData
     {
-        string SeoPageTile { get; set; }
-        string SeoAlias { get; set; }
-        string SeoKeyworks { get; set; }
+        string SeoPageTitle { set; get; }
+        string SeoAlias { set; get; }
+        string SeoKeywords { set; get; }
         string SeoDescription { get; set; }
     }
 }
