@@ -1,11 +1,12 @@
 ﻿using NetCoreApp.Data.Enums;
+using NetCoreApp.Infrastructure.SharedKernel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetCoreApp.Data.Entities
 {
     [Table("Functions")]
-    public class Function
+    public class Function:DomainEntity<string>
     {
         public Function()
         {

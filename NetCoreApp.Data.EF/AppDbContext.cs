@@ -88,6 +88,7 @@ namespace NetCoreApp.Data.EF
             builder.AddConfiguration(new FooterConfiguration());
             builder.AddConfiguration(new ContactConfiguration());
             builder.AddConfiguration(new SystemConfigCongiguration());
+            builder.AddConfiguration(new FunctionConfiguration());
             base.OnModelCreating(builder);
         }
     }
