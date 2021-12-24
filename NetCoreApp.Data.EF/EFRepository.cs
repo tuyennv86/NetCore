@@ -15,7 +15,7 @@ namespace NetCoreApp.Data.EF
         public EFRepository(AppDbContext context)
         {
             _context = context;
-        }
+        }        
 
         public void Add(T entity)
         {

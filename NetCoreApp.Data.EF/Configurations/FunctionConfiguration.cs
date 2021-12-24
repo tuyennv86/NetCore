@@ -12,7 +12,7 @@ namespace NetCoreApp.Data.EF.Configurations
         public override void Configure(EntityTypeBuilder<Function> entity)
         {
             entity.HasKey(c => c.Id);
-            entity.Property(c => c.Id).HasMaxLength(50).IsRequired().IsUnicode(false);
+            entity.Property(c => c.Id).HasMaxLength(256).IsRequired().IsUnicode(false);
         }
     }
 }

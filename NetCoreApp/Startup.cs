@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,8 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetCoreApp.Application.AutoMapper;
+using NetCoreApp.Application.Implementation;
+using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Data.EF;
+using NetCoreApp.Data.EF.Repositories;
 using NetCoreApp.Data.Entities;
+using NetCoreApp.Data.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +40,14 @@ namespace NetCoreApp
             //Add application service
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppUser>, RoleManager<AppUser>>();
+            //mapper
+            services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
 
             services.AddTransient<DbInitializer>();
+
+            //Service 
+            services.AddTransient<IProductCateogryRepository, ProductCategoryRepository>();
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
             services.AddMvc();
             services.AddRazorPages();
