@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NetCoreApp.Data.Entities
 {
     [Table("Languages")]
-    public class Language : DomainEntity<int>, ISwitchable
+    public class Language : DomainEntity<string>, ISwitchable
     {
         [Required]
         [StringLength(128)]
@@ -16,6 +16,7 @@ namespace NetCoreApp.Data.Entities
         public bool IsDefault { get; set; }
 
         public string Resources { get; set; }
+
         public Status Status { get; set; }
     }
 }

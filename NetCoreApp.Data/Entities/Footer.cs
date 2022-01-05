@@ -8,6 +8,6 @@ namespace NetCoreApp.Data.Entities
     public class Footer : DomainEntity<string>
     {
         [Required]
-        public string Content { get; set; }
+        public string Content { set; get; }
     }
 }

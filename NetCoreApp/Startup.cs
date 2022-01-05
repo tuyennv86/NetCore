@@ -1,7 +1,6 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,10 +13,8 @@ using NetCoreApp.Data.EF;
 using NetCoreApp.Data.EF.Repositories;
 using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.IRepositories;
+using NetCoreApp.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApp
 {
@@ -33,52 +30,78 @@ namespace NetCoreApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConection"),
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConection"),
                 o => o.MigrationsAssembly("NetCoreApp.Data.EF")));
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-            //Add application service
+            services.AddIdentity<AppUser, AppRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            // Configure Identity
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+            });
+
+            //services.AddAutoMapper();
+            // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
-            services.AddScoped<RoleManager<AppUser>, RoleManager<AppUser>>();
-            //mapper
+            services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+
+            //services.AddSingleton(Mapper.Configuration);
             services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
+            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddTransient<DbInitializer>();
 
-            //Service 
-            services.AddTransient<IProductCateogryRepository, ProductCategoryRepository>();
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
             services.AddMvc();
-            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbInitializer dbInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == Environments.Development)
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
+            app.UseAuthentication();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(routes =>
             {
-                endpoints.MapRazorPages();
+                routes.MapControllerRoute(
+                     "default",
+                     "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapControllerRoute(
+                    "areaRoute",
+                    "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
-            dbInitializer.Seed().Wait();
         }
     }
 }

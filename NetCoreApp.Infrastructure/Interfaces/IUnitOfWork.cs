@@ -5,7 +5,7 @@ namespace NetCoreApp.Infrastructure.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         /// <summary>
-        /// Call Save change fo db context
+        /// Call save change from db context
         /// </summary>
         void Commit();
     }

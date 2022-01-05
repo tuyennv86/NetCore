@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace NetCoreApp.Data.EF.Repositories
 {
-    public class ProductCategoryRepository : EFRepository<ProductCategory, int>, IProductCateogryRepository
+    public class ProductCategoryRepository : EFRepository<ProductCategory, int>, IProductCategoryRepository
     {
-        private readonly AppDbContext _context;
+        private AppDbContext _context;
 
         public ProductCategoryRepository(AppDbContext context) : base(context)
         {

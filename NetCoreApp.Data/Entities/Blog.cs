@@ -11,7 +11,8 @@ namespace NetCoreApp.Data.Entities
     [Table("Blogs")]
     public class Blog : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
     {
-        public Blog(){ }
+        public Blog()
+        { }
 
         public Blog(string name, string thumbnailImage,
            string description, string content, bool? homeFlag, bool? hotFlag,
@@ -27,9 +28,9 @@ namespace NetCoreApp.Data.Entities
             HotFlag = hotFlag;
             Tags = tags;
             Status = status;
-            SeoPageTile = seoPageTitle;
+            SeoPageTitle = seoPageTitle;
             SeoAlias = seoAlias;
-            SeoKeyworks = seoMetaKeyword;
+            SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
         }
 
@@ -48,9 +49,9 @@ namespace NetCoreApp.Data.Entities
             HotFlag = hotFlag;
             Tags = tags;
             Status = status;
-            SeoPageTile = seoPageTitle;
+            SeoPageTitle = seoPageTitle;
             SeoAlias = seoAlias;
-            SeoKeyworks = seoMetaKeyword;
+            SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
         }
 
@@ -78,17 +79,15 @@ namespace NetCoreApp.Data.Entities
         public Status Status { set; get; }
 
         [MaxLength(256)]
+        public string SeoPageTitle { set; get; }
+
+        [MaxLength(256)]
         public string SeoAlias { set; get; }
 
         [MaxLength(256)]
+        public string SeoKeywords { set; get; }
+
+        [MaxLength(256)]
         public string SeoDescription { set; get; }
-
-        [MaxLength(256)]
-        public string SeoPageTile { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        [MaxLength(256)]
-        public string SeoKeyworks { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string SeoPageTitle { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string SeoKeywords { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

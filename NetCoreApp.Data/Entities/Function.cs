@@ -1,4 +1,5 @@
 ﻿using NetCoreApp.Data.Enums;
+using NetCoreApp.Data.Interfaces;
 using NetCoreApp.Infrastructure.SharedKernel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NetCoreApp.Data.Entities
 {
     [Table("Functions")]
-    public class Function:DomainEntity<string>
+    public class Function : DomainEntity<string>, ISwitchable, ISortable
     {
         public Function()
         {

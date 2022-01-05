@@ -1,10 +1,8 @@
 ﻿using NetCoreApp.Infrastructure.SharedKernel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetCoreApp.Data.Entities
 {
-    [Table("Tags")]
     public class Tag : DomainEntity<string>
     {
         [MaxLength(50)]

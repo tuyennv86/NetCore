@@ -12,34 +12,67 @@ namespace NetCoreApp.Data.Entities
     [Table("Bills")]
     public class Bill : DomainEntity<int>, ISwitchable, IDateTracking
     {
-        [Required]
-        [MaxLength(256)]
-        public string CustomerName { get; set; }
+        public Bill()
+        { }
+
+        public Bill(string customerName, string customerAddress, string customerMobile, string customerMessage,
+            BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid customerId)
+        {
+            CustomerName = customerName;
+            CustomerAddress = customerAddress;
+            CustomerMobile = customerMobile;
+            CustomerMessage = customerMessage;
+            BillStatus = billStatus;
+            PaymentMethod = paymentMethod;
+            Status = status;
+            CustomerId = customerId;
+        }
+
+        public Bill(int id, string customerName, string customerAddress, string customerMobile, string customerMessage,
+           BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid customerId)
+        {
+            Id = id;
+            CustomerName = customerName;
+            CustomerAddress = customerAddress;
+            CustomerMobile = customerMobile;
+            CustomerMessage = customerMessage;
+            BillStatus = billStatus;
+            PaymentMethod = paymentMethod;
+            Status = status;
+            CustomerId = customerId;
+        }
 
         [Required]
         [MaxLength(256)]
-        public string CustomerAddress { get; set; }
+        public string CustomerName { set; get; }
 
         [Required]
         [MaxLength(256)]
-        public string CustomerPhone { get; set; }
+        public string CustomerAddress { set; get; }
 
-        [Required, DataType(DataType.EmailAddress)]
+        [Required]
+        [MaxLength(50)]
+        public string CustomerMobile { set; get; }
+
+        [Required]
         [MaxLength(256)]
-        public string CustomerEmail { get; set; }
+        public string CustomerMessage { set; get; }
+
+        public PaymentMethod PaymentMethod { set; get; }
+
+        public BillStatus BillStatus { set; get; }
+
+        public DateTime DateCreated { set; get; }
+        public DateTime DateModified { set; get; }
 
         [DefaultValue(Status.Active)]
-        public Status Status { get; set; } = Status.Active;
+        public Status Status { set; get; } = Status.Active;
 
-        public BillStatus BillStatus { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-
-        public Guid? CustomerId { get; set; }
+        public Guid CustomerId { set; get; }
 
         [ForeignKey("CustomerId")]
-        public virtual AppUser User { get; set; }
+        public virtual AppUser User { set; get; }
 
-        public virtual ICollection<BillDetail> BillDetails { get; set; }
+        public virtual ICollection<BillDetail> BillDetails { set; get; }
     }
 }

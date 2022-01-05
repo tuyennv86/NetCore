@@ -15,7 +15,7 @@ namespace NetCoreApp.Data.EF
         public EFRepository(AppDbContext context)
         {
             _context = context;
-        }        
+        }
 
         public void Add(T entity)
         {
@@ -73,8 +73,7 @@ namespace NetCoreApp.Data.EF
 
         public void Remove(K id)
         {
-            var entity = FindById(id);
-            Remove(entity);
+            Remove(FindById(id));
         }
 
         public void RemoveMultiple(List<T> entities)

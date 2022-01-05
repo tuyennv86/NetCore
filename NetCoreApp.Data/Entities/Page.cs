@@ -10,13 +10,14 @@ namespace NetCoreApp.Data.Entities
     public class Page : DomainEntity<int>, ISwitchable
     {
         [Required]
-        [StringLength(128)]
-        public string Name { get; set; }
+        [MaxLength(256)]
+        public string Name { set; get; }
 
-        public bool IsDefault { get; set; }
+        [MaxLength(256)]
+        [Required]
+        public string Alias { set; get; }
 
-        public string Resources { get; set; }
-
-        public Status Status { get; set; }
+        public string Content { set; get; }
+        public Status Status { set; get; }
     }
 }

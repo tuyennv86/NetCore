@@ -47,8 +47,6 @@ namespace NetCoreApp.Application.ViewModels.Product
 
         public ProductCategoryViewModel ProductCategory { set; get; }
 
-        //public virtual ICollection<ProductTag> ProductTags { set; get; }
-
         public string SeoPageTitle { set; get; }
 
         [StringLength(255)]

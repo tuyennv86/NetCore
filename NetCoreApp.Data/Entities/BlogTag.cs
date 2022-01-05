@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using NetCoreApp.Infrastructure.SharedKernel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetCoreApp.Data.Entities
 {
     [Table("BlogTags")]
-    public class BlogTag
+    public class BlogTag : DomainEntity<int>
     {
         public int BlogId { set; get; }
+
         public string TagId { set; get; }
 
         [ForeignKey("BlogId")]
