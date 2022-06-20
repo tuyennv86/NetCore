@@ -475,3 +475,10 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\V
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\netcoreapp3.1\package.json
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\Error.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_LoginPartial.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
