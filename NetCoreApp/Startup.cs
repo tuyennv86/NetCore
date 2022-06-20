@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using NetCoreApp.Application.AutoMapper;
 using NetCoreApp.Application.Implementation;
@@ -17,7 +15,6 @@ using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.IRepositories;
 using NetCoreApp.Services;
 using System;
-using System.IO;
 
 namespace NetCoreApp
 {
@@ -89,7 +86,7 @@ namespace NetCoreApp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }                        
+            }
 
             app.UseStaticFiles();
             app.UseRouting();
