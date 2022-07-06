@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NetCoreApp.Application.AutoMapper;
 using NetCoreApp.Application.Implementation;
 using NetCoreApp.Application.Interfaces;
@@ -34,9 +36,15 @@ namespace NetCoreApp
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConection"),
                 o => o.MigrationsAssembly("NetCoreApp.Data.EF")));
 
-            services.AddIdentity<AppUser, AppRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+            services.AddMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.Cookie.HttpOnly = true;
+            });
 
             // Configure Identity
             services.Configure<IdentityOptions>(options =>
@@ -51,7 +59,6 @@ namespace NetCoreApp
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
-
                 // User settings
                 options.User.RequireUniqueEmail = true;
             });
@@ -66,19 +73,17 @@ namespace NetCoreApp
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
             services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddTransient<DbInitializer>();
-
+            services.AddTransient<DbInitializer>();            
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
-
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/NetCoreApp-{Date}.txt");
             if (env.EnvironmentName == Environments.Development)
             {
                 app.UseDeveloperExceptionPage();
@@ -89,8 +94,15 @@ namespace NetCoreApp
             }
 
             app.UseStaticFiles();
-            app.UseRouting();
+            app.UseRouting();           
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseSession();
+
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
+
 
             app.UseEndpoints(routes =>
             {

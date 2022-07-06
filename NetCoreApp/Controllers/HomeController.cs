@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NetCoreApp.Models;
 using System.Diagnostics;
 
 namespace NetCoreApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
