@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using NetCoreApp.Extensions;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -82,7 +83,7 @@
                 <div class="ui divider"></div>
                 <a href="" class="ui right floated tiny button">All Notification</a>
             </div>
-            <a class="icon item pointer" data-toggle="popup" data-content="#user" data-position="bottom right"><img src="/admin/assets/img/people_4.jpg" class="ui avatar image" alt=""></a>
+            <a class="icon item pointer" data-toggle="popup" data-content="#user" data-position="bottom right">@User.GetSpecificClaim("FullName") &nbsp;&nbsp; <img src="/admin/assets/img/people_4.jpg" class="ui avatar image" alt=""></a>
             <div id="user" class="ui popup">
                 <div class="ui secondary vertical menu">
                     <div class="header item">USER MENU</div>
@@ -102,7 +103,7 @@
                     <div align="center" class="profile">
                         <br>
                         <a href="/admin"><img src="/admin/assets/img/people_4.jpg" alt="Marry Doe" class="ui circular image" width="150px"></a>
-                        <div class="ui white header">Marry Doe</div>
+                        <div class="ui white header">@User.GetSpecificClaim("FullName")</div>
                         <div class="ui divider"></div>
                     </div>
                     <div class="ui fluid vertical menu" id="verticalMenu">

@@ -15,6 +15,8 @@ using NetCoreApp.Data.EF;
 using NetCoreApp.Data.EF.Repositories;
 using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.IRepositories;
+using NetCoreApp.Extensions;
+using NetCoreApp.Helpers;
 using NetCoreApp.Services;
 using System;
 
@@ -72,8 +74,11 @@ namespace NetCoreApp
             services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
+            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
+
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<DbInitializer>();            
+            services.AddTransient<DbInitializer>();
+            
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
