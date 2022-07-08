@@ -112,7 +112,7 @@ namespace NetCoreApp
 
                 routes.MapControllerRoute(
                     "areaRoute",
-                    "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    "{area:exists}/{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

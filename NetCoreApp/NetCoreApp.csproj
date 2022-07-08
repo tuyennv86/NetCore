@@ -62,4 +62,8 @@
     <ProjectReference Include="..\NetCoreApp.Utilities\NetCoreApp.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>

@@ -3,31 +3,44 @@
         registerEvents();
     }
 
-    var registerEvents = function () {
-        //$("#idFormLogin").submit(function (event) {
-        //    login();
-        //});
-        $("form").submit(function (event) {
-            event.preventDefault();
-            //var form = $(this);
-            //var actionUrl = form.attr('action');
-            //$.ajax({
-            //    type: "POST",
-            //    url: actionUrl,
-            //    data: form.serialize(),
-            //    success: function (res) {
-            //        if (res.success) {
-            //            window.location.href = "/Admin/Home/Index"
-            //        } else {
-            //            until.notify('Đăng nhập không thành công ', 'error');
-            //        }
-            //    }, error: function (status) {
-            //        until.notify(status.responseText, 'error');
-            //    }
-            //});
-
-            login();
-            
+    var registerEvents = function () {          
+       
+        $('form').form({
+            inline: true,
+            on: 'submit',
+            fields: {
+                username: {
+                    identifier: 'username',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Hãy nhập tên đăng nhập'
+                        },
+                        {
+                            type: 'length[4]',
+                            prompt: 'Tên đăng nhập không được ngắn hơn 4 ký tự'
+                        }
+                    ]
+                },
+                password: {
+                    identifier: 'password',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Hãy nhập mật khẩu'
+                        },
+                        {
+                            type: 'length[6]',
+                            prompt: 'Mật khẩu không được ngắn hơn 6 ký tự'
+                        }
+                    ]
+                }
+            },
+            onSuccess: function (e) {
+                e.preventDefault();
+                e.stopPropagation();               
+                login();
+            }
         });
     }
 

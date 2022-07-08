@@ -2,14 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NetCoreApp.Controllers;
 using NetCoreApp.Data.Entities;
 using NetCoreApp.Models.AccountViewModels;
-using NetCoreApp.Services;
 using NetCoreApp.Utilities.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NetCoreApp.Areas.Admin.Controllers
@@ -43,13 +38,13 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
+                {                    
+                    _logger.LogInformation("User logged in : ");
                     return new OkObjectResult(new GenericResult(true));
                 }                
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("User account locked out :");
                     return new OkObjectResult(new GenericResult(false,"Tài khoản đã bị khóa!"));
 
                 }

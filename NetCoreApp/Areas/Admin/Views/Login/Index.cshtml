@@ -21,34 +21,34 @@
             <div class="six wide column">
                 <div class="ui segments" align="center">
                     <div class="ui inverted blue padded segment">
-                        <span class="ui header">Welcome in Admin CMS!</span>
+                        <span class="ui header">Login Admin CMS!</span>
                     </div>
                     <div class="ui segment">
-                        <form class="ui form" action="/admin/login/authen" method="post">
+                        <form id="frmLogin" class="ui form" action="/admin/login/authen" method="post">
                             @Html.AntiForgeryToken()
                             <div class="field">
                                 <div class="ui left icon input">
-                                    <input type="text" name="username" id="username" placeholder="Username">
-                                    <i class="user icon"></i>
+                                    <input type="text" name="username" id="username" placeholder="Tên đăng nhập">
+                                    <i class="user icon"></i>                                    
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
-                                    <input type="password" name="password" id="password" placeholder="Password">
-                                    <i class="lock icon"></i>
-                                </div>
+                                    <input type="password" name="password" id="password" placeholder="Mật khẩu">
+                                    <i class="lock icon"></i>                                   
+                                </div>                                  
                             </div>
                             <div class="field">
                                 <div class="ui checkbox">
                                     <input type="checkbox" tabindex="0" class="hidden" name="remember" id="remember">
-                                    <label>Remember Me</label>
+                                    <label>Nhớ thông tin đăng nhập</label>
                                 </div>
                             </div>
-                            <button class="ui big fluid blue icon button" type="submit">Sign In <i class="sign in icon"></i></button>
+                            <button class="ui big fluid blue icon button" type="submit">Đăng nhập <i class="sign in icon"></i></button>                           
                         </form>
                     </div>
                     <div class="ui secondary segment">
-                        <a href="">Forgot Password?</a>
+                        @*<a href="">Forgot Password?</a>*@
                     </div>
                 </div>
             </div>
