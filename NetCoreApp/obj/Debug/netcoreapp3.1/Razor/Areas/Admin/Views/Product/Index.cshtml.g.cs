@@ -47,8 +47,15 @@ using NetCoreApp.Data.Entities;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 6 "C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\Areas\Admin\Views\_ViewImports.cshtml"
+using NetCoreApp.Application.ViewModels.System;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"71c1a1a5db3058b94f6fc10d0e28b2a382e183b4", @"/Areas/Admin/Views/Product/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ff153a9013cd4f97832734b652fd72b120c89019", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"539dca3b6b8f1c3b675d5cf74140103c24192fbb", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     public class Areas_Admin_Views_Product_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

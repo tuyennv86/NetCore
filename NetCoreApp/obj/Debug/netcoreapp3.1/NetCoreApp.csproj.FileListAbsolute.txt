@@ -491,3 +491,4 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\NetCore
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\NetCoreApp.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\NetCoreApp.pdb
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\NetCoreApp.genruntimeconfig.cache
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\Components\SideMenu\Default.cshtml.g.cs

@@ -17,6 +17,7 @@ using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.IRepositories;
 using NetCoreApp.Extensions;
 using NetCoreApp.Helpers;
+using NetCoreApp.Infrastructure.Interfaces;
 using NetCoreApp.Services;
 using System;
 
@@ -65,6 +66,9 @@ namespace NetCoreApp
                 options.User.RequireUniqueEmail = true;
             });
 
+            services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
+            services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
+
             //services.AddAutoMapper();
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
@@ -72,7 +76,7 @@ namespace NetCoreApp
 
             //services.AddSingleton(Mapper.Configuration);
             services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
-            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+            //services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
@@ -80,7 +84,10 @@ namespace NetCoreApp
             services.AddTransient<DbInitializer>();
             
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddTransient<IFunctionRepository, FunctionRepository>();
+
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<IFunctionService, FunctionService>();
 
             services.AddMvc();
         }

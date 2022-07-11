@@ -1,0 +1,23 @@
+﻿@model List<FunctionViewModel>
+<div class="ui fluid vertical menu" id="verticalMenu">
+    @foreach (var item in Model)
+    {
+        if (Model.Any(x => x.ParentId == item.Id))
+        {
+            <div class="item">
+                <i class="@item.IconCss"></i> <span>@item.Name</span>
+                <div class="menu">
+                    @foreach (var itemC in Model.Where(x => x.ParentId == item.Id))
+                    {
+                        <a href="@itemC.URL" class="item"><i class="@itemC.IconCss"></i>@itemC.Name</a>
+                    }
+
+                </div>
+            </div>
+        }
+        @*else
+        {
+            <a href="@item.URL" class="item"><i class="@item.IconCss"></i> <span>@item.Name</span></a>
+        }*@
+    }    
+</div>
