@@ -1,1 +1,114 @@
-﻿<h1>Product</h1>
+﻿@section Scripts{
+    <script src="~/app/controllers/product/index.js"></script>
+    <script>
+        var product = new productController();
+        product.initialize();
+    </script>
+}
+<div class="ui breadcrumb">
+    <a class="section">Home</a>
+    <i class="right chevron icon divider"></i>
+    <a class="section">Registration</a>
+    <i class="right chevron icon divider"></i>
+    <div class="active section">Personal Information</div>
+</div>
+<div class="ui divider"></div>
+<div class="ui one column stackable grid ui form">
+    <div class="column">
+        <div class="ui segments">
+            <div class="ui segment"><h3>Selectable</h3></div>
+            <div class="ui segment">
+                <div class="ui secondary menu">
+                    <a class="active item">
+                        <i class="home icon"></i> Home
+                    </a>
+                    <a class="item">
+                        <i class="mail icon"></i> Messages
+                    </a>
+                    <a class="item">
+                        <i class="user icon"></i> Friends
+                    </a>
+                    <div class="right menu">
+                        <div class="item">
+                            <select class="ui dropdown" name="gender">
+                                <option value="">Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="item">
+                            <div class="ui icon input">
+                                <input type="text" placeholder="Search...">
+                                <i class="search link icon"></i>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <a class="ui blue submit button"><i class="search link icon"></i>Tìm kiếm</a>
+                        </div>
+                    </div>
+                </div>
+                <table class="ui selectable celled table">
+                    <thead>
+                        <tr>
+                            <th class="one wide">
+                                <div class="ui center checkbox">
+                                    <input type="checkbox">
+                                    <label></label>
+                                </div>
+                            </th>
+                            <th>Tên sản phẩm</th>
+                            <th class="center aligned">Ảnh</th>
+                            <th>Danh mục</th>
+                            <th>Giá</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
+                            <th class="one wide center aligned">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tpl_content">
+                    </tbody>
+                    <tfoot>
+                    <th colspan="8">
+                        <div class="ui right floated pagination menu">
+                            <a class="icon item">
+                                <i class="left chevron icon"></i>
+                            </a>
+                            <a class="item">1</a>
+                            <a class="item">2</a>
+                            <a class="item">3</a>
+                            <a class="item">4</a>
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+                        </div>
+                    </th>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/template" id="mp_template">
+    {{#productTag}}
+    <tr>
+        <td>
+            <div class="ui fitted checkbox">
+                <input type="checkbox">
+                <label></label>
+            </div>
+        </td>
+        <td>{{Name}}</td>
+        <td class="center aligned">
+            <img class="ui tiny image" src="{{Image}}">
+        </td>
+        <td>{{ProductCategory.Name}}</td>
+        <td>{{Price}}</td>
+        <td>{{Status}}</td>
+        <td>{{DateCreated}}</td>
+        <td class="right aligned">
+            <a href="#" class="item"><i class="large trash icon"></i></a>
+            <a href="#" class="item"><i class="large edit icon"></i></a>
+        </td>
+    </tr>
+    {{/productTag}}
+</script>    

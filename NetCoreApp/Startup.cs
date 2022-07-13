@@ -85,9 +85,11 @@ namespace NetCoreApp
             
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
+            services.AddTransient<IProductService, ProductService>();
 
             services.AddMvc();
         }

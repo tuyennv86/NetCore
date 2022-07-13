@@ -14,6 +14,7 @@ body {
 }
 .ui.fixed.top.menu .item {
   color: #FFFFFF;
+  cursor:pointer;
 }
 .ui.fixed.top.menu .ui.popup .item {
   color: #000000;

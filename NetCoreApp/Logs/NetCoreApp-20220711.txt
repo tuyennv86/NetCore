@@ -483,3 +483,7 @@ System.InvalidOperationException: No service for type 'AutoMapper.IConfiguration
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2022-07-11T16:51:15.7736395+07:00 80000046-0005-fc00-b63f-84710c7967bb [INF] User logged in :  (d5b9e901)
+2022-07-11T16:51:40.9641669+07:00 8000000b-0001-fc00-b63f-84710c7967bb [INF] User logged in :  (d5b9e901)
+2022-07-11T17:01:04.8476257+07:00 80000042-0004-fd00-b63f-84710c7967bb [INF] User logged in :  (d5b9e901)
+2022-07-11T17:01:08.3157363+07:00 80000046-0004-fd00-b63f-84710c7967bb [INF] User logged out. (f9c27106)
