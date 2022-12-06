@@ -1,49 +1,50 @@
-﻿@section Scripts{
-    <script src="~/app/controllers/product/index.js"></script>
+﻿@section Styles{ 
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/css/bootstrap.min.css">
+}
+@section Scripts{
+    <script type="text/javascript" src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="~/app/controllers/product/index.js"></script>
     <script>
         var product = new productController();
-        product.initialize();
+        product.initialize();       
     </script>
 }
 <div class="ui breadcrumb">
-    <a class="section">Home</a>
-    <i class="right chevron icon divider"></i>
-    <a class="section">Registration</a>
-    <i class="right chevron icon divider"></i>
-    <div class="active section">Personal Information</div>
+    <a class="section" href="/admin/home">Trang chủ</a>
+    <i class="right chevron icon divider"></i>   
+    <div class="active section">Sản phẩm</div>
 </div>
 <div class="ui divider"></div>
 <div class="ui one column stackable grid ui form">
     <div class="column">
         <div class="ui segments">
-            <div class="ui segment"><h3>Selectable</h3></div>
+            <div class="ui segment"><h3>Danh sách sản phẩm</h3></div>
             <div class="ui segment">
                 <div class="ui secondary menu">
-                    <a class="active item">
-                        <i class="home icon"></i> Home
+                    <a class="active red item">
+                        <i class="trash alternate icon"></i> Xóa
                     </a>
-                    <a class="item">
-                        <i class="mail icon"></i> Messages
+                    <a class="item active blue">
+                        <i class="plus square icon"></i> Thêm mới
                     </a>
-                    <a class="item">
+                    <a class="item active">
                         <i class="user icon"></i> Friends
                     </a>
+
                     <div class="right menu">
                         <div class="item">
-                            <select class="ui dropdown" name="gender">
-                                <option value="">Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                            <select class="ui dropdown" name="gender" id="slCategory">                               
                             </select>
                         </div>
                         <div class="item">
                             <div class="ui icon input">
-                                <input type="text" placeholder="Search...">
-                                <i class="search link icon"></i>
+                                <input type="text" id="txtSearch" placeholder="Search...">
+                                <i class="search link icon"></i>                                
                             </div>
                         </div>
                         <div class="item">
-                            <a class="ui blue submit button"><i class="search link icon"></i>Tìm kiếm</a>
+                            <a class="ui blue submit button" id="btnSearch"><i class="search link icon"></i>Tìm kiếm</a>
                         </div>
                     </div>
                 </div>
@@ -52,63 +53,80 @@
                         <tr>
                             <th class="one wide">
                                 <div class="ui center checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="checkAll" id="checkall">
                                     <label></label>
                                 </div>
                             </th>
                             <th>Tên sản phẩm</th>
                             <th class="center aligned">Ảnh</th>
                             <th>Danh mục</th>
-                            <th>Giá</th>
-                            <th>Trạng thái</th>
-                            <th>Ngày tạo</th>
+                            <th class="center aligned">Giá</th>
+                            <th class="one wide center aligned">Trạng thái</th>
+                            <th class="two wide center aligned">Ngày tạo</th>
                             <th class="one wide center aligned">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tpl_content">
-                    </tbody>
-                    <tfoot>
-                    <th colspan="8">
-                        <div class="ui right floated pagination menu">
-                            <a class="icon item">
-                                <i class="left chevron icon"></i>
-                            </a>
-                            <a class="item">1</a>
-                            <a class="item">2</a>
-                            <a class="item">3</a>
-                            <a class="item">4</a>
-                            <a class="icon item">
-                                <i class="right chevron icon"></i>
-                            </a>
-                        </div>
-                    </th>
-                    </tfoot>
+                    </tbody>                    
                 </table>
+                <div class="ui secondary menu">
+                    <a class="item active red">
+                        <i class="trash alternate icon"></i> Xóa
+                    </a>
+                    <a class="item active blue">
+                        <i class="plus square icon"></i> Thêm mới
+                    </a>
+                    <a class="item">
+                        <i class="user icon"></i> Friends
+                    </a>
+
+                    <div class="right menu">
+                        <div class="item">
+                            <select class="ui dropdown small" name="page" id="slChangPage">
+                                <option value="10" selected="selected">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="item">
+                            <ul class="pagination" id="pagination"></ul>
+                        </div>                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/template" id="mp_template">
+<script type="x-tmpl-mustache" id="mp_template">
     {{#productTag}}
     <tr>
         <td>
             <div class="ui fitted checkbox">
-                <input type="checkbox">
+                <input type="checkbox" name="checkItem">
                 <label></label>
             </div>
         </td>
-        <td>{{Name}}</td>
+        <td>{{name}}</td>
         <td class="center aligned">
-            <img class="ui tiny image" src="{{Image}}">
+        {{#image}}
+            <img class="ui tiny image" src="{{image}}">
+        {{/image}}
+        {{^image}}
+            <img class="ui tiny image" src="/admin/assets/img/image.png">
+        {{/image}}
         </td>
-        <td>{{ProductCategory.Name}}</td>
-        <td>{{Price}}</td>
-        <td>{{Status}}</td>
-        <td>{{DateCreated}}</td>
+        <td>{{productCategory.name}}</td>
+        <td class="right aligned">{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
+        <td class="one wide center aligned">
+            {{#status}}<a href="#" data-id="{{id}}"> <i class="lock open blue icon"></i></a>{{/status}}
+            {{^status}}<a href="#" data-id="{{id}}"><i class="lock red icon"></i></a>{{/status}}
+        </td>
+        <td class="right aligned"> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
         <td class="right aligned">
-            <a href="#" class="item"><i class="large trash icon"></i></a>
-            <a href="#" class="item"><i class="large edit icon"></i></a>
+            <a href="#" data-id="{{id}}" class="item"><i class="large trash icon"></i></a>
+            <a href="#" data-id="{{id}}" class="item"><i class="large edit icon"></i></a>
         </td>
     </tr>
     {{/productTag}}
-</script>    
+</script>

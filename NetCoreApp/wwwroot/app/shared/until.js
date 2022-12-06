@@ -99,11 +99,12 @@
     },
     startLoading: function () {
         if ($('.loader').length > 0)
-            $('.loader').removeClass('hide');
+            $('.loader').addClass('active');
+            
     },
     stopLoading: function () {
         if ($('.loader').length > 0)
-            $('.loader').addClass('hide');
+            $('.loader').removeClass('active');
     },
     getStatus: function (status) {
         if (status === 1)

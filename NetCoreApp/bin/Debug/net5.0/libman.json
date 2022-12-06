@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twbs-pagination@1.4.2",
+      "destination": "wwwroot/lib/",
+      "files": [ "jquery.twbsPagination.js", "jquery.twbsPagination.min.js" ]
+    }
+  ]
+}

@@ -56,5 +56,8 @@ namespace NetCoreApp.Data.Entities
         public string SeoDescription { set; get; }
 
         public virtual ICollection<Product> Products { set; get; }
+
+        public virtual ProductCategory Parent { get; set; }
+        public virtual ICollection<ProductCategory> Children { get; set; }
     }
 }

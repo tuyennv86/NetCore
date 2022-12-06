@@ -99,6 +99,7 @@
                     @await Component.InvokeAsync("SideMenu")
                 </div>
                 <div class="sixteen wide column" id="content">
+                    <div class="ui centered inline loader"></div>
                     @RenderBody()
                 </div>
             </div>
@@ -109,7 +110,7 @@
     <script type="text/javascript" src="~/admin/assets/js/nicescroll.min.js"></script>
     <script type="text/javascript" src="~/admin/assets/js/main.js"></script>
     <script type="text/javascript" src="~/lib/notify.min.js"></script>
-    <script type="text/javascript" src="~/lib/mustache.min.js"></script>
+    <script type="text/javascript" src="~/lib/mustache/mustache.js"></script>    
     <script type="text/javascript" src="~/app/shared/until.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

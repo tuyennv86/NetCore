@@ -11,7 +11,7 @@ namespace NetCoreApp.Application.Interfaces
         void Update(ProductCategoryViewModel productCategoryVm);
 
         void Delete(int id);
-
+               
         List<ProductCategoryViewModel> GetAll();
 
         List<ProductCategoryViewModel> GetAll(string keyword);

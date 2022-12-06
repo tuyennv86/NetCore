@@ -2,6 +2,7 @@
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Product;
 using NetCoreApp.Data.Entities;
+using NetCoreApp.Data.Enums;
 using NetCoreApp.Data.IRepositories;
 using NetCoreApp.Infrastructure.Interfaces;
 using NetCoreApp.Utilities.Dtos;
@@ -47,7 +48,23 @@ namespace NetCoreApp.Application.Implementation
 
         public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
         {
-            throw new NotImplementedException();
+            var query = _productRepository.FindAll(x => x.Status == Status.Active);
+            if (!string.IsNullOrEmpty(keyword))
+                query = query.Where(x => x.Name.Contains(keyword));
+            if (categoryId.HasValue)
+                query = query.Where(x => x.CategoryId == categoryId.Value);
+            int totalRow = query.Count();
+            query = query.OrderByDescending(x => x.DateCreated).Skip((page - 1) * pageSize).Take(pageSize);
+            var data = _mapper.ProjectTo<ProductViewModel>(query).ToList();            
+
+            var pageResult = new PagedResult<ProductViewModel>()
+            {
+                Results = data,
+                CurrentPage = page,
+                RowCount = totalRow,
+                PageSize = pageSize
+            };
+            return pageResult;
         }
 
         public ProductViewModel GetById(int id)

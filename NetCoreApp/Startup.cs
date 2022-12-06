@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EntityFrameworkCore.UseRowNumberForPaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -29,7 +30,7 @@ namespace NetCoreApp
         {
             Configuration = configuration;
         }
-
+        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -37,7 +38,9 @@ namespace NetCoreApp
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConection"),
-                o => o.MigrationsAssembly("NetCoreApp.Data.EF")));
+                o => o.UseRowNumberForPaging()));
+
+           
 
             services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 

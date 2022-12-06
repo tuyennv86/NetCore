@@ -82,7 +82,7 @@ namespace NetCoreApp.Application.Implementation
             //        .ProjectTo<ProductViewModel>().ToList();
             //}
             return categories;
-        }
+        }      
 
         public void ReOrder(int sourceId, int targetId)
         {

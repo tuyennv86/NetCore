@@ -24,9 +24,17 @@ namespace NetCoreApp.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult GetAll()
         {
             var model = _productService.GetAll();
+            return new OkObjectResult(model);
+        }
+
+        [HttpGet]
+        public IActionResult GetPaging(int? categoryId, string keyword, int page, int pageSize)
+        {
+            var model = _productService.GetAllPaging(categoryId, keyword, page, pageSize);
             return new OkObjectResult(model);
         }
     }

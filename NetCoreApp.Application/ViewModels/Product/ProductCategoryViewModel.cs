@@ -30,5 +30,8 @@ namespace NetCoreApp.Application.ViewModels.Product
         public string SeoDescription { set; get; }
 
         public ICollection<ProductViewModel> Products { set; get; }
+
+        public virtual ProductCategoryViewModel Parent { get; set; }
+        public virtual ICollection<ProductCategoryViewModel> Children { get; set; }
     }
 }
