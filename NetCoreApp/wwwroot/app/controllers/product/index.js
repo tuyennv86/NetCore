@@ -6,34 +6,26 @@
         registerEvents();
     }
 
-    var registerEvents = function () {        
-
-        //CheckBoxAll();
-
-        $('input[name="checkAll"]').change(function () {
-            if ($('input[name="checkAll"]').attr('checked') === 'checked') {
-                $('input[name="checkItem"]').attr('checked', true);
-            } else {
-                $('input[name="checkItem"]').attr('checked', false);
-            }
-        });
+    var registerEvents = function () { 
 
         loadCategories();
 
-        $('#slChangPage').on('change', function () {
+        $('#slChangPage').on('change', function () {          
             until.configs.pageSize = $(this).val();
             until.configs.pageIndex = 1;
             loadData(true);
         });
+
         $("#btnSearch").on('click', function () {
             loadData();
         });
-        $("#txtSearch").on('keypress', function (e) {
+        $("#txtSearch").on('keypress', function (e) {          
             if (e.which === 13) {
                 e.preventDefault();
                 loadData();
             }
-        });
+        });       
+
     }
 
     function loadCategories() {
@@ -120,44 +112,6 @@
                 setTimeout(callBack(), 200);
             }
         });
-    }
-
-
-    //function CheckBoxAll () {
-    //    // ID selector on Master Checkbox
-    //    var masterCheck = $("#checkall");
-    //    // ID selector on Items Container
-    //    var listCheckItems = $("#tpl_content :checkbox");
-
-    //    // Click Event on Master Check
-    //    masterCheck.on("click", function () {
-    //        var isMasterChecked = $(this).is(":checked");
-    //        listCheckItems.prop("checked", isMasterChecked);
-    //        //getSelectedItems();
-    //    });
-
-    //    // Change Event on each item checkbox
-    //    listCheckItems.on("change", function () {
-    //        // Total Checkboxes in list
-    //        var totalItems = listCheckItems.length;
-    //        // Total Checked Checkboxes in list
-    //        var checkedItems = listCheckItems.filter(":checked").length;
-
-    //        //If all are checked
-    //        if (totalItems == checkedItems) {
-    //            masterCheck.prop("indeterminate", false);
-    //            masterCheck.prop("checked", true);
-    //        }
-    //        // Not all but only some are checked
-    //        else if (checkedItems > 0 && checkedItems < totalItems) {
-    //            masterCheck.prop("indeterminate", true);
-    //        }
-    //        //If none is checked
-    //        else {
-    //            masterCheck.prop("indeterminate", false);
-    //            masterCheck.prop("checked", false);
-    //        }            
-    //    });                
-    //};
+    }       
     
 }

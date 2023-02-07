@@ -21,23 +21,51 @@
                 until.startLoading();
             },
             success: function (response) {
-                console.log(response);
-                //var data = [];
-                //$.each(response, function (i, item) {
-                //    data.push({
-                //        id: item.id,
-                //        text: item.name,
-                //        parentId: item.parentId,
-                //        SortOrder: item.sortOrder,
-                //        status: item.status
-                //    })
-                //});
-                //console.log(data);
+
+                console.log(mergeChildren(response));
+
+                var templateWithData = Mustache.render($("#mp_template").html(), {                    
+                    categoryTag: mergeChildren(response),                    
+                    dateFormat: function () {
+                        return function (timestamp, render) {
+                            return new Date(render(timestamp).trim()).toLocaleString();
+                        };
+                    }
+                });
+                $("#tpl_content").empty().html(templateWithData);
 
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
             }
         })
+    }
+
+    function mergeChildren(sources) {
+        var children = [];
+        for (var index in sources) {
+            var source = sources[index];
+            children.push({
+                id: source.id,
+                parentId: source.parentId,
+                name: source.name,
+                image: source.image,
+                homeOrder: source.homeOrder,
+                homeFlag: source.homeFlag,
+                description: source.description,
+                seoAlias: source.seoAlias,
+                seoDescription: source.seoDescription,
+                seoKeywords: source.seoKeywords,
+                seoPageTitle: source.seoPageTitle,
+                sortOrder: source.sortOrder,
+                status: source.status,
+                dateModified: source.dateModified,
+                dateCreated: source.dateCreated
+            });
+            if (source.children) {
+                children = children.concat(mergeChildren(source.children))
+            }
+        }
+        return children;
     }
 }

@@ -1,9 +1,8 @@
 ﻿@section Styles{
-    @*<link rel="stylesheet" type="text/css" href="~/lib/bootstrap/css/bootstrap.min.css">*@
+    <link rel="stylesheet" type="text/css" href="~/lib/tree-grid/css/jquery.treegrid.css">
 }
-@section Scripts{
-    @*<script type="text/javascript" src="~/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>*@
+@section Scripts{   
+    <script type="text/javascript" src="~/lib/tree-grid/js/jquery.treegrid.min.js"></script>
     <script type="text/javascript" src="~/app/controllers/productCategories/index.js"></script>
     <script>
         var productCategory = new productCategoryController();
@@ -22,85 +21,64 @@
             <div class="ui segment"><h3>Danh mục</h3></div>
             <div class="ui segment">
                 <div class="ui secondary menu">
-                    <a class="active red item">
-                        <i class="trash alternate icon"></i> Xóa
-                    </a>
                     <a class="item active blue">
                         <i class="plus square icon"></i> Thêm mới
                     </a>
-                    <a class="item active">
-                        <i class="user icon"></i> Friends
+                    <a class="item active green">
+                        <i class="sync icon"></i> Cập nhật thứ tự
                     </a>
-
-                    <div class="right menu">
-                        <div class="item">
-                            <select class="ui dropdown" name="gender" id="slCategory">
-                            </select>
-                        </div>
-                        <div class="item">
-                            <div class="ui icon input">
-                                <input type="text" id="txtSearch" placeholder="Search...">
-                                <i class="search link icon"></i>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <a class="ui blue submit button" id="btnSearch"><i class="search link icon"></i>Tìm kiếm</a>
-                        </div>
-                    </div>
-                </div>
-                <table class="ui selectable celled table">
-                    <thead>
-                        <tr>
-                            <th class="one wide">
-                                <div class="ui center checkbox">
-                                    <input type="checkbox" name="checkAll" id="checkall">
-                                    <label></label>
-                                </div>
-                            </th>
-                            <th>Tên sản phẩm</th>
-                            <th class="center aligned">Ảnh</th>
-                            <th>Danh mục</th>
-                            <th class="center aligned">Giá</th>
-                            <th class="one wide center aligned">Trạng thái</th>
-                            <th class="two wide center aligned">Ngày tạo</th>
-                            <th class="one wide center aligned">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tpl_content">
-                    </tbody>
-                </table>
-                <div class="ui secondary menu">
                     <a class="item active red">
                         <i class="trash alternate icon"></i> Xóa
                     </a>
-                    <a class="item active blue">
-                        <i class="plus square icon"></i> Thêm mới
-                    </a>
-                    <a class="item">
-                        <i class="user icon"></i> Friends
-                    </a>
-
-                    <div class="right menu">
-                        <div class="item">
-                            <select class="ui dropdown small" name="page" id="slChangPage">
-                                <option value="10" selected="selected">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
-                        </div>
-                        <div class="item">
-                            <ul class="pagination" id="pagination"></ul>
-                        </div>
-                    </div>
                 </div>
+                
+            <table class="ui selectable celled table tree">
+            <thead>
+                <tr>
+                    <th class="one wide">
+                        <div class="ui center checkbox">
+                            <input type="checkbox" name="checkAll" id="checkAll">
+                            <label></label>
+                            
+                        </div>
+                    </th>
+                    <th>Tên danh mục</th>
+                    <th class="center aligned">Ảnh</th>
+                    <th class="one wide center aligned">Thứ tự</th>
+                    <th class="one wide center aligned">Trạng thái</th>
+                    <th class="one wide center aligned">Trang chủ</th>
+                    <th class="one wide center aligned">Thứ tự home</th>
+                    <th class="two wide center aligned">Ngày tạo</th>
+                    <th class="two wide center aligned">Ngày sửa</th>
+                    <th class="one wide center aligned">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tpl_content">
+            </tbody>
+        </table>
+            <div class="ui secondary menu">
+                <a class="item active blue">
+                    <i class="plus square icon"></i> Thêm mới
+                </a>
+                <a class="item active green">
+                    <i class="sync icon"></i> Cập nhật thứ tự
+                </a>
+                <a class="item active red">
+                    <i class="trash alternate icon"></i> Xóa
+                </a>
+            </div>
             </div>
         </div>
     </div>
 </div>
-@*<script type="x-tmpl-mustache" id="mp_template">
-    {{#productTag}}
-    <tr>
+<script type="x-tmpl-mustache" id="mp_template">
+    {{#categoryTag}}
+        {{#parentId}}
+            <tr class="treegrid-{{id}} treegrid-parent-{{parentId}}">
+        {{/parentId}}
+        {{^parentId}}
+            <tr class="treegrid-{{id}}">
+        {{/parentId}}
         <td>
             <div class="ui fitted checkbox">
                 <input type="checkbox" name="checkItem">
@@ -109,25 +87,52 @@
         </td>
         <td>{{name}}</td>
         <td class="center aligned">
-        {{#image}}
-            <img class="ui tiny image" src="{{image}}">
-        {{/image}}
-        {{^image}}
-            <img class="ui tiny image" src="/admin/assets/img/image.png">
-        {{/image}}
+            {{#image}}
+                <img class="ui tiny image" src="{{image}}">
+            {{/image}}
+            {{^image}}
+                <img class="ui tiny image" src="/admin/assets/img/image.png">
+            {{/image}}
         </td>
-        <td>{{productCategory.name}}</td>
-        <td class="right aligned">{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
-        <td class="one wide center aligned">
+        <td>
+            <div class="ui corner small input">
+              <input type="text" value="{{sortOrder}}" placeholder="nhấp số thứ tự">
+            </div>
+        </td>
+       <td class="one wide center aligned">
             {{#status}}<a href="#" data-id="{{id}}"> <i class="lock open blue icon"></i></a>{{/status}}
             {{^status}}<a href="#" data-id="{{id}}"><i class="lock red icon"></i></a>{{/status}}
         </td>
+        <td class="one wide center aligned">
+            {{#HomeFlag}}<a href="#" data-id="{{id}}"> <i class="eye blue icon"></i></a>{{/HomeFlag}}
+            {{^HomeFlag}}<a href="#" data-id="{{id}}"><i class="eye slash red icon"></i></a>{{/HomeFlag}}
+        </td>
+        <td class="one wide center aligned">
+          <div class="ui corner small input">
+              <input type="text" value="{{HomeOrder}}" placeholder="nhấp số thứ tự">
+            </div>
+        </td>
+        <td class="right aligned"> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
         <td class="right aligned"> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
         <td class="right aligned">
             <a href="#" data-id="{{id}}" class="item"><i class="large trash icon"></i></a>
             <a href="#" data-id="{{id}}" class="item"><i class="large edit icon"></i></a>
         </td>
     </tr>
-    {{/productTag}}*@
+    {{/categoryTag}}
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.tree').treegrid({
+           /* 'initialState': 'collapsed',*/
+            treeColumn: 1
+        });
+
+        $("#checkAll").change(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+
+    });
+</script>

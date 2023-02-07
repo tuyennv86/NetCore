@@ -1,18 +1,19 @@
-﻿@section Styles{ 
-    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/css/bootstrap.min.css">
+﻿@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/css/bootstrap.css">
 }
-@section Scripts{
-    <script type="text/javascript" src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+@section Scripts{ 
+
+    <script type="text/javascript" src="~/lib/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
     <script type="text/javascript" src="~/app/controllers/product/index.js"></script>
     <script>
         var product = new productController();
-        product.initialize();       
+        product.initialize();
     </script>
 }
 <div class="ui breadcrumb">
     <a class="section" href="/admin/home">Trang chủ</a>
-    <i class="right chevron icon divider"></i>   
+    <i class="right chevron icon divider"></i>
     <div class="active section">Sản phẩm</div>
 </div>
 <div class="ui divider"></div>
@@ -34,13 +35,13 @@
 
                     <div class="right menu">
                         <div class="item">
-                            <select class="ui dropdown" name="gender" id="slCategory">                               
+                            <select class="ui dropdown" name="gender" id="slCategory">
                             </select>
                         </div>
                         <div class="item">
                             <div class="ui icon input">
                                 <input type="text" id="txtSearch" placeholder="Search...">
-                                <i class="search link icon"></i>                                
+                                <i class="search link icon"></i>
                             </div>
                         </div>
                         <div class="item">
@@ -52,8 +53,8 @@
                     <thead>
                         <tr>
                             <th class="one wide">
-                                <div class="ui center checkbox">
-                                    <input type="checkbox" name="checkAll" id="checkall">
+                                <div class="ui center checkbox custom">
+                                    <input type="checkbox" name="checkAll" id="checkAll">
                                     <label></label>
                                 </div>
                             </th>
@@ -67,7 +68,7 @@
                         </tr>
                     </thead>
                     <tbody id="tpl_content">
-                    </tbody>                    
+                    </tbody>
                 </table>
                 <div class="ui secondary menu">
                     <a class="item active red">
@@ -91,7 +92,7 @@
                         </div>
                         <div class="item">
                             <ul class="pagination" id="pagination"></ul>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,34 +100,42 @@
     </div>
 </div>
 <script type="x-tmpl-mustache" id="mp_template">
-    {{#productTag}}
-    <tr>
-        <td>
-            <div class="ui fitted checkbox">
-                <input type="checkbox" name="checkItem">
-                <label></label>
-            </div>
-        </td>
-        <td>{{name}}</td>
-        <td class="center aligned">
-        {{#image}}
-            <img class="ui tiny image" src="{{image}}">
-        {{/image}}
-        {{^image}}
-            <img class="ui tiny image" src="/admin/assets/img/image.png">
-        {{/image}}
-        </td>
-        <td>{{productCategory.name}}</td>
-        <td class="right aligned">{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
-        <td class="one wide center aligned">
-            {{#status}}<a href="#" data-id="{{id}}"> <i class="lock open blue icon"></i></a>{{/status}}
-            {{^status}}<a href="#" data-id="{{id}}"><i class="lock red icon"></i></a>{{/status}}
-        </td>
-        <td class="right aligned"> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
-        <td class="right aligned">
-            <a href="#" data-id="{{id}}" class="item"><i class="large trash icon"></i></a>
-            <a href="#" data-id="{{id}}" class="item"><i class="large edit icon"></i></a>
-        </td>
-    </tr>
-    {{/productTag}}
+        {{#productTag}}
+        <tr>
+            <td>
+                <div class="ui fitted checkbox">
+                    <input type="checkbox" name="checkItem">
+                    <label></label>
+                </div>
+            </td>
+            <td>{{name}}</td>
+            <td class="center aligned">
+            {{#image}}
+                <img class="ui tiny image" src="{{image}}">
+            {{/image}}
+            {{^image}}
+                <img class="ui tiny image" src="/admin/assets/img/image.png">
+            {{/image}}
+            </td>
+            <td>{{productCategory.name}}</td>
+            <td class="right aligned">{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
+            <td class="one wide center aligned">
+                {{#status}}<a href="#" data-id="{{id}}"> <i class="lock open blue icon"></i></a>{{/status}}
+                {{^status}}<a href="#" data-id="{{id}}"><i class="lock red icon"></i></a>{{/status}}
+            </td>
+            <td class="right aligned"> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
+            <td class="right aligned">
+                <a href="#" data-id="{{id}}" class="item"><i class="large trash icon"></i></a>
+                <a href="#" data-id="{{id}}" class="item"><i class="large edit icon"></i></a>
+            </td>
+        </tr>
+        {{/productTag}}
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#checkAll").change(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+    });
 </script>

@@ -1,3 +1,6 @@
+Acount : admin 
+pass: 123654$
+
 Product Category
 	Id
 	Alias

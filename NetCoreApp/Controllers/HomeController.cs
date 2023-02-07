@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace NetCoreApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()

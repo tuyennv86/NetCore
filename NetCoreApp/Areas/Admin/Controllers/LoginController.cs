@@ -20,14 +20,15 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _userManager = userManager;
             _signInManager = signInManager;          
             _logger = logger;
-        }       
+        }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [AllowAnonymous]        
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Authen(LoginViewModel model)
         {          
