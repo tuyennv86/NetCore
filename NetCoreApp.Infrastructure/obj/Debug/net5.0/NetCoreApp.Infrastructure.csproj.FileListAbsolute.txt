@@ -9,3 +9,4 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.pdb
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.csproj.AssemblyReference.cache

@@ -24,9 +24,7 @@
                 <a href="#" class="h1"><b>Admin</b></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg"></p>
-
-                @*<form action="../../index3.html" method="post">*@
+                <p class="login-box-msg accent-dark"></p>
                 <form id="frmLogin" class="ui form" action="/admin/login/authen" method="post" name="frmLogin">
                     @Html.AntiForgeryToken()
                     <div class="input-group mb-3">
@@ -74,7 +72,7 @@
     <script src="~/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/admin/dist/js/adminlte.min.js"></script>
 
-    @*<script src="~/lib/notify.min.js"></script>*@
+    <script src="~/lib/notify.min.js"></script>
     <script src="~/app/shared/until.js"></script>
     <script src="~/app/controllers/login/index.js"></script>
     <script>

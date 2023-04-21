@@ -58,7 +58,7 @@
                 if (res.success) {
                     window.location.href = "/Admin/Home/Index"
                 } else {                    
-                    $('p.login-box-msg').html('Tên đăng nhập hoặc mật khẩu không đúng!');
+                    $('p.login-box-msg').html(res.message);
                 }
             }
         })

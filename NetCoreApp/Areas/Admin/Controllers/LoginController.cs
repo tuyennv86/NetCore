@@ -50,7 +50,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 }
                 else
                 {                   
-                    return new OkObjectResult(new GenericResult(false, "Đăng nhập sai!"));
+                    return new OkObjectResult(new GenericResult(false, "Sai thông tin đăng nhập!"));
                 }
             } 
             // If we got this far, something failed, redisplay form
