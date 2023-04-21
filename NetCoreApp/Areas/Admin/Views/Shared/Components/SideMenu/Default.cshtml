@@ -1,23 +1,40 @@
 ﻿@model List<FunctionViewModel>
-<div class="ui fluid vertical menu" id="verticalMenu">
-    @foreach (var item in Model)
-    {
-        if (Model.Any(x => x.ParentId == item.Id))
-        {
-            <div class="item">
-                <i class="@item.IconCss"></i> <span>@item.Name</span>
-                <div class="menu">
-                    @foreach (var itemC in Model.Where(x => x.ParentId == item.Id))
-                    {
-                        <a href="@itemC.URL" class="item"><i class="@itemC.IconCss"></i>@itemC.Name</a>
-                    }
 
-                </div>
-            </div>
-        }
-        @*else
-            {
-                <a href="@item.URL" class="item"><i class="@item.IconCss"></i> <span>@item.Name</span></a>
-            }*@
-    }
-</div>
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">       
+        <a href="#" class="brand-link">
+            <img src="~/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Admin</span>
+        </a>        
+        <div class="sidebar">            
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    @foreach (var item in Model)
+                    {
+                        if (Model.Any(x => x.ParentId == item.Id))
+                        {
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="@item.IconCss"></i>
+                                    <p>
+                                        @item.Name
+                                        <i class="fas fa-angle-left right"></i>                                       
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @foreach (var itemC in Model.Where(x => x.ParentId == item.Id))
+                                    {
+                                        <li class="nav-item">
+                                            <a href="@itemC.URL" class="nav-link">
+                                                <i class="@itemC.IconCss"></i>
+                                                <p>@itemC.Name</p>
+                                            </a>
+                                        </li>
+                                    }                                       
+                                    </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+            </nav>            
+        </div>        
+    </aside>

@@ -1,108 +1,53 @@
-﻿<div class="ui segment" id="background-profile">
-    <div class="ui circular left floated segment">
-        <img src="admin/assets/img/people_4.jpg" alt="Marry Doe" class="ui circular image" width="150px">
-    </div>
-</div>
-<div class="ui horizontal divider">Analytics</div>
-<div class="ui two column stackable grid">
-    <div class="column">
-        <div class="ui styled fluid accordion">
-            <div class="active title">
-                <i class="dropdown icon"></i> Web View <i class="signal icon"></i>
+﻿ <!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Fixed Layout</h1>
             </div>
-            <div class="active content">
-                <div id="barChart" class="chart element"></div>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="ui styled fluid accordion">
-            <div class="active title">
-                <i class="dropdown icon"></i> Visitor <i class="user icon"></i>
-            </div>
-            <div class="active content">
-                <div id="lineChart" class="chart element"></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Layout</a></li>
+                    <li class="breadcrumb-item active">Fixed Layout</li>
+                </ol>
             </div>
         </div>
-    </div>
-    <div class="column">
-        <div class="ui styled fluid accordion">
-            <div class="active title">
-                <i class="dropdown icon"></i> Country Visitor <i class="marker icon"></i>
-            </div>
-            <div class="active content">
-                <div class="ui relaxed divided list">
-                    <div class="item">
-                        <a class="header">
-                            <i class="large middle aligned id flag"></i> Indonesia
-                            <span class="ui right floated green label">46</span>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="header">
-                            <i class="large middle aligned us flag"></i> USA
-                            <span class="ui right floated label">23</span>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="header">
-                            <i class="large middle aligned uk flag"></i> England
-                            <span class="ui right floated label">15</span>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="header">
-                            <i class="large middle aligned ae flag"></i> United Arab Emirates
-                            <span class="ui right floated blue label">26</span>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="header">
-                            <i class="large middle aligned sa flag"></i> Saudi Arabia
-                            <span class="ui right floated label">10</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="ui styled fluid accordion">
-            <div class="active title">
-                <i class="dropdown icon"></i> Latest Comment <i class="comment icon"></i>
-            </div>
-            <div class="active content">
-                <div class="ui relaxed divided list">
-                    <div class="item">
-                        <img src="/admin/assets/img/people_1.jpg" class="ui avatar image" alt="">
-                        <div class="content">
-                            <a class="header">Alana Steve</a>
-                            <div class="description">cumque tempora repellendus qui  qui perspiciatis facere... <a href="">More</a> </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="/admin/assets/img/people_2.jpg" class="ui avatar image" alt="">
-                        <div class="content">
-                            <a class="header">Nathan Steven</a>
-                            <div class="description">eprehenderit quos illum doloribus  inventore doloribus hic ipsum... <a href="">More</a> </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="/admin/assets/img/people_3.jpg" class="ui avatar image" alt="">
-                        <div class="content">
-                            <a class="header">First Jr Doe</a>
-                            <div class="description">epellendus ducimus quae voluptas,  voluptas, nam necessitatibus... <a href="">More</a> </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </div><!-- /.container-fluid -->
+</section>
 
-@section Scripts{
-    <script type="text/javascript" src="~/admin/assets/js/amcharts/amcharts.js"></script>
-    <script type="text/javascript" src="~/admin/assets/js/amcharts/serial.js"></script>
-    <script type="text/javascript" src="~/admin/assets/js/amcharts/themes/black.js"></script>
-    <script type="text/javascript" src="~/admin/assets/js/graph.js"></script>
-}
+<!-- Main content -->
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Title</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        Start creating your amazing application!
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        Footer
+                    </div>
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
