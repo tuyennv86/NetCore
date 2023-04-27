@@ -2,8 +2,9 @@
 
     this.initialize = function () {        
 
-        loadData(true);
+        
         registerEvents();
+        loadData(true);
     }
 
     var registerEvents = function () { 
@@ -68,7 +69,7 @@
                     productTag: response.results,
                     dateFormat: function () {
                         return function (timestamp, render) {
-                            return new Date(render(timestamp).trim()).toLocaleString();
+                            return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });
                         };
                     },
                     formatCurrency: function () {                        
@@ -103,10 +104,10 @@
         $('#pagination').twbsPagination({
             totalPages: totalsize,
             visiblePages: 7,
-            first: '<i class="angle double left icon"></i>',
-            prev: '<i class="angle left icon"></i>',
-            next: '<i class="angle right icon"></i>',
-            last: '<i class="angle double right icon"></i>',
+            first: '<i class="fa fa-fast-backward"></i>',
+            prev: '<i class="fa fa-angle-double-left"></i>',
+            next: '<i class="fa fa-angle-double-right"></i>',
+            last: '<i class="fa fa-fast-forward"></i>',
             onPageClick: function (event, page) {                
                 until.configs.pageIndex = page;
                 setTimeout(callBack(), 200);
@@ -115,3 +116,11 @@
     }       
     
 }
+
+$(document).ready(function () {    
+
+    $("#checkAll").change(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+
+});

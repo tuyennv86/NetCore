@@ -98,13 +98,13 @@
         return day + "/" + month + "/" + year + " " + hh + ":" + mm + ":" + ss;
     },
     startLoading: function () {
-        if ($('.loader').length > 0)
-            $('.loader').addClass('active');
+        if ($('.spinner-border').length > 0)
+            $('.spinner-border').removeClass('d-none');
             
     },
     stopLoading: function () {
-        if ($('.loader').length > 0)
-            $('.loader').removeClass('active');
+        if ($('.spinner-border').length > 0)
+            $('.spinner-border').addClass('d-none');
     },
     getStatus: function (status) {
         if (status === 1)

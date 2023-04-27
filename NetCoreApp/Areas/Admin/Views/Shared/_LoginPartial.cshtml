@@ -8,18 +8,30 @@
 @if (SignInManager.IsSignedIn(User))
 {
 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-    <img src="@User.GetSpecificClaim("Avatar")" class="user-image img-circle elevation-2" alt="@User.GetSpecificClaim("FullName")">
+    @if (User.GetSpecificClaim("Avata").Length > 0)
+    {
+        <img src="@User.GetSpecificClaim("Avatar")" class="user-image img-circle elevation-2" alt="@User.GetSpecificClaim("FullName")">
+    }else{
+        <img src="/admin/dist/img/no-avata.jpg" class="user-image img-circle elevation-2" alt="@User.GetSpecificClaim("FullName")">
+    }
     <span class="d-none d-md-inline">@User.GetSpecificClaim("FullName")</span>
 </a>
 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">   
-<li class="user-header bg-primary">
-    <img src="@User.GetSpecificClaim("Avatar")" class="img-circle elevation-2" alt="@User.GetSpecificClaim("FullName")">
+    <li class="user-header bg-primary">
+        @if (User.GetSpecificClaim("Avatar").Length > 0)
+        {
+            <img src="@User.GetSpecificClaim("Avatar")" class="img-circle elevation-2" alt="@User.GetSpecificClaim("FullName")">
+        }
+        else
+        {
+            <img src="/admin/dist/img/no-avata.jpg" class="img-circle elevation-2" alt="@User.GetSpecificClaim("FullName")">
+        }
 
-    <p>
-        @User.GetSpecificClaim("FullName")
-        <small>Member since Nov. 2012</small>
-    </p>
-</li>   
+        <p>
+            @User.GetSpecificClaim("FullName")
+            <small>Member since Nov. 2012</small>
+        </p>
+    </li>   
 <li class="user-body">
 <div class="row">
     <div class="col-4 text-center">

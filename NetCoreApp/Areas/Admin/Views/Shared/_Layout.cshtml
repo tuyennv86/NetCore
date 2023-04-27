@@ -6,12 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]  Admin cms</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="~/admin/fonts/css.css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="~/admin/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="~/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="~/admin/dist/css/adminlte.min.css">
-    @RenderSection("Styles", required: false)   
+    @RenderSection("Styles", required: false)
+
+    <script src="~/admin/plugins/jquery/jquery.min.js"></script>
+    <script src="~/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="~/admin/dist/js/adminlte.min.js"></script>
+
+    <script type="text/javascript" src="~/lib/notify.min.js"></script>
+    <script type="text/javascript" src="~/lib/mustache/mustache.js"></script>
+    <script type="text/javascript" src="~/app/shared/until.js"></script>
+    @RenderSection("Scripts", required: false)
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <!-- Site wrapper -->
@@ -127,6 +137,11 @@
         @await Component.InvokeAsync("SideMenu")
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <div class="text-center">
+                <div class="spinner-border d-none" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             @RenderBody()
         </div>
         <!-- /.content-wrapper -->
@@ -136,16 +151,6 @@
         </footer>
     </div>
     <!-- ./wrapper -->
-
-
-    <script src="~/admin/plugins/jquery/jquery.min.js"></script>
-    <script src="~/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="~/admin/dist/js/adminlte.min.js"></script>
-
-    <script type="text/javascript" src="~/lib/notify.min.js"></script>
-    <script type="text/javascript" src="~/lib/mustache/mustache.js"></script>
-    <script type="text/javascript" src="~/app/shared/until.js"></script>
-    @RenderSection("Scripts", required: false)
+    @RenderSection("ScriptsProduct", required: false)
 </body>        
 </html>

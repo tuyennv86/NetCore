@@ -28,7 +28,7 @@
                     categoryTag: mergeChildren(response),                    
                     dateFormat: function () {
                         return function (timestamp, render) {
-                            return new Date(render(timestamp).trim()).toLocaleString();
+                            return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });
                         };
                     }
                 });
@@ -69,3 +69,16 @@
         return children;
     }
 }
+
+$(document).ready(function () {
+
+    $('.tree').treegrid({
+        /* 'initialState': 'collapsed',*/
+        treeColumn: 1
+    });
+
+    $("#checkAll").change(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+
+});
