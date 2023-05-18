@@ -2,8 +2,9 @@
     <link rel="stylesheet" type="text/css" href="~/lib/tree-grid/css/jquery.treegrid.css">
 }
 @section Scripts{
-    <script type="text/javascript" src="~/lib/tree-grid/js/jquery.treegrid.min.js"></script>
+    <script type="text/javascript" src="~/lib/tree-grid/js/jquery.treegrid.min.js"></script>    
     <script type="text/javascript" src="~/app/controllers/productCategories/index.js"></script>
+<script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>
     <script>
         var productCategory = new productCategoryController();
         productCategory.initialize();
@@ -27,60 +28,60 @@
 </section>
 <!-- Main content -->
 <section class="content">
+    <form id="myform" data-form-validate="true" method="post" name="myform" action="">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <a class="btn btn-primary btn-sm" href="#" id="addCategory">
+                        <i class="fas fa-plus-circle"></i>
+                        Thêm mới
+                    </a>
+                    <button type="submit" class="btn btn-info btn-sm">
+                        <i class="fa fa-recycle"></i>
+                        Cập nhật
+                    </button>
+                    <a class="btn btn-danger btn-sm" href="#">
+                        <i class="fas fa-trash"></i>
+                        Delete
+                    </a>
+                </h3>
 
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">
-                <a class="btn btn-primary btn-sm" href="#">
-                    <i class="fas fa-plus-circle"></i>
-                    Thêm mới
-                </a>
-                <a class="btn btn-info btn-sm" href="#">
-                    <i class="fa fa-recycle"></i>
-                    Cập nhật
-                </a>
-                <a class="btn btn-danger btn-sm" href="#">
-                    <i class="fas fa-trash"></i>
-                    Delete
-                </a>
-            </h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                </button>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
+            <div class="card-body p-0">
+                <table class="tree table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                <input type="checkbox" name="checkAll" id="checkAll">
+                            </th>
+                            <th>Tên danh mục</th>
+                            <th>Ảnh</th>
+                            <th>Thứ tự</th>
+                            <th>Trạng thái</th>
+                            <th>Trang chủ</th>
+                            <th>Thứ tự home</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày sửa</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tpl_content">
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <div class="card-body p-0">
-            <table class="tree table table-striped projects">
-                <thead>
-                    <tr>
-                        <th style="width: 1%">
-                            <input type="checkbox" name="checkAll" id="checkAll">
-                        </th>
-                        <th>Tên danh mục</th>
-                        <th>Ảnh</th>
-                        <th>Thứ tự</th>
-                        <th>Trạng thái</th>
-                        <th>Trang chủ</th>
-                        <th>Thứ tự home</th>
-                        <th>Ngày tạo</th>
-                        <th>Ngày sửa</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tpl_content">
-                </tbody>
-            </table>
-        </div>
-        <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-
+        <!-- /.card -->
+    </form>
 </section>
 <!-- /.content -->
 <script type="x-tmpl-mustache" id="mp_template">
@@ -104,7 +105,7 @@
             {{/image}}
         </td>
         <td>
-              <input type="text" class="form-control form-control-sm img-size-64" value="{{sortOrder}}" placeholder="số thứ tự">
+              <input type="text" id="sortorder{{id}}" class="form-control form-control-sm img-size-64" value="{{sortOrder}}" placeholder="số thứ tự" name="sortorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
         </td>
        <td>
             {{#status}}<a href="#" class="badge bg-success" data-id="{{id}}"><i class="fa fa-unlock" aria-hidden="true"></i> Kích hoạt </a>{{/status}}
@@ -115,14 +116,16 @@
             {{^HomeFlag}}<a href="#" class="badge bg-info" data-id="{{id}}"><i class="fa fa-eye-slash" aria-hidden="true"></i> Bình thường</a>{{/HomeFlag}}
         </td>
         <td>
-              <input type="text" class="form-control form-control-sm img-size-64" value="{{HomeOrder}}" placeholder="số tt">
+              <input type="text" id="homeorder{{id}}" class="form-control form-control-sm img-size-64" value="{{homeOrder}}" placeholder="số tt" name="homeorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
         </td>
         <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
         <td> {{#dateFormat}}{{dateModified }}{{/dateFormat}}</td>
-        <td>
-            <a class="btn btn-info btn-sm" href="#"><i class="fas fa-pencil-alt"> </i> Edit </a>
-            <a class="btn btn-danger btn-sm" href="#"> <i class="fas fa-trash"> </i> Delete </a>
+        <td class="text-right">
+            <a class="btn btn-info btn-sm" href="#" data-id="{{id}}" id="lbtEdit"><i class="fas fa-pencil-alt"> </i> Edit </a>
+            <a class="btn btn-danger btn-sm" href="#" data-id="{{id}}" id="lbtDelete"> <i class="fas fa-trash"> </i> Delete </a>
         </td>
     </tr>
     {{/categoryTag}}
 </script>
+
+@await Html.PartialAsync("_AddEditCategoryModel")

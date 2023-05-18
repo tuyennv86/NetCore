@@ -1,8 +1,7 @@
 ﻿var productController = function () {
 
     this.initialize = function () {        
-
-        
+               
         registerEvents();
         loadData(true);
     }
@@ -18,12 +17,12 @@
         });
 
         $("#btnSearch").on('click', function () {
-            loadData();
+            loadData(true);
         });
         $("#txtSearch").on('keypress', function (e) {          
             if (e.which === 13) {
                 e.preventDefault();
-                loadData();
+                loadData(true);
             }
         });       
 

@@ -1,13 +1,16 @@
 ﻿var productCategoryController = function () {
 
     this.initialize = function () {
-              
-        registerEvents();
+
+        loadCategories();
+        //registerEvents();
+        updateOrder();       
+       
     }
 
-    var registerEvents = function () {
-        loadCategories();
-    }
+    //function registerEvents() {
+        
+    //}
 
     function loadCategories() {
         $.ajax({
@@ -22,7 +25,7 @@
             },
             success: function (response) {
 
-                console.log(mergeChildren(response));
+                //console.log(mergeChildren(response));
 
                 var templateWithData = Mustache.render($("#mp_template").html(), {                    
                     categoryTag: mergeChildren(response),                    
@@ -68,17 +71,67 @@
         }
         return children;
     }
+
+    function updateOrder() {
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    alert('');
+
+                }
+            });
+            $('#myform').validate({
+
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('td').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+
+            });
+        });
+    }
+
 }
 
 $(document).ready(function () {
-
     $('.tree').treegrid({
         /* 'initialState': 'collapsed',*/
         treeColumn: 1
-    });
+    });         
 
     $("#checkAll").change(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 
+
+    $('#addCategory').off('click').on('click', function () {
+        $('#modalAddEdit').modal('show');
+    });
+
+    $('body').on('click', '#lbtEdit', function (e) {
+        e.preventDefault();
+        $('#modalAddEdit').modal('show');
+        var id = $(this).attr('data-id');
+        $('#hiIdCates').val(id);;
+        console.log(id);
+    });
+
+    $('body').on('click', '#lbtDelete', function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+            if (result) {               
+                console.log(id);
+                // gọi hàm xóa
+            }
+        });
+    });
+    
 });
