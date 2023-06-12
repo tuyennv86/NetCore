@@ -37,5 +37,33 @@ namespace NetCoreApp.Areas.Admin.Controllers
             var model = _productCategoryService.GetAllByParentId(parentId);
             return new OkObjectResult(model);
         }
+
+        [HttpPost]
+        public IActionResult UpdateOrder(int Id, int homeOrder, int sortOrder)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }else
+            {
+                _productCategoryService.UpdateOrder(Id, homeOrder, sortOrder);
+                _productCategoryService.Save();
+                return new OkResult();
+            }    
+        }
+        [HttpPost]
+        public IActionResult DeleteCategoryByID(int id)
+        {
+            if (id == 0)
+            {
+                return new BadRequestResult();
+            }
+            else
+            {
+                _productCategoryService.Delete(id);
+                _productCategoryService.Save();
+                return new OkObjectResult(id);
+            }
+        }   
     }
 }

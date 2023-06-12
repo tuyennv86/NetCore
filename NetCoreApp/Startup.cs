@@ -128,6 +128,8 @@ namespace NetCoreApp
                     "areaRoute",
                     "{area:exists}/{controller=Login}/{action=Index}/{id?}");
             });
+            
         }
+        
     }
 }

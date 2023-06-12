@@ -97,6 +97,14 @@ namespace NetCoreApp.Application.Implementation
             _productCategoryRepository.Update(target);
         }
 
+        public void UpdateOrder(int Id, int sortOrder, int homeOrder)
+        {
+            var entity = _productCategoryRepository.FindById(Id);
+            entity.HomeOrder = homeOrder;
+            entity.SortOrder = sortOrder;
+            _productCategoryRepository.Update(entity);
+        }
+
         public void Save()
         {
             _unitOfWork.Commit();

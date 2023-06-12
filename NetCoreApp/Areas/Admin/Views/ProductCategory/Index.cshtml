@@ -2,13 +2,9 @@
     <link rel="stylesheet" type="text/css" href="~/lib/tree-grid/css/jquery.treegrid.css">
 }
 @section Scripts{
-    <script type="text/javascript" src="~/lib/tree-grid/js/jquery.treegrid.min.js"></script>    
+    <script type="text/javascript" src="~/lib/tree-grid/js/jquery.treegrid.min.js"></script>
     <script type="text/javascript" src="~/app/controllers/productCategories/index.js"></script>
-<script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>
-    <script>
-        var productCategory = new productCategoryController();
-        productCategory.initialize();
-    </script>
+    <script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>    
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -43,7 +39,7 @@
                     </button>
                     <a class="btn btn-danger btn-sm" href="#">
                         <i class="fas fa-trash"></i>
-                        Delete
+                        Xóa được chọn
                     </a>
                 </h3>
 
@@ -57,7 +53,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <table class="tree table table-striped projects">
+                <table class="tree table table-striped projects" id="tblList">
                     <thead>
                         <tr>
                             <th style="width: 1%">
@@ -129,3 +125,17 @@
 </script>
 
 @await Html.PartialAsync("_AddEditCategoryModel")
+<script>
+    $(document).ready(function () {
+        $('.tree').treegrid({
+            /* 'initialState': 'collapsed',*/
+            treeColumn: 1
+        });
+
+    });
+
+
+    var productCategory = new productCategoryController();
+    productCategory.initialize();
+
+</script>

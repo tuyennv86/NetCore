@@ -3,19 +3,63 @@
     this.initialize = function () {
 
         loadCategories();
-        //registerEvents();
+        registerEvents();
         updateOrder();       
        
     }
+   
+    function registerEvents() {
+        $("#checkAll").change(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
 
-    //function registerEvents() {
-        
-    //}
+
+        $('#addCategory').off('click').on('click', function () {
+            $('#modalAddEdit').modal('show');
+        });
+
+        $('body').on('click', '#lbtEdit', function (e) {
+            e.preventDefault();
+            $('#modalAddEdit').modal('show');
+            var id = $(this).attr('data-id');
+            $('#hiIdCates').val(id);;
+            console.log(id);
+        });
+
+        $('body').on('click', '#lbtDelete', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                if (result) {                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/productcategory/DeleteCategoryByID",
+                        cache: false,
+                        data: { id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa thành công', 'success');
+                            until.stopLoading();
+                            loadCategories();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                            until.stopLoading();
+                        }
+                    });
+                }
+            });
+        });
+    }
 
     function loadCategories() {
         $.ajax({
             type: 'GET',
             dataType: 'json',
+            cache: false,
             data: {
                 parentId: 0
             },
@@ -77,6 +121,14 @@
             $.validator.setDefaults({
                 submitHandler: function () {
                     alert('');
+                    $('#tblList > tbody  > tr').each(function (index, tr) {
+
+                        var self = $(this);
+                        var col_1_value = self.find("input.eq(0)").text().trim();
+                        var col_2_value = self.find("input.eq(1)").text().trim();
+                        var result = col_1_value + "- " + col_2_value;
+                        alert(result);
+                    });
 
                 }
             });
@@ -100,38 +152,3 @@
 
 }
 
-$(document).ready(function () {
-    $('.tree').treegrid({
-        /* 'initialState': 'collapsed',*/
-        treeColumn: 1
-    });         
-
-    $("#checkAll").change(function () {
-        $('input:checkbox').not(this).prop('checked', this.checked);
-    });
-
-
-    $('#addCategory').off('click').on('click', function () {
-        $('#modalAddEdit').modal('show');
-    });
-
-    $('body').on('click', '#lbtEdit', function (e) {
-        e.preventDefault();
-        $('#modalAddEdit').modal('show');
-        var id = $(this).attr('data-id');
-        $('#hiIdCates').val(id);;
-        console.log(id);
-    });
-
-    $('body').on('click', '#lbtDelete', function (e) {
-        e.preventDefault();
-        var id = $(this).attr('data-id');
-        bootbox.confirm('Bạn có muốn xóa không?', function (result) {
-            if (result) {               
-                console.log(id);
-                // gọi hàm xóa
-            }
-        });
-    });
-    
-});
