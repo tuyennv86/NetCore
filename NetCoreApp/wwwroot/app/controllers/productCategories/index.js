@@ -53,6 +53,7 @@
                 }
             });
         });
+               
     }
 
     function loadCategories() {
@@ -116,19 +117,41 @@
         return children;
     }
 
+
+   
+
     function updateOrder() {
+
         $(function () {
             $.validator.setDefaults({
-                submitHandler: function () {
-                    alert('');
-                    $('#tblList > tbody  > tr').each(function (index, tr) {
+                submitHandler: function () { 
+                   
+                    $("#tblList tbody tr").each(function () {
+                        var sortorder = $(this).find("input").eq(1).val();                        
+                        var homeorder = $(this).find("input").eq(2).val();
+                        var id = $(this).find('a').last().attr('data-id');  
 
-                        var self = $(this);
-                        var col_1_value = self.find("input.eq(0)").text().trim();
-                        var col_2_value = self.find("input.eq(1)").text().trim();
-                        var result = col_1_value + "- " + col_2_value;
-                        alert(result);
-                    });
+                        $.ajax({
+                            type: "POST",
+                            url: "/admin/productcategory/UpdateOrder",
+                            cache: false,
+                            data: { Id: id, homeOrder: homeorder, sortOrder: sortorder },
+                            dataType: "json",
+                            beforeSend: function () {
+                                until.startLoading();
+                            },
+                            success: function (response) {
+                                until.notify('Cập nhật thành công', 'success');
+                                until.stopLoading();
+                                loadCategories();
+                            },
+                            error: function (status) {
+                                until.notify('Lỗi cập nhật được được', 'error' + status);
+                                until.stopLoading();
+                            }
+                        });
+
+                    })                  
 
                 }
             });

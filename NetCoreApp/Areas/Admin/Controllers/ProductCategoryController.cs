@@ -48,7 +48,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             {
                 _productCategoryService.UpdateOrder(Id, homeOrder, sortOrder);
                 _productCategoryService.Save();
-                return new OkResult();
+                return new OkObjectResult(Id);
             }    
         }
         [HttpPost]
