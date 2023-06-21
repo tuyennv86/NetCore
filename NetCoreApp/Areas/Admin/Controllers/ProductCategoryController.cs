@@ -52,6 +52,35 @@ namespace NetCoreApp.Areas.Admin.Controllers
             }    
         }
         [HttpPost]
+        public IActionResult UpdateHomeFalg(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _productCategoryService.UpdateHomeFalg(id);
+                _productCategoryService.Save();
+                return new OkObjectResult(id);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStatus(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }else
+            {
+                _productCategoryService.UpdateStatus(id);
+                _productCategoryService.Save();
+                return new OkObjectResult(id);
+            }    
+        }
+
+        [HttpPost]
         public IActionResult DeleteCategoryByID(int id)
         {
             if (id == 0)

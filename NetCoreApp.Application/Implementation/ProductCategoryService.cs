@@ -60,10 +60,11 @@ namespace NetCoreApp.Application.Implementation
 
         public List<ProductCategoryViewModel> GetAllByParentId(int parentId)
         {
-            return _mapper.ProjectTo<ProductCategoryViewModel>(_productCategoryRepository.FindAll(x => x.Status == Status.Active && x.ParentId == parentId)).OrderBy(x => x.SortOrder).ToList();
+            return _mapper.ProjectTo<ProductCategoryViewModel>(_productCategoryRepository.FindAll(x => x.ParentId == parentId)).OrderBy(x => x.SortOrder).ToList();
 
         }
 
+       
         public ProductCategoryViewModel GetById(int id)
         {
             return _mapper.Map<ProductCategory, ProductCategoryViewModel>(_productCategoryRepository.FindById(id));
@@ -130,5 +131,27 @@ namespace NetCoreApp.Application.Implementation
                 _productCategoryRepository.Update(child);
             }
         }
+
+        public void UpdateHomeFalg(int id)
+        {
+            var productCategory = _productCategoryRepository.FindById(id);
+            productCategory.HomeFlag = !productCategory.HomeFlag;
+            _productCategoryRepository.Update(productCategory);
+        }
+
+        public void UpdateStatus(int id)
+        {
+            var productCategory = _productCategoryRepository.FindById(id);
+            if (productCategory.Status == 0)
+                productCategory.Status = Status.Active;
+            else
+                productCategory.Status = Status.InActive;
+            _productCategoryRepository.Update(productCategory);
+        }
+
+        //public List<ProductCategoryViewModel> GetTreeCategories()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

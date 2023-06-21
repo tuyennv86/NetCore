@@ -1,8 +1,8 @@
 ﻿@section Styles{
-    <link rel="stylesheet" type="text/css" href="~/lib/tree-grid/css/jquery.treegrid.css">
+    
 }
-@section Scripts{
-    <script type="text/javascript" src="~/lib/tree-grid/js/jquery.treegrid.min.js"></script>
+@section Scripts{    
+    <script type="text/javascript" src="~/admin/plugins/simple-tree-table/jquery-simple-tree-table.js"></script>
     <script type="text/javascript" src="~/app/controllers/productCategories/index.js"></script>
     <script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>    
 }
@@ -56,7 +56,7 @@
                 <table class="tree table table-striped projects" id="tblList">
                     <thead>
                         <tr>
-                            <th style="width: 1%">
+                            <th>
                                 <input type="checkbox" name="checkAll" id="checkAll">
                             </th>
                             <th>Tên danh mục</th>
@@ -72,7 +72,7 @@
                     </thead>
                     <tbody id="tpl_content">
                     </tbody>
-                </table>
+                </table>                
             </div>
             <!-- /.card-body -->
         </div>
@@ -80,36 +80,34 @@
     </form>
 </section>
 <!-- /.content -->
+
+
 <script type="x-tmpl-mustache" id="mp_template">
     {{#categoryTag}}
         {{#parentId}}
-            <tr class="treegrid-{{id}} treegrid-parent-{{parentId}}">
+            <tr data-node-id="{{id}}" data-node-pid="{{parentId}}">
         {{/parentId}}
         {{^parentId}}
-            <tr class="treegrid-{{id}}">
+            <tr data-node-id="{{id}}">
         {{/parentId}}
         <td>
             <input type="checkbox" name="checkItem">
         </td>
         <td>{{name}}</td>
         <td>
-            {{#image}}
-                <img  class="product-image-thumb img-size-64" src="{{image}}">
-            {{/image}}
-            {{^image}}
-                <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg">
-            {{/image}}
+            {{#image}} <img  class="product-image-thumb img-size-64" src="{{image}}"> {{/image}}
+            {{^image}} <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg"> {{/image}}
         </td>
         <td>
               <input type="text" id="sortorder{{id}}" class="form-control form-control-sm img-size-64" value="{{sortOrder}}" placeholder="số thứ tự" name="sortorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
         </td>
        <td>
-            {{#status}}<a href="#" class="badge bg-success" data-id="{{id}}"><i class="fa fa-unlock" aria-hidden="true"></i> Kích hoạt </a>{{/status}}
-            {{^status}}<a href="#" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-lock" aria-hidden="true"></i> Khóa </a>{{/status}}
+            {{#status}}<a href="#" id="btnStatus" class="badge bg-success" data-id="{{id}}"><i class="fa fa-unlock" aria-hidden="true"></i> Kích hoạt </a>{{/status}}
+            {{^status}}<a href="#" id="btnStatus" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-lock" aria-hidden="true"></i> Khóa </a>{{/status}}
         </td>
         <td>
-            {{#HomeFlag}}<a href="#" class="badge bg-success" data-id="{{id}}"><i class="fa fa-eye" aria-hidden="true"></i> Trang chủ</a>{{/HomeFlag}}
-            {{^HomeFlag}}<a href="#" class="badge bg-info" data-id="{{id}}"><i class="fa fa-eye-slash" aria-hidden="true"></i> Bình thường</a>{{/HomeFlag}}
+            {{#homeFlag}}<a href="#" id="btnHome" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-eye" aria-hidden="true"></i> Trang chủ</a>{{/homeFlag}}
+            {{^homeFlag}}<a href="#" id="btnHome" class="badge bg-info" data-id="{{id}}"><i class="fa fa-eye-slash" aria-hidden="true"></i> Bình thường</a>{{/homeFlag}}
         </td>
         <td>
               <input type="text" id="homeorder{{id}}" class="form-control form-control-sm img-size-64" value="{{homeOrder}}" placeholder="số tt" name="homeorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
@@ -126,16 +124,6 @@
 
 @await Html.PartialAsync("_AddEditCategoryModel")
 <script>
-    $(document).ready(function () {
-        $('.tree').treegrid({
-            /* 'initialState': 'collapsed',*/
-            treeColumn: 1
-        });
-
-    });
-
-
     var productCategory = new productCategoryController();
-    productCategory.initialize();
-
+    productCategory.initialize();   
 </script>

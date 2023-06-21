@@ -2,6 +2,7 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp.Infrastructure.pdb
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.csproj.AssemblyReference.cache
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.AssemblyInfoInputs.cache
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.AssemblyInfo.cs
@@ -9,4 +10,3 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.pdb
-C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.csproj.AssemblyReference.cache

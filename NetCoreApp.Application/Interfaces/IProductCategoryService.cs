@@ -18,6 +18,8 @@ namespace NetCoreApp.Application.Interfaces
 
         List<ProductCategoryViewModel> GetAllByParentId(int parentId);
 
+        //List<ProductCategoryViewModel> GetTreeCategories();        
+
         ProductCategoryViewModel GetById(int id);
 
         void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items);
@@ -26,6 +28,10 @@ namespace NetCoreApp.Application.Interfaces
 
         List<ProductCategoryViewModel> GetHomeCategories(int top);
         void UpdateOrder(int Id, int sortOrder, int homeOrder);
+
+        void UpdateHomeFalg(int id);
+
+        void UpdateStatus(int id);
 
         void Save();
     }

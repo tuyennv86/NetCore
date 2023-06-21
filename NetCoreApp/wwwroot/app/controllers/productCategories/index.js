@@ -53,6 +53,54 @@
                 }
             });
         });
+
+        $('body').on('click', '#btnStatus', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                url: "/admin/productcategory/UpdateStatus",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.notify('Cập nhật trạng thái thành công', 'success');
+                    until.stopLoading();
+                    loadCategories();
+                },
+                error: function (status) {
+                    until.notify('Lỗi không cập nhật được', 'error' + status);
+                    until.stopLoading();
+                }
+            });
+        });
+
+        $('body').on('click', '#btnHome', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                url: "/admin/productcategory/UpdateHomeFalg",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.notify('Cập nhật thành công', 'success');
+                    until.stopLoading();
+                    loadCategories();
+                },
+                error: function (status) {
+                    until.notify('Lỗi không cập nhật được', 'error' + status);
+                    until.stopLoading();
+                }
+            });
+        });
                
     }
 
@@ -60,63 +108,80 @@
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            cache: false,
-            data: {
-                parentId: 0
-            },
-            url: '/admin/productcategory/GetByParent',
+            cache: false,           
+            url: '/admin/productcategory/GetAll',
             beforeSend: function () {
                 until.startLoading();
             },
-            success: function (response) {
+            success: function (response) {                
 
-                //console.log(mergeChildren(response));
+                //console.log(sortArry(response));
 
                 var templateWithData = Mustache.render($("#mp_template").html(), {                    
-                    categoryTag: mergeChildren(response),                    
+                    categoryTag: sortArry(response),
                     dateFormat: function () {
                         return function (timestamp, render) {
                             return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });
                         };
                     }
                 });
-                $("#tpl_content").empty().html(templateWithData);
+                $("#tpl_content").empty().html(templateWithData);                
+                $('#tblList').simpleTreeTable({
+                    expander: $('#expander'),
+                    collapser: $('#collapser'),
+
+                });
 
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
             }
         })
+    }   
+
+    function traverse(list) {
+        var html = '<ul>';
+        for (var i = 0; i < list.length; i++) {
+            html += '<li>' + list[i].Name;
+            if (list[i].children) {
+                html += traverse(list[i].children);
+            }
+            html += '</li>';
+        }
+        html += '</ul>';
+
+        return html;
+    }
+  /*  sắp xếp mảng */
+    function hierarchySortFunc(a, b) {
+        return a.name > b.name;
     }
 
-    function mergeChildren(sources) {
-        var children = [];
-        for (var index in sources) {
-            var source = sources[index];
-            children.push({
-                id: source.id,
-                parentId: source.parentId,
-                name: source.name,
-                image: source.image,
-                homeOrder: source.homeOrder,
-                homeFlag: source.homeFlag,
-                description: source.description,
-                seoAlias: source.seoAlias,
-                seoDescription: source.seoDescription,
-                seoKeywords: source.seoKeywords,
-                seoPageTitle: source.seoPageTitle,
-                sortOrder: source.sortOrder,
-                status: source.status,
-                dateModified: source.dateModified,
-                dateCreated: source.dateCreated
-            });
-            if (source.children) {
-                children = children.concat(mergeChildren(source.children))
-            }
+    function hierarhySort(hashArr, key, result) {
+
+        if (hashArr[key] === undefined) return;
+        var arr = hashArr[key].sort(hierarchySortFunc);
+        for (var i = 0; i < arr.length; i++) {
+            result.push(arr[i]);
+            hierarhySort(hashArr, arr[i].id, result);
         }
-        return children;
-    }
-    
+        return result;
+    }    
+
+    function sortArry(arr) {
+
+        var hashArr = {};
+        for (var i = 0; i < arr.length; i++) {
+            if (hashArr[arr[i].parentId] === undefined) hashArr[arr[i].parentId] = [];
+            hashArr[arr[i].parentId].push(arr[i]);
+        }
+
+        var result = hierarhySort(hashArr, 0, []);
+        return result;
+    }   
+
+    /*hết sắp xếp */
+
     function updateOrder() {
 
         $(function () {
