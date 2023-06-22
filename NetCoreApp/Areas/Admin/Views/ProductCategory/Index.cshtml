@@ -37,7 +37,7 @@
                         <i class="fa fa-recycle"></i>
                         Cập nhật
                     </button>
-                    <a class="btn btn-danger btn-sm" href="#">
+                    <a class="btn btn-danger btn-sm" href="#" id="btnDeleteAll">
                         <i class="fas fa-trash"></i>
                         Xóa được chọn
                     </a>
@@ -59,6 +59,7 @@
                             <th>
                                 <input type="checkbox" name="checkAll" id="checkAll">
                             </th>
+                            <th>Level</th>
                             <th>Tên danh mục</th>
                             <th>Ảnh</th>
                             <th>Thứ tự</th>
@@ -93,6 +94,7 @@
         <td>
             <input type="checkbox" name="checkItem">
         </td>
+        <td>{{level}}</td>
         <td>{{name}}</td>
         <td>
             {{#image}} <img  class="product-image-thumb img-size-64" src="{{image}}"> {{/image}}

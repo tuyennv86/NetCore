@@ -54,6 +54,42 @@
             });
         });
 
+        $('body').on('click', '#btnDeleteAll', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa các hàng được chọn không?', function (result) {
+                if (result) {
+                    $("#tblList tbody tr").each(function () {
+                        var checkItem = $(this).find("input:checked");
+                        var id = $(this).find('a').last().attr('data-id');
+
+                        if (checkItem.is(":checked")) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/admin/productcategory/DeleteCategoryByID",
+                                cache: false,
+                                data: { id: id },
+                                dataType: "json",
+                                beforeSend: function () {
+                                    until.startLoading();
+                                },
+                                success: function (response) {
+                                    until.notify('Xóa thành công', 'success');
+                                    until.stopLoading();
+                                    loadCategories();
+                                },
+                                error: function (status) {
+                                    until.notify('Lỗi không xóa được', 'error' + status);
+                                    until.stopLoading();
+                                }
+                            });
+                        }
+
+                    });
+                }
+            });
+        });
+
         $('body').on('click', '#btnStatus', function (e) {
             e.preventDefault();
             var id = $(this).attr('data-id');
@@ -101,6 +137,7 @@
                 }
             });
         });
+
                
     }
 
@@ -117,8 +154,12 @@
 
                 //console.log(sortArry(response));
 
+                //console.log(createTree(response));
+                
+              console.log(recursiveArraySort(response));
+
                 var templateWithData = Mustache.render($("#mp_template").html(), {                    
-                    categoryTag: sortArry(response),
+                    categoryTag: recursiveArraySort(response),
                     dateFormat: function () {
                         return function (timestamp, render) {
                             return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });
@@ -152,35 +193,85 @@
 
         return html;
     }
-  /*  sắp xếp mảng */
-    function hierarchySortFunc(a, b) {
-        return a.name > b.name;
+    // dang childer tu mang
+    function createTree(arr) {
+        var tree = [],
+            mappedArr = {},
+            arrElem,
+            mappedElem;
+
+        // First map the nodes of the array to an object -> create a hash table.
+        for (var i = 0, len = arr.length; i < len; i++) {
+            arrElem = arr[i];
+            mappedArr[arrElem.id] = arrElem;
+            mappedArr[arrElem.id]['children'] = [];
+        }
+
+        for (var id in mappedArr) {
+            if (mappedArr.hasOwnProperty(id)) {
+                mappedElem = mappedArr[id];
+                // If the element is not at the root level, add it to its parent array of children.
+                if (mappedElem.parentId) {
+                    mappedArr[mappedElem['parentId']]['children'].push(mappedElem);
+                }
+                // If the element is at the root level, add it to first level elements array.
+                else {
+                    tree.push(mappedElem);
+                }
+            }
+        }
+        return tree;
     }
 
-    function hierarhySort(hashArr, key, result) {
+  /*  sắp xếp mảng */
+    //function hierarchySortFunc(a, b) {
+    //    return a.name > b.name;
+    //}
 
-        if (hashArr[key] === undefined) return;
-        var arr = hashArr[key].sort(hierarchySortFunc);
-        for (var i = 0; i < arr.length; i++) {
-            result.push(arr[i]);
-            hierarhySort(hashArr, arr[i].id, result);
-        }
-        return result;
-    }    
+    //function hierarhySort(hashArr, key, result) {
 
-    function sortArry(arr) {
+    //    if (hashArr[key] === undefined) return;
+    //    var arr = hashArr[key].sort(hierarchySortFunc);
+    //    for (var i = 0; i < arr.length; i++) {
+    //        result.push(arr[i]);
+    //        hierarhySort(hashArr, arr[i].id, result);
+    //    }
+    //    return result;
+    //}    
 
-        var hashArr = {};
-        for (var i = 0; i < arr.length; i++) {
-            if (hashArr[arr[i].parentId] === undefined) hashArr[arr[i].parentId] = [];
-            hashArr[arr[i].parentId].push(arr[i]);
-        }
+    //function sortArry(arr) {
 
-        var result = hierarhySort(hashArr, 0, []);
-        return result;
-    }   
+    //    var hashArr = {};
+    //    for (var i = 0; i < arr.length; i++) {
+    //        if (hashArr[arr[i].parentId] === undefined) hashArr[arr[i].parentId] = [];
+    //        hashArr[arr[i].parentId].push(arr[i]);
+    //    }
+
+    //    var result = hierarhySort(hashArr, 0, []);
+    //    return result;
+    //}   
 
     /*hết sắp xếp */
+
+    const recursiveArraySort = (list, parent = { id: 0, level: 0 }) => {
+        let result = [];
+
+        /**
+         * Get every element whose parent_id attribute matches the parent's id.
+         */
+        const children = list.filter(item => item.parentId === parent.id);
+       
+        /**
+         * Set the level based on the parent level for each element identified,
+         * add them to the result array, then recursively sort the children.
+         */
+        children.forEach(child => {
+            child.level = parent.level + 1;
+            result = [...result, child, ...recursiveArraySort(list, child)];
+        });
+
+        return result;
+    };
 
     function updateOrder() {
 
@@ -236,4 +327,3 @@
     }
 
 }
-
