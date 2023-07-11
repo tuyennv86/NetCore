@@ -10,6 +10,8 @@ namespace NetCoreApp.Application.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
+            CreateMap<CategoryTypeViewModel, CategoryType>().ConstructUsing(c => new CategoryType(c.Name, c.SortOrder, c.IsDeleted, c.DateCreated, c.DateModified));
+
             CreateMap<ProductCategoryViewModel, ProductCategory>()
                 .ConstructUsing(c => new ProductCategory(c.Name, c.Description, c.ParentId, c.HomeOrder, c.Image, c.HomeFlag,
                 c.SortOrder, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));

@@ -10,6 +10,7 @@ namespace NetCoreApp.Application.AutoMapper
     {
         public DomainToViewModelMappingProfile()
         {
+            CreateMap<CategoryType, CategoryTypeViewModel>();
             CreateMap<ProductCategory, ProductCategoryViewModel>();
             CreateMap<Category, CategoryViewModel>();
             CreateMap<Function, FunctionViewModel>();

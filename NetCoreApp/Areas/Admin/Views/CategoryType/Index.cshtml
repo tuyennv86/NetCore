@@ -1,0 +1,129 @@
+﻿@section ScriptsProduct{
+    <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="~/app/controllers/category/categoryType.js"></script>
+    <script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>
+    <script>
+        var categoryType = new categoryTypeController();
+        categoryType.initialize();
+    </script>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh sách kiểu dữ liệu</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item active">Danh sách kiểu dữ liệu</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <form id="myform" data-form-validate="true" method="post" name="myform" action="">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <a class="btn btn-primary btn-sm" href="#" id="addCategory">
+                        <i class="fas fa-plus-circle"></i>
+                        Thêm mới
+                    </a>
+                    <button type="submit" class="btn btn-info btn-sm">
+                        <i class="fa fa-recycle"></i>
+                        Cập nhật
+                    </button>
+                    <a class="btn btn-danger btn-sm" href="#" id="btnDeleteAll">
+                        <i class="fas fa-trash"></i>
+                        Xóa được chọn
+                    </a>
+                </div>
+                <div class="card-tools col-md-7">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="input-group">
+                                <input type="text" id="txtSearch" class="form-control form-control-sm" placeholder="Search...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-sidebar" id="btnSearch">
+                                        <i class="fas fa-search fa-fw"></i>Tìm kiếm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 text-right">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                <input type="checkbox" name="checkAll" id="checkAll">
+                            </th>
+                            <th>Tên kiểu dữ liệu</th>
+                            <th>Thứ tự</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
+                            <th>Người tạo</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tpl_content">
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer clearfix">
+                <div class="card-title">
+                    <select class="ui dropdown small form-control" name="page" id="slChangPage">
+                        <option value="10" selected="selected">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <ul class="pagination pagination-sm m-0 float-right" id="pagination">
+                </ul>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </form>
+</section>
+<!-- /.content -->
+
+<script type="x-tmpl-mustache" id="mp_template">
+        {{#categoryTypeTag}}
+        <tr>
+            <td>
+                <input type="checkbox" name="checkItem">
+            </td>
+            <td>{{name}}</td>
+            <td>
+                <input type="text" id="sortorder{{id}}" class="form-control form-control-sm img-size-64" value="{{sortOrder}}" placeholder="số thứ tự" name="sortorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
+            </td>
+            <td>
+                {{#isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/isDeleted}}
+                {{^isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Xóa</a>{{/isDeleted}}
+            </td>
+            <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
+            <td> {{#dateFormat}}{{dateModified }}{{/dateFormat}}</td>
+            <td class="text-right">
+                <a class="btn btn-info btn-sm" href="#" data-id="{{id}}" id="lbtEdit"><i class="fas fa-pencil-alt"> </i> Edit </a>
+                <a class="btn btn-danger btn-sm" href="#" data-id="{{id}}" id="lbtDelete"> <i class="fas fa-trash"> </i> Delete </a>
+            </td>
+        </tr>
+        {{/categoryTypeTag}}
+</script>
