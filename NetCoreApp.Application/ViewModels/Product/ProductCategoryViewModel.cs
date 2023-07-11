@@ -12,7 +12,7 @@ namespace NetCoreApp.Application.ViewModels.Product
 
         public string Description { get; set; }
 
-        public int? ParentId { get; set; }
+        public int? ParentId { get; set; }       
 
         public int? HomeOrder { get; set; }
 
@@ -29,7 +29,7 @@ namespace NetCoreApp.Application.ViewModels.Product
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
 
-        public ICollection<ProductViewModel> Products { set; get; }
+        //public ICollection<ProductViewModel> Products { set; get; }
 
         public virtual ProductCategoryViewModel Parent { get; set; }
         public virtual ICollection<ProductCategoryViewModel> Children { get; set; }

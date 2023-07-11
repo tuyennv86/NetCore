@@ -72,7 +72,7 @@ namespace NetCoreApp.Application.Implementation
 
         public List<ProductCategoryViewModel> GetHomeCategories(int top)
         {
-            var query = _mapper.ProjectTo<ProductCategoryViewModel>(_productCategoryRepository.FindAll(x => x.HomeFlag == true, c => c.Products).OrderBy(x => x.HomeOrder).Take(top));
+            var query = _mapper.ProjectTo<ProductCategoryViewModel>(_productCategoryRepository.FindAll(x => x.HomeFlag == true).OrderBy(x => x.HomeOrder).Take(top));
 
             var categories = query.ToList();
             //foreach (var category in categories)

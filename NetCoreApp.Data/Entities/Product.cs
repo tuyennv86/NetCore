@@ -110,8 +110,8 @@ namespace NetCoreApp.Data.Entities
         [StringLength(255)]
         public string Unit { get; set; }
 
-        [ForeignKey("CategoryId")]
-        public virtual ProductCategory ProductCategory { set; get; }
+        //[ForeignKey("CategoryId")]
+        //public virtual ProductCategory ProductCategory { set; get; }
         public virtual ICollection<ProductTag> ProductTags { set; get; }
         public string SeoPageTitle { set; get; }
 

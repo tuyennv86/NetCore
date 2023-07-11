@@ -8,12 +8,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NetCoreApp.Data.Entities
 {
     [Table("ProductCategories")]
-    public class ProductCategory : DomainEntity<int>,
-        IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
+    public class ProductCategory : DomainEntity<int>, IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
     {
         public ProductCategory()
         {
-            Products = new List<Product>();
+            //Products = new List<Product>();
         }
 
         public ProductCategory(string name, string description, int? parentId, int? homeOrder,
@@ -22,7 +21,7 @@ namespace NetCoreApp.Data.Entities
         {
             Name = name;
             Description = description;
-            ParentId = parentId;
+            ParentId = parentId;            
             HomeOrder = homeOrder;
             Image = image;
             HomeFlag = homeFlag;
@@ -39,7 +38,7 @@ namespace NetCoreApp.Data.Entities
         public string Description { get; set; }
 
         public int? ParentId { get; set; }
-
+        
         public int? HomeOrder { get; set; }
 
         public string Image { get; set; }
@@ -55,7 +54,7 @@ namespace NetCoreApp.Data.Entities
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
 
-        public virtual ICollection<Product> Products { set; get; }
+        //public virtual ICollection<Product> Products { set; get; }
 
         public virtual ProductCategory Parent { get; set; }
         public virtual ICollection<ProductCategory> Children { get; set; }

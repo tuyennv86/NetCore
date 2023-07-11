@@ -1,8 +1,10 @@
 ﻿@section Styles{
-    
+<link rel="stylesheet" href="~/admin/plugins/comboTree/css/materialdesignicons.min.css" />
+<link rel="stylesheet" href="~/admin/plugins/comboTree/comboTreePlugin.css" />
 }
 @section Scripts{    
-    <script type="text/javascript" src="~/admin/plugins/simple-tree-table/jquery-simple-tree-table.js"></script>
+    <script type="text/javascript" src="~/admin/plugins/simple-tree-table/jquery-simple-tree-table.js"></script>    
+    <script type="text/javascript" src="~/admin/plugins/comboTree/comboTreePlugin.js"></script>
     <script type="text/javascript" src="~/app/controllers/productCategories/index.js"></script>
     <script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>    
 }
@@ -59,7 +61,7 @@
                             <th>
                                 <input type="checkbox" name="checkAll" id="checkAll">
                             </th>
-                            <th>Level</th>
+                            <th style="width: 10px">Level</th>
                             <th>Tên danh mục</th>
                             <th>Ảnh</th>
                             <th>Thứ tự</th>

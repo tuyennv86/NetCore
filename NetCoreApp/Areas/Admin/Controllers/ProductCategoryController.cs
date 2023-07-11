@@ -93,6 +93,19 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 _productCategoryService.Save();
                 return new OkObjectResult(id);
             }
-        }   
+        }
+        
+        [HttpPost]
+        public IActionResult GetByID(int id)
+        {
+            if(id <1)
+            {
+                return new BadRequestResult();
+            }else
+            {
+                var category = _productCategoryService.GetById(id);
+                return new OkObjectResult(category);
+            }    
+        }
     }
 }

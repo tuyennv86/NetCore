@@ -84,6 +84,8 @@ namespace NetCoreApp
             services.AddTransient<DbInitializer>();
             
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
 

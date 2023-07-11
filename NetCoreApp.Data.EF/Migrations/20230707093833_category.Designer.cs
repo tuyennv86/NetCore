@@ -10,8 +10,8 @@ using NetCoreApp.Data.EF;
 namespace NetCoreApp.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230607074635_dbtesst")]
-    partial class dbtesst
+    [Migration("20230707093833_category")]
+    partial class category
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -533,6 +533,66 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.ToTable("BlogTags");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryTypeID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Detail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HomeFlag")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("HomeOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoPageTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.Color", b =>
                 {
                     b.Property<int>("Id")
@@ -704,6 +764,39 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.ToTable("Languages");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Menus");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.Page", b =>
                 {
                     b.Property<int>("Id")
@@ -846,8 +939,6 @@ namespace NetCoreApp.Data.EF.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -1233,6 +1324,17 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Category", b =>
+                {
+                    b.HasOne("NetCoreApp.Data.Entities.Category", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Parent");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.Permission", b =>
                 {
                     b.HasOne("NetCoreApp.Data.Entities.Function", "Function")
@@ -1250,17 +1352,6 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Navigation("AppRole");
 
                     b.Navigation("Function");
-                });
-
-            modelBuilder.Entity("NetCoreApp.Data.Entities.Product", b =>
-                {
-                    b.HasOne("NetCoreApp.Data.Entities.ProductCategory", "ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProductCategory");
                 });
 
             modelBuilder.Entity("NetCoreApp.Data.Entities.ProductCategory", b =>
@@ -1365,6 +1456,11 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Navigation("BlogTags");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Category", b =>
+                {
+                    b.Navigation("Children");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.Product", b =>
                 {
                     b.Navigation("ProductTags");
@@ -1373,8 +1469,6 @@ namespace NetCoreApp.Data.EF.Migrations
             modelBuilder.Entity("NetCoreApp.Data.Entities.ProductCategory", b =>
                 {
                     b.Navigation("Children");
-
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

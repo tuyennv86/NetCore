@@ -15,15 +15,55 @@
 
 
         $('#addCategory').off('click').on('click', function () {
+            var id = $(this).attr('data-id');
             $('#modalAddEdit').modal('show');
+            loadCategoriesTotree();           
+
         });
 
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
             var id = $(this).attr('data-id');
-            $('#hiIdCates').val(id);;
-            console.log(id);
+            
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/productcategory/GetByID",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.stopLoading();
+                    console.log(response);
+
+                    $("#hidCategoryId").val(response.parentId);
+                    loadCategoriesTotreeBySelectID(response.parentId);
+
+                    $("#hidId").val(response.id);
+                    $("#txtName").val(response.name);
+                    $("#txtAlias").val(response.seoAlias);
+                    $("#txtDesc").val(response.description);
+                    $("#txtSeoKeyword").val(response.seoKeywords);
+                    $("#txtOrder").val(response.sortOrder);
+                    $("#txtHomeOrder").val(response.homeOrder);
+                    $("#hidImage").val(response.image);
+                    $("#imgImage").attr("src", response.image);
+                    $("#txtSeoPageTitle").val(response.seoPageTitle);
+                    $("#txtSeoAlias").val(response.seoAlias);
+                    $("#txtSeoKeyword").val(response.seoKeywords);
+                    $("#txtSeoDescription").val(response.seoDescription);
+                    $("#ckStatus").prop("checked", response.status);
+                    $("#ckShowHome").prop("checked", response.homeFlag);
+                },
+                error: function (status) {
+                    until.notify('Lỗi không xóa được', 'error' + status);
+                    until.stopLoading();
+                }
+            });
         });
 
         $('body').on('click', '#lbtDelete', function (e) {
@@ -136,9 +176,67 @@
                     until.stopLoading();
                 }
             });
-        });
-
+        });     
                
+    }
+    function loadCategoriesTotree() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            url: '/admin/productcategory/GetAll',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {                
+                
+                comboTree1 = $('#ddlCategory').comboTree({                    
+                    isMultiple: false
+                });
+
+                comboTree1.clearSelection();
+                comboTree1.setSource(createTreeSub(response));
+
+                comboTree1.onChange(function () {
+                    $('#hidCategoryId').val(comboTree1.getSelectedIds());
+                });
+
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+    function loadCategoriesTotreeBySelectID(selectID) {
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            url: '/admin/productcategory/GetAll',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false});
+               
+                comboTree1.clearSelection();
+                comboTree1.setSource(createTreeSub(response));
+                comboTree1.setSelection([selectID]);                
+                
+                comboTree1.onChange(function () {
+                    $('#hidCategoryId').val(comboTree1.getSelectedIds());
+                });                
+
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+
+    function clearAllText() {
+
     }
 
     function loadCategories() {
@@ -150,13 +248,7 @@
             beforeSend: function () {
                 until.startLoading();
             },
-            success: function (response) {                
-
-                //console.log(sortArry(response));
-
-                //console.log(createTree(response));
-                
-              console.log(recursiveArraySort(response));
+            success: function (response) {
 
                 var templateWithData = Mustache.render($("#mp_template").html(), {                    
                     categoryTag: recursiveArraySort(response),
@@ -193,7 +285,38 @@
 
         return html;
     }
+    
     // dang childer tu mang
+    function createTreeSub(arr) {
+        var tree = [],
+            mappedArr = {},
+            arrElem,
+            mappedElem;
+
+        // First map the nodes of the array to an object -> create a hash table.
+        for (var i = 0, len = arr.length; i < len; i++) {
+            arrElem = arr[i];
+            mappedArr[arrElem.id] = arrElem;
+            mappedArr[arrElem.id]['subs'] = [];
+        }
+
+        for (var id in mappedArr) {
+            if (mappedArr.hasOwnProperty(id)) {
+                mappedElem = mappedArr[id];
+                // If the element is not at the root level, add it to its parent array of children.
+                if (mappedElem.parentId) {
+                    mappedArr[mappedElem['parentId']]['subs'].push(mappedElem);
+                }
+                // If the element is at the root level, add it to first level elements array.
+                else {
+                    tree.push(mappedElem);
+                }
+            }
+        }
+        var parentITem = { id: 0, name: 'Root' };
+        tree.unshift(parentITem);
+        return tree;
+    }
     function createTree(arr) {
         var tree = [],
             mappedArr = {},
@@ -223,53 +346,13 @@
         return tree;
     }
 
-  /*  sắp xếp mảng */
-    //function hierarchySortFunc(a, b) {
-    //    return a.name > b.name;
-    //}
-
-    //function hierarhySort(hashArr, key, result) {
-
-    //    if (hashArr[key] === undefined) return;
-    //    var arr = hashArr[key].sort(hierarchySortFunc);
-    //    for (var i = 0; i < arr.length; i++) {
-    //        result.push(arr[i]);
-    //        hierarhySort(hashArr, arr[i].id, result);
-    //    }
-    //    return result;
-    //}    
-
-    //function sortArry(arr) {
-
-    //    var hashArr = {};
-    //    for (var i = 0; i < arr.length; i++) {
-    //        if (hashArr[arr[i].parentId] === undefined) hashArr[arr[i].parentId] = [];
-    //        hashArr[arr[i].parentId].push(arr[i]);
-    //    }
-
-    //    var result = hierarhySort(hashArr, 0, []);
-    //    return result;
-    //}   
-
-    /*hết sắp xếp */
-
     const recursiveArraySort = (list, parent = { id: 0, level: 0 }) => {
-        let result = [];
-
-        /**
-         * Get every element whose parent_id attribute matches the parent's id.
-         */
-        const children = list.filter(item => item.parentId === parent.id);
-       
-        /**
-         * Set the level based on the parent level for each element identified,
-         * add them to the result array, then recursively sort the children.
-         */
+        let result = [];      
+        const children = list.filter(item => item.parentId === parent.id);       
         children.forEach(child => {
             child.level = parent.level + 1;
             result = [...result, child, ...recursiveArraySort(list, child)];
         });
-
         return result;
     };
 

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\admin\plugins\comboTree\fonts\materialdesignicons-webfont.woff2" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 

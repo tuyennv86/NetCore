@@ -43,7 +43,7 @@ namespace NetCoreApp.Application.Implementation
 
         public List<ProductViewModel> GetAll()
         {
-            return _mapper.ProjectTo<ProductViewModel>(_productRepository.FindAll(x => x.ProductCategory)).ToList();
+            return _mapper.ProjectTo<ProductViewModel>(_productRepository.FindAll()).ToList();
         }
 
         public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
