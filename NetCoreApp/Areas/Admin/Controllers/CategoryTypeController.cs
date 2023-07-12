@@ -38,7 +38,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             var models = _categoryTypeService.GetAllPaging(keyWord, pageIndex, pageSize);
             return new OkObjectResult(models);
         }
-        [HttpGet]
+        [HttpPost]
         public IActionResult GetById(int Id)
         {
             var model = _categoryTypeService.GetById(Id);
@@ -65,6 +65,38 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(categoryTypeViewmodel);
             }    
             
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int Id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }else
+            {
+                _categoryTypeService.Delete(Id);
+                _categoryTypeService.Save();
+                return new OkObjectResult(Id);
+            }    
+        }
+        [HttpPost]
+        public IActionResult DeleteByListID(string listId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                foreach(string i in listId.Split(listId,';'))
+                {
+                    _categoryTypeService.Delete(int.Parse(i));
+                    _categoryTypeService.Save();
+                }    
+               
+                return new OkObjectResult(listId);
+            }
         }
     }
 }

@@ -38,7 +38,7 @@
                 page: until.configs.pageIndex,
                 pageSize: until.configs.pageSize
             },
-            url: '/admin/product/GetPaging',
+            url: '/admin/categoryType/GetByPageding',
             beforeSend: function () {
                 until.startLoading();
             },
@@ -96,7 +96,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/admin/productcategory/GetByID",
+            url: "/admin/categoryType/GetById",
             cache: false,
             data: { id: id },
             dataType: "json",
@@ -107,24 +107,24 @@
                 until.stopLoading();
                 console.log(response);
 
-                $("#hidCategoryId").val(response.parentId);
-                loadCategoriesTotreeBySelectID(response.parentId);
+                //$("#hidCategoryId").val(response.parentId);
+                //loadCategoriesTotreeBySelectID(response.parentId);
 
-                $("#hidId").val(response.id);
-                $("#txtName").val(response.name);
-                $("#txtAlias").val(response.seoAlias);
-                $("#txtDesc").val(response.description);
-                $("#txtSeoKeyword").val(response.seoKeywords);
-                $("#txtOrder").val(response.sortOrder);
-                $("#txtHomeOrder").val(response.homeOrder);
-                $("#hidImage").val(response.image);
-                $("#imgImage").attr("src", response.image);
-                $("#txtSeoPageTitle").val(response.seoPageTitle);
-                $("#txtSeoAlias").val(response.seoAlias);
-                $("#txtSeoKeyword").val(response.seoKeywords);
-                $("#txtSeoDescription").val(response.seoDescription);
-                $("#ckStatus").prop("checked", response.status);
-                $("#ckShowHome").prop("checked", response.homeFlag);
+                //$("#hidId").val(response.id);
+                //$("#txtName").val(response.name);
+                //$("#txtAlias").val(response.seoAlias);
+                //$("#txtDesc").val(response.description);
+                //$("#txtSeoKeyword").val(response.seoKeywords);
+                //$("#txtOrder").val(response.sortOrder);
+                //$("#txtHomeOrder").val(response.homeOrder);
+                //$("#hidImage").val(response.image);
+                //$("#imgImage").attr("src", response.image);
+                //$("#txtSeoPageTitle").val(response.seoPageTitle);
+                //$("#txtSeoAlias").val(response.seoAlias);
+                //$("#txtSeoKeyword").val(response.seoKeywords);
+                //$("#txtSeoDescription").val(response.seoDescription);
+                //$("#ckStatus").prop("checked", response.status);
+                //$("#ckShowHome").prop("checked", response.homeFlag);
             },
             error: function (status) {
                 until.notify('Lỗi không xóa được', 'error' + status);
@@ -140,7 +140,7 @@
             if (result) {
                 $.ajax({
                     type: "POST",
-                    url: "/admin/productcategory/DeleteCategoryByID",
+                    url: "/admin/categoryType/Delete",
                     cache: false,
                     data: { id: id },
                     dataType: "json",
@@ -162,88 +162,89 @@
     });
 
     $('body').on('click', '#btnDeleteAll', function (e) {
-        e.preventDefault();
-        var id = $(this).attr('data-id');
+        e.preventDefault();        
+        var listId = '';
         bootbox.confirm('Bạn có muốn xóa các hàng được chọn không?', function (result) {
             if (result) {
                 $("#tblList tbody tr").each(function () {
-                    var checkItem = $(this).find("input:checked");
-                    var id = $(this).find('a').last().attr('data-id');
 
+                    var checkItem = $(this).find("input:checked");
                     if (checkItem.is(":checked")) {
-                        $.ajax({
-                            type: "POST",
-                            url: "/admin/productcategory/DeleteCategoryByID",
-                            cache: false,
-                            data: { id: id },
-                            dataType: "json",
-                            beforeSend: function () {
-                                until.startLoading();
-                            },
-                            success: function (response) {
-                                until.notify('Xóa thành công', 'success');
-                                until.stopLoading();
-                                loadCategories();
-                            },
-                            error: function (status) {
-                                until.notify('Lỗi không xóa được', 'error' + status);
-                                until.stopLoading();
-                            }
-                        });
+                        listId = $(this).find('a').last().attr('data-id') + ';';
                     }
 
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/productcategory/DeleteByListID",
+                    cache: false,
+                    data: { listId: listId },
+                    dataType: "json",
+                    beforeSend: function () {
+                        until.startLoading();
+                    },
+                    success: function (response) {
+                        until.notify('Xóa thành công', 'success');
+                        until.stopLoading();
+                        loadCategories();
+                    },
+                    error: function (status) {
+                        until.notify('Lỗi không xóa được', 'error' + status);
+                        until.stopLoading();
+                    }
                 });
             }
         });
     });
 
-    $('body').on('click', '#btnStatus', function (e) {
-        e.preventDefault();
-        var id = $(this).attr('data-id');
-        $.ajax({
-            type: "POST",
-            url: "/admin/productcategory/UpdateStatus",
-            cache: false,
-            data: { id: id },
-            dataType: "json",
-            beforeSend: function () {
-                until.startLoading();
-            },
-            success: function (response) {
-                until.notify('Cập nhật trạng thái thành công', 'success');
-                until.stopLoading();
-                loadCategories();
-            },
-            error: function (status) {
-                until.notify('Lỗi không cập nhật được', 'error' + status);
-                until.stopLoading();
-            }
-        });
-    });
+    //$('body').on('click', '#btnStatus', function (e) {
+    //    e.preventDefault();
+    //    var id = $(this).attr('data-id');
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/admin/productcategory/UpdateStatus",
+    //        cache: false,
+    //        data: { id: id },
+    //        dataType: "json",
+    //        beforeSend: function () {
+    //            until.startLoading();
+    //        },
+    //        success: function (response) {
+    //            until.notify('Cập nhật trạng thái thành công', 'success');
+    //            until.stopLoading();
+    //            loadCategories();
+    //        },
+    //        error: function (status) {
+    //            until.notify('Lỗi không cập nhật được', 'error' + status);
+    //            until.stopLoading();
+    //        }
+    //    });
+    //});
 
-    $('body').on('click', '#btnHome', function (e) {
-        e.preventDefault();
-        var id = $(this).attr('data-id');
-        $.ajax({
-            type: "POST",
-            url: "/admin/productcategory/UpdateHomeFalg",
-            cache: false,
-            data: { id: id },
-            dataType: "json",
-            beforeSend: function () {
-                until.startLoading();
-            },
-            success: function (response) {
-                until.notify('Cập nhật thành công', 'success');
-                until.stopLoading();
-                loadCategories();
-            },
-            error: function (status) {
-                until.notify('Lỗi không cập nhật được', 'error' + status);
-                until.stopLoading();
-            }
-        });
-    });
+    //$('body').on('click', '#btnHome', function (e) {
+    //    e.preventDefault();
+    //    var id = $(this).attr('data-id');
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/admin/productcategory/UpdateHomeFalg",
+    //        cache: false,
+    //        data: { id: id },
+    //        dataType: "json",
+    //        beforeSend: function () {
+    //            until.startLoading();
+    //        },
+    //        success: function (response) {
+    //            until.notify('Cập nhật thành công', 'success');
+    //            until.stopLoading();
+    //            loadCategories();
+    //        },
+    //        error: function (status) {
+    //            until.notify('Lỗi không cập nhật được', 'error' + status);
+    //            until.stopLoading();
+    //        }
+    //    });
+    //});
 
     function updateOrder() {
 

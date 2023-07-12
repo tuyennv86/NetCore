@@ -501,3 +501,4 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\ref\NetCoreApp.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.pdb
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.genruntimeconfig.cache
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryType\Index.cshtml.g.cs

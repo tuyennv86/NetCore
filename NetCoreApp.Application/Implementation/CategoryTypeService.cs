@@ -35,7 +35,7 @@ namespace NetCoreApp.Application.Implementation
 
         public void Delete(int id)
         {
-            _categoryTypeRepository.Remove(id);
+            _categoryTypeRepository.Remove(id);            
         }
 
         public void Dispose()
