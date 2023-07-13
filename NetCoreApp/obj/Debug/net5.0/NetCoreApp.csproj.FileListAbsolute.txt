@@ -446,6 +446,8 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\scopedcss\bund
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.TagHelpers.input.cache
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.TagHelpers.output.cache
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.RazorCoreGenerate.cache
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryType\Index.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryType\_AddEditCategoryTypeModel.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Home\Index.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Login\Index.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\ProductCategory\Index.cshtml.g.cs
@@ -501,4 +503,3 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\ref\NetCoreApp.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.pdb
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.genruntimeconfig.cache
-C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryType\Index.cshtml.g.cs

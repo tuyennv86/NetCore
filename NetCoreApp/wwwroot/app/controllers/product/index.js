@@ -100,6 +100,7 @@
             $('#pagination').unbind("page");
         }
         //Bind Pagination Event
+        $('#pagination').twbsPagination('destroy');
         $('#pagination').twbsPagination({
             totalPages: totalsize,
             visiblePages: 7,

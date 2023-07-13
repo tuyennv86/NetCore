@@ -24,10 +24,10 @@ namespace NetCoreApp.Areas.Admin.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
+        {            
+            await _signInManager.SignOutAsync();              
             _logger.LogInformation("User logged out.");
-            return Redirect("/Admin/Login/Index");
+            return Redirect("/Admin");
         }
     }
 }

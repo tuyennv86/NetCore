@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EntityFrameworkCore.UseRowNumberForPaging;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +22,7 @@ using NetCoreApp.Helpers;
 using NetCoreApp.Infrastructure.Interfaces;
 using NetCoreApp.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace NetCoreApp
 {
@@ -50,20 +52,43 @@ namespace NetCoreApp
 
             // Configure Identity
             services.Configure<IdentityOptions>(options =>
-            {
-                
+            {                
                 // Password settings
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
+                options.Password.RequireLowercase = false;                
 
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 // User settings
                 options.User.RequireUniqueEmail = true;
+            });
+                       
+            //Config returnUrl when no login
+            services.ConfigureApplicationCookie(options => {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                //options.LoginPath = "/Login";
+                //options.AccessDeniedPath = "/AccessDenied";
+                options.SlidingExpiration = true;
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = ctx => {
+                        var requestPath = ctx.Request.Path;
+                        if (requestPath.StartsWithSegments("/Admin"))
+                        {
+                            ctx.Response.Redirect("/Admin?ReturnUrl=" + requestPath + ctx.Request.QueryString);
+                        }
+                        else
+                        {
+                            ctx.Response.Redirect("/Account/Login?ReturnUrl=" + requestPath + ctx.Request.QueryString);
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
@@ -84,16 +109,15 @@ namespace NetCoreApp
             services.AddTransient<DbInitializer>();
             
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
-
             services.AddTransient<ICategoryTypeRepository, CategoryTypeRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
 
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryTypeService, CategoryTypeService>();
 
             services.AddMvc();
         }

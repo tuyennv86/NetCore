@@ -20,9 +20,10 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _logger = logger;
         }
         public IActionResult Index()
-        {
+        {           
             return View();
         }
+        
 
         [HttpGet]
         public IActionResult GetAll()
