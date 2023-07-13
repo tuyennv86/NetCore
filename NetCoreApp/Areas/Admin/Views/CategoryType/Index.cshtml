@@ -1,11 +1,7 @@
 ﻿@section Scripts{
     <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
     <script type="text/javascript" src="~/app/controllers/category/categoryType.js"></script>
-    <script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>
-    <script>
-        var categoryType = new categoryTypeController();
-        categoryType.initialize();
-    </script>
+    <script type="text/javascript" src="~/admin/plugins/bootbox/bootbox.all.min.js"></script>    
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -128,3 +124,8 @@
         {{/categoryTypeTag}}
 </script>
 @await Html.PartialAsync("_AddEditCategoryTypeModel")
+
+<script>
+    var categoryType = new categoryTypeController();
+    categoryType.initialize();
+</script>

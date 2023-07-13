@@ -9,7 +9,6 @@
 
     var registerEvents = function () { 
        
-
         $('#slChangPage').on('change', function () {          
             until.configs.pageSize = $(this).val();
             until.configs.pageIndex = 1;
@@ -116,7 +115,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/admin/productcategory/DeleteByListID",
+                        url: "/admin/categoryType/DeleteByListID",
                         cache: false,
                         data: { listId: listId },
                         dataType: "json",
@@ -139,9 +138,10 @@
 
         $('body').on('click', '#addCategory', function (e) {
             e.preventDefault();
+            
             $('#modalAddEdit').modal('show');
 
-        });
+        });        
     }
     
 
@@ -264,6 +264,6 @@ $(document).ready(function () {
 
     $("#checkAll").change(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
-    });
+    });    
 
 });
