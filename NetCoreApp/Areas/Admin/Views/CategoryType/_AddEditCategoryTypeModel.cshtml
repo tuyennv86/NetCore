@@ -1,29 +1,30 @@
 ﻿<div class="modal fade" id="modalAddEdit" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Cập nhật danh mục</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="hiIdCates" value="0" />
-                <form class="form-horizontal" role="form" id="frmMaintainance">
+            <form class="form-horizontal" role="form" id="frmAddEdit">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Cập nhật kiểu dữ liệu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hiId" value="0" />
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Tên danh mục</label>
+                        <label class="col-sm-2 col-form-label">Tên kiểu dữ liệu</label>
                         <div class="col-sm-10">
                             <input type="hidden" id="hidId" value="0" />
-                            <input type="text" name="txtName" class="form-control" id="txtName" placeholder="Nhập tên danh mục">
+                            <input type="text" name="txtName" class="form-control" id="txtName" placeholder="Nhập tên kiểu dữ liệu">
                         </div>
-                    </div>                    
+                    </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Sort Order</label>
+                        <label class="col-sm-2 col-form-label">Thứ tự</label>
                         <div class="col-sm-10">
-                            <input type="number" name="txtOrder" class="form-control" id="txtOrder">
+                            <input type="number" name="txtOrder" class="form-control" id="txtOrder" value="0" placeholder="Nhập số thứ tự">
                         </div>
-                    </div>                    
-                    
+                    </div>
+
                     <div class="form-group row">
                         <div class=" offset-sm-2 col-sm-10">
                             <div class="checkbox">
@@ -31,20 +32,17 @@
                                     <input type="checkbox" checked="checked" id="ckStatus">
                                     <span class="text">Active.</span>
                                 </label>
-                                <label>
-                                    <input type="checkbox" id="ckShowHome">
-                                    <span class="text">Show on home.</span>
-                                </label>
                             </div>
                         </div>
                     </div>
-                </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Cập nhật</button>
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

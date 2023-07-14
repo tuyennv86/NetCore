@@ -9,13 +9,13 @@
 
     var registerEvents = function () { 
        
-        $('#slChangPage').on('change', function () {          
+        $('#slChangPage').on('change', function () {           
             until.configs.pageSize = $(this).val();
             until.configs.pageIndex = 1;
             loadData(true);
         });
 
-        $("#btnSearch").on('click', function () {
+        $("#btnSearch").on('click', function () {            
             loadData(true);
         });
 
@@ -31,7 +31,6 @@
             $('#modalAddEdit').modal('show');
             var id = $(this).attr('data-id');
 
-
             $.ajax({
                 type: "POST",
                 url: "/admin/categoryType/GetById",
@@ -43,29 +42,13 @@
                 },
                 success: function (response) {
                     until.stopLoading();
-                    console.log(response);
-
-                    //$("#hidCategoryId").val(response.parentId);
-                    //loadCategoriesTotreeBySelectID(response.parentId);
-
-                    //$("#hidId").val(response.id);
-                    //$("#txtName").val(response.name);
-                    //$("#txtAlias").val(response.seoAlias);
-                    //$("#txtDesc").val(response.description);
-                    //$("#txtSeoKeyword").val(response.seoKeywords);
-                    //$("#txtOrder").val(response.sortOrder);
-                    //$("#txtHomeOrder").val(response.homeOrder);
-                    //$("#hidImage").val(response.image);
-                    //$("#imgImage").attr("src", response.image);
-                    //$("#txtSeoPageTitle").val(response.seoPageTitle);
-                    //$("#txtSeoAlias").val(response.seoAlias);
-                    //$("#txtSeoKeyword").val(response.seoKeywords);
-                    //$("#txtSeoDescription").val(response.seoDescription);
-                    //$("#ckStatus").prop("checked", response.status);
-                    //$("#ckShowHome").prop("checked", response.homeFlag);
+                    $("#hiId").val(response.id);
+                    $("#txtName").val(response.name);
+                    $("#txtOrder").val(response.sortOrder);
+                    $("#ckStatus").prop("checked", response.status);
                 },
                 error: function (status) {
-                    until.notify('Lỗi không xóa được', 'error' + status);
+                    until.notify('Lỗi không xem được', 'error' + status);
                     until.stopLoading();
                 }
             });
@@ -88,7 +71,7 @@
                         success: function (response) {
                             until.notify('Xóa thành công', 'success');
                             until.stopLoading();
-                            loadCategories();
+                            loadData();
                         },
                         error: function (status) {
                             until.notify('Lỗi không xóa được', 'error' + status);
@@ -101,14 +84,14 @@
 
         $('body').on('click', '#btnDeleteAll', function (e) {
             e.preventDefault();
-            var listId = '';
+            var listId = new Array();
             bootbox.confirm('Bạn có muốn xóa các hàng được chọn không?', function (result) {
                 if (result) {
                     $("#tblList tbody tr").each(function () {
 
                         var checkItem = $(this).find("input:checked");
                         if (checkItem.is(":checked")) {
-                            listId = $(this).find('a').last().attr('data-id') + ';';
+                            listId.push($(this).find('a').last().attr('data-id'));
                         }
 
                     });
@@ -125,7 +108,7 @@
                         success: function (response) {
                             until.notify('Xóa thành công', 'success');
                             until.stopLoading();
-                            loadCategories();
+                            loadData();
                         },
                         error: function (status) {
                             until.notify('Lỗi không xóa được', 'error' + status);
@@ -137,11 +120,49 @@
         });
 
         $('body').on('click', '#addCategory', function (e) {
-            e.preventDefault();
-            
+            e.preventDefault();            
             $('#modalAddEdit').modal('show');
+        });
 
-        });        
+        // validator add and Edit
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    AddEditType();
+                }
+            });
+            $('#frmAddEdit').validate({
+                rules: {
+                    txtName: {
+                        required: true                       
+                    },
+                    txtOrder: {
+                        required: true,
+                        digits: true
+                    },
+                },
+                messages: {
+                    txtName: {
+                        required: "Tên kiểu dữ liệu không được bỏ trống"
+                    },
+                    txtOrder: {
+                        required: "Thứ tự không được bỏ trống",
+                        digits: "Chỉ được nhập số"
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group .col-sm-10').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
     }
     
 
@@ -150,7 +171,7 @@
             type: 'GET',           
             dataType: 'json',
             data: {             
-                keyword: $('#txtSearch').val(),
+                keyWord: $('#txtSearch').val(),
                 page: until.configs.pageIndex,
                 pageSize: until.configs.pageSize
             },
@@ -190,7 +211,7 @@
             $('#pagination').removeData("twbs-pagination");
             $('#pagination').unbind("page");
         }
-        $('#pagination').twbsPagination('destroy');
+        //$('#pagination').twbsPagination('destroy');
         //Bind Pagination Event
         $('#pagination').twbsPagination({            
             totalPages: (totalsize === 0) ? 1 : totalsize,
@@ -201,7 +222,7 @@
             last: '<i class="fa fa-fast-forward"></i>',
             onPageClick: function (event, page) {                
                 until.configs.pageIndex = page;
-                setTimeout(callBack(), 200);
+                setTimeout(callBack(), 200);               
             }
         });
     }
@@ -219,7 +240,7 @@
 
                         $.ajax({
                             type: "POST",
-                            url: "/admin/productcategory/UpdateOrder",
+                            url: "/admin/categoryType/UpdateOrder",
                             cache: false,
                             data: { Id: id, sortOrder: sortorder },
                             dataType: "json",
@@ -229,7 +250,7 @@
                             success: function (response) {
                                 until.notify('Cập nhật thành công', 'success');
                                 until.stopLoading();
-                                loadCategories();
+                                loadData();
                             },
                             error: function (status) {
                                 until.notify('Lỗi cập nhật được được', 'error' + status);
@@ -257,6 +278,54 @@
 
             });
         });
+    }
+
+    var AddEditType = function() {
+        var id = $("#hiId").val();
+        var name = $("#txtName").val();
+        var sortOrder = $("#txtOrder").val();
+        var isDeleted = $('#ckStatus').prop('checked');
+
+        var dataPost = {
+            "Id": id,
+            "Name": name,
+            "SortOrder": sortOrder,
+            "IsDeleted": isDeleted,
+            "DateCreated": Date(),
+            "DateModified": Date()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/admin/categoryType/SaveEntity",
+            data: dataPost,
+            dataType: "json",
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                if (id > 0) {
+                    until.notify('Cập nhật thành công', 'success');
+                    resetFormMaintainance();
+                    $('#modalAddEdit').modal('hide');
+                } else {
+                    until.notify('Thêm mới thành công', 'success');
+                    resetFormMaintainance();                                       
+                }
+                until.stopLoading();
+                loadData(true);
+            },
+            error: function () {
+                until.notify('Lỗi không cập nhập hoặc thêm mới được!', 'error');
+                until.stopLoading();
+            }
+        });
+    }
+
+    function resetFormMaintainance() {
+        $('#hiId').val(0);
+        $('#txtName').val('');
+        $('#txtOrder').val('');
+        $('#ckStatus').prop('checked', false);
     }
 }
 

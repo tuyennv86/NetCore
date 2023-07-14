@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Category;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
@@ -20,6 +18,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _categoryTypeService = categoryTypeService;
             _logger = logger;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -33,38 +32,55 @@ namespace NetCoreApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetByPageding(string keyWord, int pageIndex, int pageSize)
+        public IActionResult GetByPageding(string keyWord, int page, int pageSize)
         {
-            var models = _categoryTypeService.GetAllPaging(keyWord, pageIndex, pageSize);
+            var models = _categoryTypeService.GetAllPaging(keyWord, page, pageSize);
             return new OkObjectResult(models);
         }
+
         [HttpPost]
         public IActionResult GetById(int Id)
         {
             var model = _categoryTypeService.GetById(Id);
             return new OkObjectResult(model);
         }
+
         [HttpPost]
         public IActionResult SaveEntity(CategoryTypeViewModel categoryTypeViewmodel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 return new BadRequestObjectResult(allErrors);
             }
             else
-            {                
-                if(categoryTypeViewmodel.Id == 0)
+            {
+                if (categoryTypeViewmodel.Id == 0)
                 {
                     _categoryTypeService.Add(categoryTypeViewmodel);
-                }else
+                }
+                else
                 {
                     _categoryTypeService.Update(categoryTypeViewmodel);
                 }
                 _categoryTypeService.Save();
                 return new OkObjectResult(categoryTypeViewmodel);
-            }    
-            
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateOrder(int Id, int sortOrder)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _categoryTypeService.UpdateOrder(Id, sortOrder);
+                _categoryTypeService.Save();
+                return new OkObjectResult(Id);
+            }
         }
 
         [HttpPost]
@@ -73,28 +89,29 @@ namespace NetCoreApp.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(ModelState);
-            }else
+            }
+            else
             {
                 _categoryTypeService.Delete(Id);
                 _categoryTypeService.Save();
                 return new OkObjectResult(Id);
-            }    
+            }
         }
+
         [HttpPost]
-        public IActionResult DeleteByListID(string listId)
+        public IActionResult DeleteByListID(int []listId)
         {
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(ModelState);
             }
             else
-            {
-                foreach(string i in listId.Split(listId,';'))
-                {
-                    _categoryTypeService.Delete(int.Parse(i));
+            {     
+                foreach (int id in listId)
+                {                   
+                    _categoryTypeService.Delete(id);
                     _categoryTypeService.Save();
-                }    
-               
+                }
                 return new OkObjectResult(listId);
             }
         }

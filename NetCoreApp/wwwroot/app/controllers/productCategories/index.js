@@ -24,8 +24,7 @@
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
-            var id = $(this).attr('data-id');
-            
+            var id = $(this).attr('data-id');           
 
             $.ajax({
                 type: "POST",

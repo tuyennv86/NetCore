@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <table class="table table-striped projects">
+                <table class="table table-striped projects" id="tblList">
                     <thead>
                         <tr>
                             <th style="width: 1%">
@@ -111,8 +111,8 @@
                 <input type="text" id="sortorder{{id}}" class="form-control form-control-sm img-size-64" value="{{sortOrder}}" placeholder="số thứ tự" name="sortorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
             </td>
             <td>
-                {{#isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/isDeleted}}
-                {{^isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Xóa</a>{{/isDeleted}}
+                {{#isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Active</a>{{/isDeleted}}
+                {{^isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Đang khóa</a>{{/isDeleted}}
             </td>
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
             <td> {{#dateFormat}}{{dateModified }}{{/dateFormat}}</td>
