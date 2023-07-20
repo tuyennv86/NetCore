@@ -15,6 +15,7 @@ namespace NetCoreApp.Application.Interfaces
         void Update(CategoryTypeViewModel categoryTypeViewModel);
 
         void Delete(int id);
+        void DeleteByListID(int[] listId);
 
         List<CategoryTypeViewModel> GetAll();
         PagedResult<CategoryTypeViewModel> GetAllPaging(string keyword, int page, int pageSize);

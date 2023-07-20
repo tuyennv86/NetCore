@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "yBsq/DWzJRmId2c7H2VNDULM8o0SYDS9n753KbNcedS12bFM8Wy2/SrV43+U7H1KtK1Pm83KY21jXkZbhgs0Bg==",
+  "dgSpecHash": "wTVxgnzoJhrPK+uNM/pO1I1TRYBEbfSpIhzBKBt+QLIazPmKq+bJTXeMutlSrUDYrRrMRCcURgC1xfQ58QybUA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp\\NetCoreApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Welcome\\.nuget\\packages\\advancedstringbuilder\\0.1.0\\advancedstringbuilder.0.1.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\Welcome\\.nuget\\packages\\elfinder.netcore\\1.3.6\\elfinder.netcore.1.3.6.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\entityframeworkcore.userownumberforpaging\\0.1.0\\entityframeworkcore.userownumberforpaging.0.1.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\1.0.6\\microsoft.aspnetcore.antiforgery.1.0.6.nupkg.sha512",

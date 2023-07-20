@@ -38,6 +38,16 @@ namespace NetCoreApp.Application.Implementation
             _categoryTypeRepository.Remove(id);            
         }
 
+        public void DeleteByListID(int[] listId)
+        {
+            List<CategoryType> categories = new();
+            foreach (int id in listId)
+            {
+                categories.Add(_categoryTypeRepository.FindById(id));
+            }
+            _categoryTypeRepository.RemoveMultiple(categories);
+        }
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);

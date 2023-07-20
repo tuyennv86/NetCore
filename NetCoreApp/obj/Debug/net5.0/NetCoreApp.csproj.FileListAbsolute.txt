@@ -503,3 +503,6 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\ref\NetCoreApp.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.pdb
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.genruntimeconfig.cache
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\elFinder.NetCore.dll
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\FileManager\Index.cshtml.g.cs

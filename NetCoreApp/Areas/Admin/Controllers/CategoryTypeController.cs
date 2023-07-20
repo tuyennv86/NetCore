@@ -106,12 +106,9 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new BadRequestObjectResult(ModelState);
             }
             else
-            {     
-                foreach (int id in listId)
-                {                   
-                    _categoryTypeService.Delete(id);
-                    _categoryTypeService.Save();
-                }
+            {
+                _categoryTypeService.DeleteByListID(listId);
+                _categoryTypeService.Save();
                 return new OkObjectResult(listId);
             }
         }
