@@ -506,3 +506,4 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.gen
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\elFinder.NetCore.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\FileManager\Index.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\_AddEditCategoryModel.cshtml.g.cs

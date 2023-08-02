@@ -25,10 +25,17 @@ namespace NetCoreApp.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult GetAll(string keyWord)
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            var _models = _categoryService.GetAll(keyWord);
+            var models = _categoryService.GetAll();
+            return new OkObjectResult(models);
+        }
+
+        [HttpPost]
+        public IActionResult GetByTypeAndKeyWord(string keyWord, int categoryTypeID)
+        {
+            var _models = _categoryService.GetByCategoryType(keyWord, categoryTypeID);
             return new OkObjectResult(_models);
         }
         
@@ -89,6 +96,20 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 _categoryService.DeleteAll(listId);
                 _categoryService.Save();
                 return new OkObjectResult(listId);
+            }
+        }
+        [HttpPost]
+        public IActionResult UpdateOrder(int Id, int homeOrder, int sortOrder)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _categoryService.UpdateOrder(Id, homeOrder, sortOrder);
+                _categoryService.Save();
+                return new OkObjectResult(Id);
             }
         }
     }

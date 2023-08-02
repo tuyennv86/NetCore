@@ -1,22 +1,35 @@
-﻿let productCategoryController = function () {
+﻿let categoryController = function () {
 
     this.initialize = function () {
 
+        loadCategoryType();
         loadCategories();
         registerEvents();
-        updateOrder();       
-       
+        updateOrder();
     }
    
     function registerEvents() {
+        $('#slcategoryType').on('change', function () {
+            loadCategories();
+        });
+        $("#btnSearch").on('click', function () {
+            loadCategories();
+        });
+        $("#txtSearch").on('keypress', function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                loadCategories();
+            }
+        });
+
         $("#checkAll").change(function () {
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
 
-
         $('#addCategory').off('click').on('click', function () {           
             $('#modalAddEdit').modal('show');
-            loadCategoriesTotree();           
+            viewCategoryType();
+            loadCategoriesTotree();
 
         });
 
@@ -27,7 +40,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/admin/productcategory/GetByID",
+                url: "/admin/category/GetByID",
                 cache: false,
                 data: { id: id },
                 dataType: "json",
@@ -71,7 +84,7 @@
                 if (result) {                    
                     $.ajax({
                         type: "POST",
-                        url: "/admin/productcategory/DeleteCategoryByID",
+                        url: "/admin/category/DeleteCategoryByID",
                         cache: false,
                         data: { id: id },
                         dataType: "json",
@@ -108,7 +121,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/admin/Category/DeleteByListID",
+                        url: "/admin/category/DeleteByListID",
                         cache: false,
                         data: { listId: listId },
                         dataType: "json",
@@ -178,6 +191,86 @@
         });     
                
     }
+    // load chủng loại danh mục tìm kiếm hiển thị
+    function loadCategoryType() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/admin/CategoryType/GetAll',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                let render = "<option value='0'>Chọn loại danh mục</option>";
+                $.each(response, function (i, item) {
+                    render += "<option value='" + item.id + "'>" + item.name + "</option>"
+                });
+                $('#slcategoryType').html(render);
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+    // view chủng loại danh mục thêm sửa
+    function viewCategoryType() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/admin/CategoryType/GetAll',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                let render = "";
+                $.each(response, function (i, item) {
+                    render += "<option value='" + item.id + "'>" + item.name + "</option>"
+                });
+                $('#slcategoryTypeAdd').html(render);
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+    // load danh sách các danh mục
+    function loadCategories() {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            url: '/admin/Category/GetByTypeAndKeyWord',
+            data: {
+                keyWord: $("#txtSearch").val(),
+                categoryTypeID: $("#slcategoryType").val()
+            },
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+
+                let templateWithData = Mustache.render($("#mp_template").html(), {
+                    categoryTag: recursiveArraySort(response),
+                    dateFormat: function () {
+                        return function (timestamp, render) {
+                            return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });
+                        };
+                    }
+                });
+                $("#tpl_content").empty().html(templateWithData);
+                $('#tblList').simpleTreeTable({
+                    expander: $('#expander'),
+                    collapser: $('#collapser'),
+
+                });
+
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+    //load danh sách các danh mục thành cây danh mục
     function loadCategoriesTotree() {
         $.ajax({
             type: 'GET',
@@ -206,6 +299,7 @@
             }
         })
     }
+    // load danh sách các danh mục dạng edit
     function loadCategoriesTotreeBySelectID(selectID) {
 
         $.ajax({
@@ -233,44 +327,7 @@
             }
         })
     }
-
-    //function clearAllText() {
-
-    //}
-
-    function loadCategories() {
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            cache: false,           
-            url: '/admin/Category/GetAll',
-            beforeSend: function () {
-                until.startLoading();
-            },
-            success: function (response) {
-
-                let templateWithData = Mustache.render($("#mp_template").html(), {                    
-                    categoryTag: recursiveArraySort(response),
-                    dateFormat: function () {
-                        return function (timestamp, render) {
-                            return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });
-                        };
-                    }
-                });
-                $("#tpl_content").empty().html(templateWithData);                
-                $('#tblList').simpleTreeTable({
-                    expander: $('#expander'),
-                    collapser: $('#collapser'),
-
-                });
-
-                until.stopLoading();
-            }, error: function (status) {
-                until.notify("Không load được dữ liệu", status);
-            }
-        })
-    }   
-
+    
     //function traverse(list) {
     //    var html = '<ul>';
     //    for (var i = 0; i < list.length; i++) {
@@ -314,34 +371,6 @@
         }
         let parentITem = { id: 0, name: 'Root' };
         tree.unshift(parentITem);
-        return tree;
-    }
-    function createTree(arr) {
-        let tree = [],
-            mappedArr = {},
-            arrElem,
-            mappedElem;
-
-        // First map the nodes of the array to an object -> create a hash table.
-        for (let i = 0, len = arr.length; i < len; i++) {
-            arrElem = arr[i];
-            mappedArr[arrElem.id] = arrElem;
-            mappedArr[arrElem.id]['children'] = [];
-        }
-
-        for (let id in mappedArr) {
-            if (mappedArr.hasOwnProperty(id)) {
-                mappedElem = mappedArr[id];
-                // If the element is not at the root level, add it to its parent array of children.
-                if (mappedElem.parentId) {
-                    mappedArr[mappedElem['parentId']]['children'].push(mappedElem);
-                }
-                // If the element is at the root level, add it to first level elements array.
-                else {
-                    tree.push(mappedElem);
-                }
-            }
-        }
         return tree;
     }
 

@@ -73,9 +73,14 @@ namespace NetCoreApp.Application.Implementation
             throw new NotImplementedException();
         }
 
-        public List<CategoryViewModel> GetByCategoryType(int categoryTypeID)
+        public List<CategoryViewModel> GetByCategoryType(string keyWord, int categoryTypeID)
         {
-            return _mapper.ProjectTo<CategoryViewModel>(_categoryRepository.FindAll(x => x.CategoryTypeID == categoryTypeID).OrderBy(x => x.SortOrder)).ToList();
+            var query = _categoryRepository.FindAll();
+            if (!string.IsNullOrEmpty(keyWord))
+                query = query.Where(x => x.Name.Contains(keyWord));
+            if (categoryTypeID != 0)
+                query = query.Where(x => x.CategoryTypeID == categoryTypeID);
+            return _mapper.ProjectTo<CategoryViewModel>(query).ToList();
         }
 
         public CategoryViewModel GetById(int id)

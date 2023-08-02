@@ -21,7 +21,7 @@ namespace NetCoreApp.Application.Interfaces
 
         List<CategoryViewModel> GetAll(string keyword);
 
-        List<CategoryViewModel> GetByCategoryType(int categoryTypeID);
+        List<CategoryViewModel> GetByCategoryType(string keyWord, int categoryTypeID);
 
         List<CategoryViewModel> GetAllByParentId(int parentId, int categoryTypeID);
 
