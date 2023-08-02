@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace NetCoreApp.Areas.Admin.Controllers
 {
     
-    public class FileManagerController : Controller
+    public class FileManagerController : BaseController
     {
         public IActionResult Index()
         {

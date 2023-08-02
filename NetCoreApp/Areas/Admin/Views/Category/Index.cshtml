@@ -1,5 +1,133 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@section Styles{
+    <link rel="stylesheet" href="~/admin/plugins/comboTree/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="~/admin/plugins/comboTree/comboTreePlugin.css" />
 }
+@section Scripts{
+    <script type="text/javascript" src="~/admin/plugins/simple-tree-table/jquery-simple-tree-table.js"></script>
+    <script type="text/javascript" src="~/admin/plugins/comboTree/comboTreePlugin.js"></script>
+    <script type="text/javascript" src="~/app/controllers/category/index.js"></script>
+    <script type="text/javascript" src="~/lib/bootbox/bootbox.min.js"></script>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh mục</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item active">Danh mục</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <form id="myform" data-form-validate="true" method="post" name="myform" action="">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <a class="btn btn-primary btn-sm" href="#" id="addCategory">
+                        <i class="fas fa-plus-circle"></i>
+                        Thêm mới
+                    </a>
+                    <button type="submit" class="btn btn-info btn-sm">
+                        <i class="fa fa-recycle"></i>
+                        Cập nhật
+                    </button>
+                    <a class="btn btn-danger btn-sm" href="#" id="btnDeleteAll">
+                        <i class="fas fa-trash"></i>
+                        Xóa được chọn
+                    </a>
+                </h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="tree table table-striped projects" id="tblList">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" name="checkAll" id="checkAll">
+                            </th>
+                            <th style="width: 10px">Level</th>
+                            <th>Tên danh mục</th>
+                            <th>Ảnh</th>
+                            <th>Thứ tự</th>
+                            <th>Trạng thái</th>
+                            <th>Trang chủ</th>
+                            <th>Thứ tự home</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày sửa</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tpl_content">
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </form>
+</section>
+<!-- /.content -->
+
+
+<script type="x-tmpl-mustache" id="mp_template">
+    {{#categoryTag}}
+        {{#parentId}}
+            <tr data-node-id="{{id}}" data-node-pid="{{parentId}}">
+        {{/parentId}}
+        {{^parentId}}
+            <tr data-node-id="{{id}}">
+        {{/parentId}}
+        <td>
+            <input type="checkbox" name="checkItem">
+        </td>
+        <td>{{level}}</td>
+        <td>{{name}}</td>
+        <td>
+            {{#image}} <img  class="product-image-thumb img-size-64" src="{{image}}"> {{/image}}
+            {{^image}} <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg"> {{/image}}
+        </td>
+        <td>
+              <input type="text" id="sortorder{{id}}" class="form-control form-control-sm img-size-64" value="{{sortOrder}}" placeholder="số thứ tự" name="sortorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
+        </td>
+       <td>
+            {{#status}}<a href="#" id="btnStatus" class="badge bg-success" data-id="{{id}}"><i class="fa fa-unlock" aria-hidden="true"></i> Kích hoạt </a>{{/status}}
+            {{^status}}<a href="#" id="btnStatus" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-lock" aria-hidden="true"></i> Khóa </a>{{/status}}
+        </td>
+        <td>
+            {{#homeFlag}}<a href="#" id="btnHome" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-eye" aria-hidden="true"></i> Trang chủ</a>{{/homeFlag}}
+            {{^homeFlag}}<a href="#" id="btnHome" class="badge bg-info" data-id="{{id}}"><i class="fa fa-eye-slash" aria-hidden="true"></i> Bình thường</a>{{/homeFlag}}
+        </td>
+        <td>
+              <input type="text" id="homeorder{{id}}" class="form-control form-control-sm img-size-64" value="{{homeOrder}}" placeholder="số tt" name="homeorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
+        </td>
+        <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
+        <td> {{#dateFormat}}{{dateModified }}{{/dateFormat}}</td>
+        <td class="text-right">
+            <a class="btn btn-info btn-sm" href="#" data-id="{{id}}" id="lbtEdit"><i class="fas fa-pencil-alt"> </i> Edit </a>
+            <a class="btn btn-danger btn-sm" href="#" data-id="{{id}}" id="lbtDelete"> <i class="fas fa-trash"> </i> Delete </a>
+        </td>
+    </tr>
+    {{/categoryTag}}
+</script>
+
+@await Html.PartialAsync("_AddEditCategoryModel")
+<script>
+    var productCategory = new productCategoryController();
+    productCategory.initialize();
+</script>

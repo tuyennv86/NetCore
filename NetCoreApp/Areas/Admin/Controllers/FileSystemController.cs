@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace NetCoreApp.Areas.Admin.Controllers
 {
     [Route("el-finder-file-system")]
-    public class FileSystemController : Controller
+    public class FileSystemController : BaseController
     {
         readonly IWebHostEnvironment _env;
         public FileSystemController(IWebHostEnvironment env) => _env = env;

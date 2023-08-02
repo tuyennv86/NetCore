@@ -1,4 +1,4 @@
-﻿var productCategoryController = function () {
+﻿let productCategoryController = function () {
 
     this.initialize = function () {
 
@@ -14,8 +14,7 @@
         });
 
 
-        $('#addCategory').off('click').on('click', function () {
-            var id = $(this).attr('data-id');
+        $('#addCategory').off('click').on('click', function () {           
             $('#modalAddEdit').modal('show');
             loadCategoriesTotree();           
 
@@ -24,7 +23,7 @@
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
-            var id = $(this).attr('data-id');           
+            let id = $(this).attr('data-id');           
 
             $.ajax({
                 type: "POST",
@@ -67,7 +66,7 @@
 
         $('body').on('click', '#lbtDelete', function (e) {
             e.preventDefault();
-            var id = $(this).attr('data-id');
+            let id = $(this).attr('data-id');
             bootbox.confirm('Bạn có muốn xóa không?', function (result) {
                 if (result) {                    
                     $.ajax({
@@ -95,35 +94,36 @@
 
         $('body').on('click', '#btnDeleteAll', function (e) {
             e.preventDefault();
-            var id = $(this).attr('data-id');
+            let listId = new Array();
             bootbox.confirm('Bạn có muốn xóa các hàng được chọn không?', function (result) {
                 if (result) {
                     $("#tblList tbody tr").each(function () {
-                        var checkItem = $(this).find("input:checked");
-                        var id = $(this).find('a').last().attr('data-id');
 
+                        let checkItem = $(this).find("input:checked");
                         if (checkItem.is(":checked")) {
-                            $.ajax({
-                                type: "POST",
-                                url: "/admin/productcategory/DeleteCategoryByID",
-                                cache: false,
-                                data: { id: id },
-                                dataType: "json",
-                                beforeSend: function () {
-                                    until.startLoading();
-                                },
-                                success: function (response) {
-                                    until.notify('Xóa thành công', 'success');
-                                    until.stopLoading();
-                                    loadCategories();
-                                },
-                                error: function (status) {
-                                    until.notify('Lỗi không xóa được', 'error' + status);
-                                    until.stopLoading();
-                                }
-                            });
+                            listId.push($(this).find('a').last().attr('data-id'));
                         }
 
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/Category/DeleteByListID",
+                        cache: false,
+                        data: { listId: listId },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa thành công', 'success');
+                            until.stopLoading();
+                            loadData();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                            until.stopLoading();
+                        }
                     });
                 }
             });
@@ -131,10 +131,10 @@
 
         $('body').on('click', '#btnStatus', function (e) {
             e.preventDefault();
-            var id = $(this).attr('data-id');
+            let id = $(this).attr('data-id');
             $.ajax({
                 type: "POST",
-                url: "/admin/productcategory/UpdateStatus",
+                url: "/admin/Category/UpdateStatus",
                 cache: false,
                 data: { id: id },
                 dataType: "json",
@@ -155,10 +155,10 @@
 
         $('body').on('click', '#btnHome', function (e) {
             e.preventDefault();
-            var id = $(this).attr('data-id');
+            let id = $(this).attr('data-id');
             $.ajax({
                 type: "POST",
-                url: "/admin/productcategory/UpdateHomeFalg",
+                url: "/admin/Category/UpdateHomeFalg",
                 cache: false,
                 data: { id: id },
                 dataType: "json",
@@ -183,13 +183,13 @@
             type: 'GET',
             dataType: 'json',
             cache: false,
-            url: '/admin/productcategory/GetAll',
+            url: '/admin/Category/GetAll',
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {                
                 
-                comboTree1 = $('#ddlCategory').comboTree({                    
+               comboTree1 = $('#ddlCategory').comboTree({                    
                     isMultiple: false
                 });
 
@@ -212,7 +212,7 @@
             type: 'GET',
             dataType: 'json',
             cache: false,
-            url: '/admin/productcategory/GetAll',
+            url: '/admin/Category/GetAll',
             beforeSend: function () {
                 until.startLoading();
             },
@@ -234,22 +234,22 @@
         })
     }
 
-    function clearAllText() {
+    //function clearAllText() {
 
-    }
+    //}
 
     function loadCategories() {
         $.ajax({
             type: 'GET',
             dataType: 'json',
             cache: false,           
-            url: '/admin/productcategory/GetAll',
+            url: '/admin/Category/GetAll',
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
 
-                var templateWithData = Mustache.render($("#mp_template").html(), {                    
+                let templateWithData = Mustache.render($("#mp_template").html(), {                    
                     categoryTag: recursiveArraySort(response),
                     dateFormat: function () {
                         return function (timestamp, render) {
@@ -271,35 +271,35 @@
         })
     }   
 
-    function traverse(list) {
-        var html = '<ul>';
-        for (var i = 0; i < list.length; i++) {
-            html += '<li>' + list[i].Name;
-            if (list[i].children) {
-                html += traverse(list[i].children);
-            }
-            html += '</li>';
-        }
-        html += '</ul>';
+    //function traverse(list) {
+    //    var html = '<ul>';
+    //    for (var i = 0; i < list.length; i++) {
+    //        html += '<li>' + list[i].Name;
+    //        if (list[i].children) {
+    //            html += traverse(list[i].children);
+    //        }
+    //        html += '</li>';
+    //    }
+    //    html += '</ul>';
 
-        return html;
-    }
+    //    return html;
+    //}
     
     // dang childer tu mang
     function createTreeSub(arr) {
-        var tree = [],
+        let tree = [],
             mappedArr = {},
             arrElem,
             mappedElem;
 
         // First map the nodes of the array to an object -> create a hash table.
-        for (var i = 0, len = arr.length; i < len; i++) {
+        for (let i = 0, len = arr.length; i < len; i++) {
             arrElem = arr[i];
             mappedArr[arrElem.id] = arrElem;
             mappedArr[arrElem.id]['subs'] = [];
         }
 
-        for (var id in mappedArr) {
+        for (let id in mappedArr) {
             if (mappedArr.hasOwnProperty(id)) {
                 mappedElem = mappedArr[id];
                 // If the element is not at the root level, add it to its parent array of children.
@@ -312,24 +312,24 @@
                 }
             }
         }
-        var parentITem = { id: 0, name: 'Root' };
+        let parentITem = { id: 0, name: 'Root' };
         tree.unshift(parentITem);
         return tree;
     }
     function createTree(arr) {
-        var tree = [],
+        let tree = [],
             mappedArr = {},
             arrElem,
             mappedElem;
 
         // First map the nodes of the array to an object -> create a hash table.
-        for (var i = 0, len = arr.length; i < len; i++) {
+        for (let i = 0, len = arr.length; i < len; i++) {
             arrElem = arr[i];
             mappedArr[arrElem.id] = arrElem;
             mappedArr[arrElem.id]['children'] = [];
         }
 
-        for (var id in mappedArr) {
+        for (let id in mappedArr) {
             if (mappedArr.hasOwnProperty(id)) {
                 mappedElem = mappedArr[id];
                 // If the element is not at the root level, add it to its parent array of children.
@@ -362,13 +362,13 @@
                 submitHandler: function () { 
                    
                     $("#tblList tbody tr").each(function () {
-                        var sortorder = $(this).find("input").eq(1).val();                        
-                        var homeorder = $(this).find("input").eq(2).val();
-                        var id = $(this).find('a').last().attr('data-id');  
+                        let sortorder = $(this).find("input").eq(1).val();                        
+                        let homeorder = $(this).find("input").eq(2).val();
+                        let id = $(this).find('a').last().attr('data-id');  
 
                         $.ajax({
                             type: "POST",
-                            url: "/admin/productcategory/UpdateOrder",
+                            url: "/admin/Category/UpdateOrder",
                             cache: false,
                             data: { Id: id, homeOrder: homeorder, sortOrder: sortorder },
                             dataType: "json",

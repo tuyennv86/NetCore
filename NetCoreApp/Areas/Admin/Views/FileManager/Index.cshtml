@@ -5,7 +5,7 @@
 }
 @section Scripts{
     <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
-    <script src="~/lib/elfinder/js/elfinder.min.js"></script>
+    <script src="~/lib/elfinder/js/elfinder.min.js"></script>    
 
     <script type="text/javascript">
         // Documentation for client options:
@@ -22,8 +22,8 @@
             });
 
             var options = {
-                baseUrl: "/admin/lib/elfinder/",
-                url: "/admin/el-finder-file-system/connector",
+                baseUrl: "@Url.Content("~/lib/elfinder/")",
+                url: "@Url.Content("~/el-finder-file-system/connector")",
                 rememberLastDir: false,
                 commands: myCommands,
                 lang: 'en',
@@ -33,7 +33,7 @@
                         ['reload'],
                         ['home', 'up'],
                         ['mkdir', 'mkfile', 'upload'],
-                        ['open', 'download'],
+                        ['open', 'download', 'getfile'],
                         ['undo', 'redo'],
                         ['info'],
                         ['quicklook'],
@@ -41,11 +41,14 @@
                         ['rm'],
                         ['duplicate', 'rename', 'edit'],
                         ['selectall', 'selectnone', 'selectinvert'],
-                        ['view', 'sort']
+                        ['view', 'sort'],
+                        ['extract', 'archive'],
+                        ['search'],
+                        ['fullscreen']
                     ]
                 },
                 //onlyMimes: ["image", "text/plain"] // Get files of requested mime types only
-                lang: 'en',
+                lang: 'vi',
             };
             $('#elfinder').elfinder(options).elfinder('instance');
         });
