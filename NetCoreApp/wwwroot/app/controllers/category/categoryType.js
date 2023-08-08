@@ -1,4 +1,4 @@
-﻿var categoryTypeController = function () {
+﻿let categoryTypeController = function () {
 
     this.initialize = function () {        
                
@@ -7,7 +7,7 @@
         updateOrder();
     }
 
-    var registerEvents = function () { 
+    let registerEvents = function () {
        
         $('#slChangPage').on('change', function () {           
             until.configs.pageSize = $(this).val();
@@ -56,7 +56,7 @@
 
         $('body').on('click', '#lbtDelete', function (e) {
             e.preventDefault();
-            var id = $(this).attr('data-id');
+            let id = $(this).attr('data-id');
             bootbox.confirm('Bạn có muốn xóa không?', function (result) {
                 if (result) {
                     $.ajax({
@@ -84,7 +84,7 @@
 
         $('body').on('click', '#btnDeleteAll', function (e) {
             e.preventDefault();
-            var listId = new Array();
+            let listId = new Array();
             bootbox.confirm('Bạn có muốn xóa các hàng được chọn không?', function (result) {
                 if (result) {
                     $("#tblList tbody tr").each(function () {
@@ -166,7 +166,7 @@
     }
     
 
-    var loadData = function (isPageChanged) {
+    let loadData = function (isPageChanged) {
         $.ajax({
             type: 'GET',           
             dataType: 'json',
@@ -203,8 +203,8 @@
     }
     
 
-    function wrapPaging(recordCount, callBack, changePageSize) {        
-        var totalsize = Math.ceil(recordCount / until.configs.pageSize);
+    function wrapPaging(recordCount, callBack, changePageSize) {
+        let totalsize = Math.ceil(recordCount / until.configs.pageSize);
         //Unbind pagination if it existed or click change pagesize
         if ($('#pagination a').length === 0 || changePageSize === true) {
             $('#pagination').empty();
@@ -235,8 +235,8 @@
                 submitHandler: function () {
 
                     $("#tblList tbody tr").each(function () {
-                        var sortorder = $(this).find("input").eq(1).val();                     
-                        var id = $(this).find('a').last().attr('data-id');
+                        let sortorder = $(this).find("input").eq(1).val();                     
+                        let id = $(this).find('a').last().attr('data-id');
 
                         $.ajax({
                             type: "POST",
@@ -280,13 +280,13 @@
         });
     }
 
-    var AddEditType = function() {
-        var id = $("#hiId").val();
-        var name = $("#txtName").val();
-        var sortOrder = $("#txtOrder").val();
-        var isDeleted = $('#ckStatus').prop('checked');
+    let AddEditType = function () {
+        let id = $("#hiId").val();
+        let name = $("#txtName").val();
+        let sortOrder = $("#txtOrder").val();
+        let isDeleted = $('#ckStatus').prop('checked');
 
-        var dataPost = {
+        let dataPost = {
             "Id": id,
             "Name": name,
             "SortOrder": sortOrder,

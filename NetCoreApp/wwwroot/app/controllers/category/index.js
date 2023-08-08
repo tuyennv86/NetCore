@@ -7,8 +7,8 @@
         registerEvents();
         updateOrder();
     }
-   
-    function registerEvents() {
+
+    let registerEvents = function () {
         $('#slcategoryType').on('change', function () {
             loadCategories();
         });
@@ -188,7 +188,53 @@
                     until.stopLoading();
                 }
             });
-        });     
+        });
+
+        // validator add and Edit
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    AddEditAction();
+                }
+            });
+            $('#frmMaintainance').validate({
+                rules: {
+                    txtName: {
+                        required: true
+                    },
+                    txtAlias: {
+                        required: true
+                    },
+                    txtOrder: {
+                        required: true,
+                        digits: true
+                    },
+                },
+                messages: {
+                    txtName: {
+                        required: "Tên danh mục không được bỏ trống"
+                    },
+                    txtAlias: {
+                        required:"Alias không được bỏ trống"
+                    },
+                    txtOrder: {
+                        required: "Thứ tự không được bỏ trống",
+                        digits: "Chỉ được nhập số"
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group .col-sm-10').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
                
     }
     // load chủng loại danh mục tìm kiếm hiển thị
@@ -435,6 +481,54 @@
 
             });
         });
+    }
+
+    let AddEditAction = function () {
+        let id = $("#hiId").val();
+        let name = $("#txtName").val();
+        let sortOrder = $("#txtOrder").val();
+        let isDeleted = $('#ckStatus').prop('checked');
+
+        let dataPost = {
+            "Id": id,
+            "Name": name,
+            "SortOrder": sortOrder,
+            "IsDeleted": isDeleted,
+            "DateCreated": Date(),
+            "DateModified": Date()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/admin/Category/SaveEntity",
+            data: dataPost,
+            dataType: "json",
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                if (id > 0) {
+                    until.notify('Cập nhật thành công', 'success');
+                    resetFormMaintainance();
+                    $('#modalAddEdit').modal('hide');
+                } else {
+                    until.notify('Thêm mới thành công', 'success');
+                    resetFormMaintainance();
+                }
+                until.stopLoading();
+                loadCategories();
+            },
+            error: function () {
+                until.notify('Lỗi không cập nhập hoặc thêm mới được!', 'error');
+                until.stopLoading();
+            }
+        });
+    }
+
+    function resetFormMaintainance() {
+        $('#hiId').val(0);
+        $('#txtName').val('');
+        $('#txtOrder').val('');
+        $('#ckStatus').prop('checked', false);
     }
 
 }
