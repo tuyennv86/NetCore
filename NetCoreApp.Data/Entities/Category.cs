@@ -3,12 +3,13 @@ using NetCoreApp.Data.Interfaces;
 using NetCoreApp.Infrastructure.SharedKernel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetCoreApp.Data.Entities
 {
     [Table("Categories")]
-    public class Category : DomainEntity<int>, IHasSeoMetaData, ISwitchable, ISortable, IDateTracking
+    public class Category : DomainEntity<int>, IHasSeoMetaData, ISwitchable, ISortable, IDateTracking, ICreateTracking
     {        
         public Category()
         {
@@ -34,8 +35,10 @@ namespace NetCoreApp.Data.Entities
             Detail = detail;
         }
 
+        [StringLength(256)]
         public string Name { get; set; }
 
+        [StringLength(512)]
         public string Description { get; set; }
 
         public int ParentId { get; set; }
@@ -46,21 +49,27 @@ namespace NetCoreApp.Data.Entities
 
         public string Image { get; set; }
 
-        public bool HomeFlag { get; set; }
-
-        public DateTime DateCreated { set; get; }
-        public DateTime DateModified { set; get; }
+        public bool HomeFlag { get; set; }        
         public int SortOrder { set; get; }
         public Status Status { set; get; }
+        [StringLength(256)]
         public string SeoPageTitle { set; get; }
+        [StringLength(256)]
         public string SeoAlias { set; get; }
+        [StringLength(256)]
         public string SeoKeywords { set; get; }
+        [StringLength(256)]
         public string SeoDescription { set; get; }
-
         public string Detail { get; set; }
-
+        public DateTime DateCreated { set; get; }
+        public DateTime DateModified { set; get; }
+        [StringLength(255)]
+        public string CreateById { get; set; }
+        [StringLength(255)]
+        public string EditById { get; set; }
         [ForeignKey("Id")]
         public virtual Category Parent { get; set; }
         public virtual ICollection<Category> Children { get; set; }
+        
     }
 }

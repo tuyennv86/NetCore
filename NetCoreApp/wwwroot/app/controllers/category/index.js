@@ -202,10 +202,14 @@
                     txtName: {
                         required: true
                     },
-                    txtAlias: {
+                    txtSeoAlias: {
                         required: true
                     },
                     txtOrder: {
+                        required: true,
+                        digits: true
+                    },
+                    txtHomeOrder: {
                         required: true,
                         digits: true
                     },
@@ -214,10 +218,14 @@
                     txtName: {
                         required: "Tên danh mục không được bỏ trống"
                     },
-                    txtAlias: {
-                        required:"Alias không được bỏ trống"
+                    txtSeoAlias: {
+                        required:"Seo Alias không được bỏ trống"
                     },
                     txtOrder: {
+                        required: "Thứ tự không được bỏ trống",
+                        digits: "Chỉ được nhập số"
+                    },
+                    txtHomeOrder: {
                         required: "Thứ tự không được bỏ trống",
                         digits: "Chỉ được nhập số"
                     },
@@ -532,3 +540,20 @@
     }
 
 }
+
+$(document).ready(function () {
+    $('#txtDetail').summernote({        
+        tabsize: 2,
+        height: 120,
+        lang: 'vi-VN', 
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+});

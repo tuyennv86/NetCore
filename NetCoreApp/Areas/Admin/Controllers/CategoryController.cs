@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Category;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
@@ -20,6 +19,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _categoryService = categoryService;
             _logger = logger;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -38,7 +38,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             var _models = _categoryService.GetByCategoryType(keyWord, categoryTypeID);
             return new OkObjectResult(_models);
         }
-        
+
         [HttpPost]
         public IActionResult GetById(int Id)
         {
@@ -56,12 +56,17 @@ namespace NetCoreApp.Areas.Admin.Controllers
             }
             else
             {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
                 if (entity.Id == 0)
                 {
+                    entity.CreateById = userId;
+                    entity.EditById = userId;
                     _categoryService.Add(entity);
                 }
                 else
                 {
+                    entity.EditById = userId;
                     _categoryService.Update(entity);
                 }
                 _categoryService.Save();
@@ -98,6 +103,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(listId);
             }
         }
+
         [HttpPost]
         public IActionResult UpdateOrder(int Id, int homeOrder, int sortOrder)
         {

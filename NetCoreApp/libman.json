@@ -47,6 +47,14 @@
     {
       "library": "icheck-bootstrap@3.0.1",
       "destination": "wwwroot/lib/icheck-bootstrap/"
+    },
+    {
+      "library": "dropzone@5.9.3",
+      "destination": "wwwroot/lib/dropzone/"
+    },
+    {
+      "library": "summernote@0.8.20",
+      "destination": "wwwroot/lib/summernote/"
     }
   ]
 }
