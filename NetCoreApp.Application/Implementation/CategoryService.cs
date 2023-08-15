@@ -8,8 +8,7 @@ using NetCoreApp.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace NetCoreApp.Application.Implementation
 {
@@ -27,7 +26,7 @@ namespace NetCoreApp.Application.Implementation
         }
         public CategoryViewModel Add(CategoryViewModel categoryVm)
         {
-            var category = _mapper.Map<CategoryViewModel, Category>(categoryVm);
+            var category = _mapper.Map<CategoryViewModel, Category>(categoryVm);            
             _categoryRepository.Add(category);
             return categoryVm;
         }

@@ -1,4 +1,5 @@
-﻿using NetCoreApp.Data.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using NetCoreApp.Data.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -25,6 +26,7 @@ namespace NetCoreApp.Application.ViewModels.Category
         public DateTime DateModified { set; get; }
         public string CreateById { get; set; }
         public string EditById { get; set; }
+        public IFormFile filesImg { set; get; }
         public virtual CategoryViewModel Parent { get; set; }
         public virtual ICollection<CategoryViewModel> Children { get; set; }
     }

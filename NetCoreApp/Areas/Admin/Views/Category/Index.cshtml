@@ -2,7 +2,6 @@
     <link rel="stylesheet" href="~/admin/plugins/comboTree/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="~/admin/plugins/comboTree/comboTreePlugin.css" />
     <link rel="stylesheet" href="~/lib/dropzone/min/dropzone.min.css" />
-    <link rel="stylesheet" href="~/lib/summernote/summernote-lite.min.css" />
 }
 @section Scripts{
     <script type="text/javascript" src="~/admin/plugins/simple-tree-table/jquery-simple-tree-table.js"></script>
@@ -10,8 +9,8 @@
     <script type="text/javascript" src="~/app/controllers/category/index.js"></script>
     <script type="text/javascript" src="~/lib/bootbox/bootbox.min.js"></script>
     <script type="text/javascript" src="~/lib/dropzone/min/dropzone.min.js"></script>
-    <script type="text/javascript" src="~/lib/summernote/summernote-lite.min.js"></script>
-<script type="text/javascript" src="~/lib/summernote/lang/summernote-vi-VN.min.js"></script>
+
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtDetail" })
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">

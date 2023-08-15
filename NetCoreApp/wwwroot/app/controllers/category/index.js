@@ -71,7 +71,7 @@
                     $("#ckShowHome").prop("checked", response.homeFlag);
                 },
                 error: function (status) {
-                    until.notify('Lỗi không xóa được', 'error' + status);
+                    until.notify('Lỗi không load được dữ liệu', 'error' + status);
                     until.stopLoading();
                 }
             });
@@ -243,7 +243,27 @@
                 }
             });
         });
-               
+
+        //view anh khi chọn
+        $('body').on('change', "#fuImage", function () {
+
+            if (typeof (FileReader) !== "undefined") {
+                let image_holder = $("#image-holder");
+                image_holder.empty();
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $("<img />", {
+                        "src": e.target.result,
+                        "class": "img-thumbnail",
+                        "width":"250px"
+                    }).appendTo(image_holder);
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        });
     }
     // load chủng loại danh mục tìm kiếm hiển thị
     function loadCategoryType() {
@@ -302,6 +322,8 @@
                 until.startLoading();
             },
             success: function (response) {
+
+                console.log(response);
 
                 let templateWithData = Mustache.render($("#mp_template").html(), {
                     categoryTag: recursiveArraySort(response),
@@ -491,19 +513,65 @@
         });
     }
 
+    //let UpdateImg = function () {
+    //    // upload file
+    //    let fileUpload = $("#fuImage").get(0);
+    //    let files = fileUpload.files;
+    //    let data = new FormData();
+    //    for (const element of files) {
+    //        data.append(element.name, element);
+    //    }
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Admin/Upload/UploadImage",
+    //        contentType: false,
+    //        processData: false,
+    //        data: data,
+    //        success: function (path) {
+    //            $('#hidImage').val(path);
+    //            tedu.notify('Upload image succesful!', 'success');
+    //        },
+    //        error: function () {
+    //            tedu.notify('There was error uploading files!', 'error');
+    //        }
+    //    });
+    //}
     let AddEditAction = function () {
-        let id = $("#hiId").val();
+        
+        let id = $("#hiIdCates").val();
         let name = $("#txtName").val();
+        let description = $("#txtDescription").val();
+        let parentId = $("#hidCategoryId").val();
+        let categoryTypeID = $("#slcategoryTypeAdd").val();
         let sortOrder = $("#txtOrder").val();
-        let isDeleted = $('#ckStatus').prop('checked');
+        let homeOrder = $("#txtHomeOrder").val();
+        let image = $("#hidImage").val();
+        let homeFlag = $('#ckShowHome').prop('checked');
+        let status = $("#ckStatus").prop('checked');
+        let seoPageTitle = $("#txtSeoPageTitle").val();
+        let seoAlias = $("#txtSeoAlias").val();
+        let seoKeywords = $("#txtSeoKeyword").val();
+        let seoDescription = $("#txtSeoDescription").val();
+        let detail = $("#txtDetail").val();
+        let fileImg = $("#fuImage")[0].files[0];
 
         let dataPost = {
             "Id": id,
             "Name": name,
+            "Description": description,
+            "ParentId": parentId,
+            "CategoryTypeID": categoryTypeID,
+            "HomeOrder": homeOrder,
+            "Image": image,
+            "HomeFlag": homeFlag,
             "SortOrder": sortOrder,
-            "IsDeleted": isDeleted,
-            "DateCreated": Date(),
-            "DateModified": Date()
+            "Status": status,
+            "SeoPageTitle": seoPageTitle,
+            "SeoAlias": seoAlias,
+            "SeoKeywords": seoKeywords,
+            "SeoDescription": seoDescription,
+            "Detail": detail,
+            "filesImg": fileImg
         };
         $.ajax({
             type: "POST",
@@ -533,27 +601,22 @@
     }
 
     function resetFormMaintainance() {
-        $('#hiId').val(0);
-        $('#txtName').val('');
-        $('#txtOrder').val('');
-        $('#ckStatus').prop('checked', false);
+        $("#hiIdCates").val(0);
+        $("#txtName").val('');
+        $("#txtDescription").val('');
+        $("#hidCategoryId").val(0);
+        $("#slcategoryTypeAdd").val('0');
+        $("#txtOrder").val('');
+        $("#txtHomeOrder").val('');
+        $("#hidImage").val('');
+        $('#ckShowHome').prop('checked', false);
+        $("#ckStatus").prop('checked', false);
+        $("#txtSeoPageTitle").val('');
+        $("#txtSeoAlias").val('');
+        $("#txtSeoKeyword").val('');
+        $("#txtSeoDescription").val('');
+        $("#txtDetail").val('');
     }
 
 }
 
-$(document).ready(function () {
-    $('#txtDetail').summernote({        
-        tabsize: 2,
-        height: 120,
-        lang: 'vi-VN', 
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-    });
-});

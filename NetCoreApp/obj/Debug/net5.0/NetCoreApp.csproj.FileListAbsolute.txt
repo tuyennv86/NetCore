@@ -461,6 +461,7 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Ad
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\Error.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_LoginPartial.cshtml.g.cs
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_Summernote.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs

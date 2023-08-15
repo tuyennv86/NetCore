@@ -13,11 +13,13 @@ namespace NetCoreApp.Areas.Admin.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly ILogger _logger;
+        //private readonly IWebHostEnvironment _hostingEnvironment;
 
         public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger)
         {
             _categoryService = categoryService;
             _logger = logger;
+          
         }
 
         public IActionResult Index()
@@ -55,18 +57,35 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new BadRequestObjectResult(allErrors);
             }
             else
-            {
+            {                
+                //if (entity.filesImg != null)
+                //{   
+                //    string pathPhoto = Path.Combine(_hostingEnvironment.WebRootPath, $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}");
+                //    if (!Directory.Exists(pathPhoto))
+                //    {
+                //        Directory.CreateDirectory(pathPhoto);
+                //    }
+                //    string photoName = Path.GetFileName(entity.filesImg.FileName);
+                //    using (FileStream stream = new FileStream(Path.Combine(pathPhoto, photoName), FileMode.Create))
+                //    {
+                //        entity.filesImg.CopyTo(stream);
+                //    }                    
+                //}
+
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 if (entity.Id == 0)
                 {
                     entity.CreateById = userId;
                     entity.EditById = userId;
+                    entity.DateCreated = System.DateTime.Now;
+                    entity.DateModified = System.DateTime.Now;
                     _categoryService.Add(entity);
                 }
                 else
                 {
                     entity.EditById = userId;
+                    entity.DateModified = System.DateTime.Now;
                     _categoryService.Update(entity);
                 }
                 _categoryService.Save();
