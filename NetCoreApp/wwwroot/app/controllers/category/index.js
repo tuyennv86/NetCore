@@ -84,7 +84,7 @@
                 if (result) {                    
                     $.ajax({
                         type: "POST",
-                        url: "/admin/category/DeleteCategoryByID",
+                        url: "/admin/category/Delete",
                         cache: false,
                         data: { id: id },
                         dataType: "json",
@@ -131,7 +131,7 @@
                         success: function (response) {
                             until.notify('Xóa thành công', 'success');
                             until.stopLoading();
-                            loadData();
+                            loadCategories();
                         },
                         error: function (status) {
                             until.notify('Lỗi không xóa được', 'error' + status);
@@ -537,64 +537,92 @@
     //    });
     //}
     let AddEditAction = function () {
-        
-        let id = $("#hiIdCates").val();
-        let name = $("#txtName").val();
-        let description = $("#txtDescription").val();
-        let parentId = $("#hidCategoryId").val();
-        let categoryTypeID = $("#slcategoryTypeAdd").val();
-        let sortOrder = $("#txtOrder").val();
-        let homeOrder = $("#txtHomeOrder").val();
-        let image = $("#hidImage").val();
-        let homeFlag = $('#ckShowHome').prop('checked');
-        let status = $("#ckStatus").prop('checked');
-        let seoPageTitle = $("#txtSeoPageTitle").val();
-        let seoAlias = $("#txtSeoAlias").val();
-        let seoKeywords = $("#txtSeoKeyword").val();
-        let seoDescription = $("#txtSeoDescription").val();
-        let detail = $("#txtDetail").val();
-        let fileImg = $("#fuImage")[0].files[0];
 
-        let dataPost = {
-            "Id": id,
-            "Name": name,
-            "Description": description,
-            "ParentId": parentId,
-            "CategoryTypeID": categoryTypeID,
-            "HomeOrder": homeOrder,
-            "Image": image,
-            "HomeFlag": homeFlag,
-            "SortOrder": sortOrder,
-            "Status": status,
-            "SeoPageTitle": seoPageTitle,
-            "SeoAlias": seoAlias,
-            "SeoKeywords": seoKeywords,
-            "SeoDescription": seoDescription,
-            "Detail": detail,
-            "filesImg": fileImg
-        };
+
+        let formData = new FormData();
+        formData.append("Id", $("#hiIdCates").val());
+        formData.append("Name", $("#txtName").val());
+        formData.append("Description", $("#txtDescription").val());
+        formData.append("ParentId", $("#hidCategoryId").val());
+        formData.append("CategoryTypeID", $("#slcategoryTypeAdd").val());
+        formData.append("HomeOrder", $("#txtHomeOrder").val());
+        formData.append("Image", $("#fuImage")[0].files[0].name);
+        formData.append("HomeFlag", $('#ckShowHome').prop('checked'));
+        formData.append("SortOrder", $("#txtOrder").val());
+        formData.append("Status", $("#ckStatus").prop('checked'));
+        formData.append("SeoPageTitle", $("#txtSeoPageTitle").val());
+        formData.append("SeoAlias", $("#txtSeoAlias").val());
+        formData.append("SeoKeywords", $("#txtSeoKeyword").val());
+        formData.append("SeoDescription", $("#txtSeoDescription").val());
+        formData.append("Detail", $("#txtDetail").val());
+        formData.append("filesImg", $("#fuImage")[0].files[0]);
+
+        //let files = $("#fuImage").get(0).files;        
+
+        //let id = $("#hiIdCates").val();
+        //let name = $("#txtName").val();
+        //let description = $("#txtDescription").val();
+        //let parentId = $("#hidCategoryId").val();
+        //let categoryTypeID = $("#slcategoryTypeAdd").val();
+        //let sortOrder = $("#txtOrder").val();
+        //let homeOrder = $("#txtHomeOrder").val();
+        //let image = files[0].name;
+        //let homeFlag = $('#ckShowHome').prop('checked');
+        //let status = $("#ckStatus").prop('checked');
+        //let seoPageTitle = $("#txtSeoPageTitle").val();
+        //let seoAlias = $("#txtSeoAlias").val();
+        //let seoKeywords = $("#txtSeoKeyword").val();
+        //let seoDescription = $("#txtSeoDescription").val();
+        //let detail = $("#txtDetail").val();
+        //let fileImg = files[0];
+
+        //let dataPost = {
+        //    "Id": id,
+        //    "Name": name,
+        //    "Description": description,
+        //    "ParentId": parentId,
+        //    "CategoryTypeID": categoryTypeID,
+        //    "HomeOrder": homeOrder,
+        //    "Image": image,
+        //    "HomeFlag": homeFlag,
+        //    "SortOrder": sortOrder,
+        //    "Status": status,
+        //    "SeoPageTitle": seoPageTitle,
+        //    "SeoAlias": seoAlias,
+        //    "SeoKeywords": seoKeywords,
+        //    "SeoDescription": seoDescription,
+        //    "Detail": detail,
+        //    "filesImg": fileImg
+        //};
         $.ajax({
             type: "POST",
             url: "/admin/Category/SaveEntity",
-            data: dataPost,
-            dataType: "json",
+            data: formData,
+            dataType: "multipart/form-data",
+            processData: false,
+            contentType: false,
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
-                if (id > 0) {
-                    until.notify('Cập nhật thành công', 'success');
-                    resetFormMaintainance();
-                    $('#modalAddEdit').modal('hide');
+                if (response.status === "success") {
+                    if (id > 0) {
+                        until.notify('Cập nhật thành công', 'success');
+                        resetFormMaintainance();
+                        $('#modalAddEdit').modal('hide');
+                    } else {
+                        until.notify('Thêm mới thành công', 'success');
+                        resetFormMaintainance();
+                    }
+                    until.stopLoading();
+                    loadCategories();
                 } else {
-                    until.notify('Thêm mới thành công', 'success');
-                    resetFormMaintainance();
+                    until.notify('Lỗi!', 'error' + err);
+                    until.stopLoading();
                 }
-                until.stopLoading();
-                loadCategories();
             },
-            error: function () {
-                until.notify('Lỗi không cập nhập hoặc thêm mới được!', 'error');
+            error: function (err) {
+                until.notify('Lỗi không cập nhập hoặc thêm mới được!', 'error' + err);
                 until.stopLoading();
             }
         });

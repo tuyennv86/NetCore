@@ -6,6 +6,10 @@ using NetCoreApp.Application.ViewModels.Category;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
@@ -13,13 +17,13 @@ namespace NetCoreApp.Areas.Admin.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly ILogger _logger;
-        //private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger, IWebHostEnvironment hostingEnvironment)
         {
             _categoryService = categoryService;
             _logger = logger;
-          
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
@@ -48,7 +52,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             return new OkObjectResult(_model);
         }
 
-        [HttpPost]
+        [HttpPost]        
         public IActionResult SaveEntity(CategoryViewModel entity)
         {
             if (ModelState.IsValid)
@@ -57,39 +61,54 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new BadRequestObjectResult(allErrors);
             }
             else
-            {                
-                //if (entity.filesImg != null)
-                //{   
-                //    string pathPhoto = Path.Combine(_hostingEnvironment.WebRootPath, $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}");
-                //    if (!Directory.Exists(pathPhoto))
-                //    {
-                //        Directory.CreateDirectory(pathPhoto);
-                //    }
-                //    string photoName = Path.GetFileName(entity.filesImg.FileName);
-                //    using (FileStream stream = new FileStream(Path.Combine(pathPhoto, photoName), FileMode.Create))
-                //    {
-                //        entity.filesImg.CopyTo(stream);
-                //    }                    
-                //}
+            {
+                if (entity.filesImg != null)
+                {
+                    string pathPhoto =  $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}";
+                    string folder = _hostingEnvironment.WebRootPath + pathPhoto;
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+                    
+                    string photoName = Path.GetFileName(entity.filesImg.FileName);
+                    string tempfileName = "";
+                    string pathToCheck = Path.Combine(folder, photoName);
+                    if (System.IO.File.Exists(pathToCheck))
+                    {
+                        int counter = 1;
+                        while (System.IO.File.Exists(pathToCheck))
+                        {                           
+                            tempfileName = counter.ToString() + photoName;
+                            pathToCheck = pathPhoto + tempfileName;
+                            counter++;
+                        }
+                    }
+                    photoName = tempfileName;
+                    
+                    using FileStream stream = new(Path.Combine(folder, photoName), FileMode.Create);
+                    entity.filesImg.CopyTo(stream);
+                    stream.Flush();
+                }
 
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 if (entity.Id == 0)
-                {
+                {                    
                     entity.CreateById = userId;
                     entity.EditById = userId;
-                    entity.DateCreated = System.DateTime.Now;
-                    entity.DateModified = System.DateTime.Now;
+                    entity.DateCreated = DateTime.Now;
+                    entity.DateModified = DateTime.Now;
                     _categoryService.Add(entity);
                 }
                 else
                 {
                     entity.EditById = userId;
-                    entity.DateModified = System.DateTime.Now;
+                    entity.DateModified = DateTime.Now;
                     _categoryService.Update(entity);
                 }
                 _categoryService.Save();
-                return new OkObjectResult(entity);
+                return new OkObjectResult(entity.Id);
             }
         }
 
@@ -135,6 +154,35 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 _categoryService.UpdateOrder(Id, homeOrder, sortOrder);
                 _categoryService.Save();
                 return new OkObjectResult(Id);
+            }
+        }
+        [HttpPost]
+        public IActionResult UpdateHomeFalg(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _categoryService.UpdateHomeFalg(id);
+                _categoryService.Save();
+                return new OkObjectResult(id);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStatus(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _categoryService.UpdateStatus(id);
+                _categoryService.Save();
+                return new OkObjectResult(id);
             }
         }
     }

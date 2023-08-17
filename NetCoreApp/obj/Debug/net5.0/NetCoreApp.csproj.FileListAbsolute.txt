@@ -284,6 +284,7 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\AdvancedString
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\elFinder.NetCore.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\EntityFrameworkCore.UseRowNumberForPaging.dll
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\FileSignatures.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Humanizer.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -333,6 +334,7 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.Visu
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\NUglify.dll
+C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\OpenMcdf.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\PaulMiami.AspNetCore.Mvc.Recaptcha.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Serilog.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp\bin\Debug\net5.0\Serilog.Extensions.Logging.dll

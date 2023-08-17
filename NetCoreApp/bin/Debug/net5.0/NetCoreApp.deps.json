@@ -34,6 +34,7 @@
       "NetCoreApp/1.0.0": {
         "dependencies": {
           "EntityFrameworkCore.UseRowNumberForPaging": "0.1.0",
+          "FileSignatures": "4.4.0",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.20",
           "Microsoft.EntityFrameworkCore": "5.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13",
@@ -383,6 +384,22 @@
         },
         "compile": {
           "lib/net5.0/EntityFrameworkCore.UseRowNumberForPaging.dll": {}
+        }
+      },
+      "FileSignatures/4.4.0": {
+        "dependencies": {
+          "OpenMcdf": "2.2.1.9",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FileSignatures.dll": {
+            "assemblyVersion": "4.4.0.0",
+            "fileVersion": "4.4.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/FileSignatures.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -1737,6 +1754,17 @@
         },
         "compile": {
           "lib/net5.0/NUglify.dll": {}
+        }
+      },
+      "OpenMcdf/2.2.1.9": {
+        "runtime": {
+          "lib/netstandard2.0/OpenMcdf.dll": {
+            "assemblyVersion": "2.2.1.9",
+            "fileVersion": "2.2.1.9"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/OpenMcdf.dll": {}
         }
       },
       "PaulMiami.AspNetCore.Mvc.Recaptcha/1.2.2": {
@@ -4651,6 +4679,13 @@
       "path": "entityframeworkcore.userownumberforpaging/0.1.0",
       "hashPath": "entityframeworkcore.userownumberforpaging.0.1.0.nupkg.sha512"
     },
+    "FileSignatures/4.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NyTkgpxxNN9xRcHArLfGK+iRMHcQFcSJOs5mzwMKx7XQ0klRYSxq+Ci1KWG4P3kI+5D03nhaHHesNdHATjknbg==",
+      "path": "filesignatures/4.4.0",
+      "hashPath": "filesignatures.4.4.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -5364,6 +5399,13 @@
       "sha512": "sha512-iAbP7HDVq4TEMzQ23/RyS1CcnM7g0Vx6S4hgg/ODyEUK/1rp9L0oFSsFhN4k5viivknlOBSXez1X+tN8Xfcz5g==",
       "path": "nuglify/1.16.1",
       "hashPath": "nuglify.1.16.1.nupkg.sha512"
+    },
+    "OpenMcdf/2.2.1.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4UU23MN32j7b5CqbdKmMm9xss8k2MlUxGwm25Z72EHva+2rCKsCf+/MGRmw+2p5XPYutSrtuVHWpXLRBgBzFRg==",
+      "path": "openmcdf/2.2.1.9",
+      "hashPath": "openmcdf.2.2.1.9.nupkg.sha512"
     },
     "PaulMiami.AspNetCore.Mvc.Recaptcha/1.2.2": {
       "type": "package",

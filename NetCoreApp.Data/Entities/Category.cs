@@ -1,4 +1,5 @@
-﻿using NetCoreApp.Data.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using NetCoreApp.Data.Enums;
 using NetCoreApp.Data.Interfaces;
 using NetCoreApp.Infrastructure.SharedKernel;
 using System;
@@ -32,7 +33,7 @@ namespace NetCoreApp.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoKeywords;
             SeoDescription = seoDescription;
-            Detail = detail;
+            Detail = detail;            
         }
 
         [StringLength(256)]
@@ -61,6 +62,8 @@ namespace NetCoreApp.Data.Entities
         [StringLength(256)]
         public string SeoDescription { set; get; }
         public string Detail { get; set; }
+        [NotMapped]
+        public IFormFile filesImg { set; get; }
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         [StringLength(255)]

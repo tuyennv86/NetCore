@@ -52,6 +52,20 @@
           "lib/net5.0/EntityFrameworkCore.UseRowNumberForPaging.dll": {}
         }
       },
+      "FileSignatures/4.4.0": {
+        "type": "package",
+        "dependencies": {
+          "OpenMcdf": "2.2.1.9",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/FileSignatures.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FileSignatures.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -1700,6 +1714,15 @@
         },
         "runtime": {
           "lib/net5.0/NUglify.dll": {}
+        }
+      },
+      "OpenMcdf/2.2.1.9": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/OpenMcdf.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/OpenMcdf.dll": {}
         }
       },
       "PaulMiami.AspNetCore.Mvc.Recaptcha/1.2.2": {
@@ -3673,6 +3696,20 @@
         "entityframeworkcore.userownumberforpaging.0.1.0.nupkg.sha512",
         "entityframeworkcore.userownumberforpaging.nuspec",
         "lib/net5.0/EntityFrameworkCore.UseRowNumberForPaging.dll"
+      ]
+    },
+    "FileSignatures/4.4.0": {
+      "sha512": "NyTkgpxxNN9xRcHArLfGK+iRMHcQFcSJOs5mzwMKx7XQ0klRYSxq+Ci1KWG4P3kI+5D03nhaHHesNdHATjknbg==",
+      "type": "package",
+      "path": "filesignatures/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "filesignatures.4.4.0.nupkg.sha512",
+        "filesignatures.nuspec",
+        "lib/net452/FileSignatures.dll",
+        "lib/net461/FileSignatures.dll",
+        "lib/netstandard2.0/FileSignatures.dll"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -6064,6 +6101,21 @@
         "nuglify.1.16.1.nupkg.sha512",
         "nuglify.nuspec",
         "nuglify.png"
+      ]
+    },
+    "OpenMcdf/2.2.1.9": {
+      "sha512": "4UU23MN32j7b5CqbdKmMm9xss8k2MlUxGwm25Z72EHva+2rCKsCf+/MGRmw+2p5XPYutSrtuVHWpXLRBgBzFRg==",
+      "type": "package",
+      "path": "openmcdf/2.2.1.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/OpenMcdf.dll",
+        "lib/net40/OpenMcdf.xml",
+        "lib/netstandard2.0/OpenMcdf.dll",
+        "lib/netstandard2.0/OpenMcdf.xml",
+        "openmcdf.2.2.1.9.nupkg.sha512",
+        "openmcdf.nuspec"
       ]
     },
     "PaulMiami.AspNetCore.Mvc.Recaptcha/1.2.2": {
@@ -10847,6 +10899,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "EntityFrameworkCore.UseRowNumberForPaging >= 0.1.0",
+      "FileSignatures >= 4.4.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.20",
       "Microsoft.EntityFrameworkCore >= 5.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.13",
@@ -10927,6 +10980,10 @@
           "EntityFrameworkCore.UseRowNumberForPaging": {
             "target": "Package",
             "version": "[0.1.0, )"
+          },
+          "FileSignatures": {
+            "target": "Package",
+            "version": "[4.4.0, )"
           },
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",

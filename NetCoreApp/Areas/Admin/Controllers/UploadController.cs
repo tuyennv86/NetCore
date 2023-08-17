@@ -41,7 +41,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
-                }
+                }                
+
                 string filePath = Path.Combine(folder, filename);
                 using (FileStream fs = System.IO.File.Create(filePath))
                 {
