@@ -62,8 +62,8 @@ namespace NetCoreApp.Data.Entities
         [StringLength(256)]
         public string SeoDescription { set; get; }
         public string Detail { get; set; }
-        [NotMapped]
-        public IFormFile filesImg { set; get; }
+        //[NotMapped]
+        //public IFormFile filesImg { set; get; }
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         [StringLength(255)]

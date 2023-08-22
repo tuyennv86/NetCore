@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Category;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using System;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
@@ -64,31 +63,33 @@ namespace NetCoreApp.Areas.Admin.Controllers
             {
                 if (entity.filesImg != null)
                 {
-                    string pathPhoto =  $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}";
+                    string pathPhoto = $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}";
                     string folder = _hostingEnvironment.WebRootPath + pathPhoto;
                     if (!Directory.Exists(folder))
                     {
                         Directory.CreateDirectory(folder);
                     }
-                    
+
                     string photoName = Path.GetFileName(entity.filesImg.FileName);
                     string tempfileName = "";
                     string pathToCheck = Path.Combine(folder, photoName);
+
                     if (System.IO.File.Exists(pathToCheck))
                     {
                         int counter = 1;
                         while (System.IO.File.Exists(pathToCheck))
-                        {                           
+                        {
                             tempfileName = counter.ToString() + photoName;
                             pathToCheck = pathPhoto + tempfileName;
                             counter++;
                         }
+                        photoName = tempfileName;
                     }
-                    photoName = tempfileName;
-                    
+
                     using FileStream stream = new(Path.Combine(folder, photoName), FileMode.Create);
                     entity.filesImg.CopyTo(stream);
                     stream.Flush();
+                    entity.Image = Path.Combine(pathPhoto, photoName);
                 }
 
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -108,7 +109,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     _categoryService.Update(entity);
                 }
                 _categoryService.Save();
-                return new OkObjectResult(entity.Id);
+                return new OkResult();
             }
         }
 
@@ -121,6 +122,15 @@ namespace NetCoreApp.Areas.Admin.Controllers
             }
             else
             {
+                var entity = _categoryService.GetById(Id);
+                if(!string.IsNullOrEmpty(entity.Image))
+                {
+                    try
+                    {                        
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
+                    }
+                    catch (Exception ex){ string s = ex.Message; }
+                }    
                 _categoryService.Delete(Id);
                 _categoryService.Save();
                 return new OkObjectResult(Id);
@@ -136,6 +146,18 @@ namespace NetCoreApp.Areas.Admin.Controllers
             }
             else
             {
+                foreach(int id in listId)
+                {
+                    var entity = _categoryService.GetById(id);
+                    if (!string.IsNullOrEmpty(entity.Image))
+                    {
+                        try
+                        {
+                            System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
+                        }
+                        catch (Exception) { }
+                    }
+                }
                 _categoryService.DeleteAll(listId);
                 _categoryService.Save();
                 return new OkObjectResult(listId);

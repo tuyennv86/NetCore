@@ -36,11 +36,11 @@
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
-            let id = $(this).attr('data-id');           
-
+            let id = $(this).attr('data-id');
             $.ajax({
                 type: "POST",
-                url: "/admin/category/GetByID",
+                url: "/admin/category/getbyid",
+                //async: false,
                 cache: false,
                 data: { id: id },
                 dataType: "json",
@@ -50,31 +50,32 @@
                 success: function (response) {
                     until.stopLoading();
                     console.log(response);
-
-                    $("#hidCategoryId").val(response.parentId);
+                                       
                     loadCategoriesTotreeBySelectID(response.parentId);
-
-                    $("#hidId").val(response.id);
+                    $("#hidCategoryId").val(response.parentId);
+                    $("#hiIdCates").val(response.id);
                     $("#txtName").val(response.name);
-                    $("#txtAlias").val(response.seoAlias);
-                    $("#txtDesc").val(response.description);
-                    $("#txtSeoKeyword").val(response.seoKeywords);
-                    $("#txtOrder").val(response.sortOrder);
+                    $("#txtDescription").val(response.description);
+                    $("#hidCategoryId").val(response.parentId);
+                    $("#slcategoryTypeAdd").val(response.categoryTypeID);
                     $("#txtHomeOrder").val(response.homeOrder);
                     $("#hidImage").val(response.image);
-                    $("#imgImage").attr("src", response.image);
+                    $('#ckShowHome').prop('checked', response.homeFlag);
+                    $("#txtOrder").val(response.sortOrder);
+                    $("#ckStatus").prop('checked', response.status);
                     $("#txtSeoPageTitle").val(response.seoPageTitle);
                     $("#txtSeoAlias").val(response.seoAlias);
                     $("#txtSeoKeyword").val(response.seoKeywords);
-                    $("#txtSeoDescription").val(response.seoDescription);
-                    $("#ckStatus").prop("checked", response.status);
-                    $("#ckShowHome").prop("checked", response.homeFlag);
+                    $("#txtSeoDescription").val(response.seoKeywords);
+                    $("#txtDetail").val(response.detail);
+                    $("#image-holder").html('<img class="img-thumbnail" src=' + response.image + '>');
                 },
                 error: function (status) {
                     until.notify('Lỗi không load được dữ liệu', 'error' + status);
                     until.stopLoading();
                 }
             });
+            
         });
 
         $('body').on('click', '#lbtDelete', function (e) {
@@ -213,23 +214,7 @@
                         required: true,
                         digits: true
                     },
-                },
-                messages: {
-                    txtName: {
-                        required: "Tên danh mục không được bỏ trống"
-                    },
-                    txtSeoAlias: {
-                        required:"Seo Alias không được bỏ trống"
-                    },
-                    txtOrder: {
-                        required: "Thứ tự không được bỏ trống",
-                        digits: "Chỉ được nhập số"
-                    },
-                    txtHomeOrder: {
-                        required: "Thứ tự không được bỏ trống",
-                        digits: "Chỉ được nhập số"
-                    },
-                },
+                },                
                 errorElement: 'span',
                 errorPlacement: function (error, element) {
                     error.addClass('invalid-feedback');
@@ -260,6 +245,7 @@
                 }
                 image_holder.show();
                 reader.readAsDataURL($(this)[0].files[0]);
+                $("#hidImage").val($(this)[0].files[0].name);
             } else {
                 alert("This browser does not support FileReader.");
             }
@@ -323,7 +309,7 @@
             },
             success: function (response) {
 
-                console.log(response);
+                //console.log(response);
 
                 let templateWithData = Mustache.render($("#mp_template").html(), {
                     categoryTag: recursiveArraySort(response),
@@ -546,7 +532,7 @@
         formData.append("ParentId", $("#hidCategoryId").val());
         formData.append("CategoryTypeID", $("#slcategoryTypeAdd").val());
         formData.append("HomeOrder", $("#txtHomeOrder").val());
-        formData.append("Image", $("#fuImage")[0].files[0].name);
+        formData.append("Image", $("#hidImage").val());
         formData.append("HomeFlag", $('#ckShowHome').prop('checked'));
         formData.append("SortOrder", $("#txtOrder").val());
         formData.append("Status", $("#ckStatus").prop('checked'));
@@ -557,55 +543,18 @@
         formData.append("Detail", $("#txtDetail").val());
         formData.append("filesImg", $("#fuImage")[0].files[0]);
 
-        //let files = $("#fuImage").get(0).files;        
+        let id = $("#hiIdCates").val();
 
-        //let id = $("#hiIdCates").val();
-        //let name = $("#txtName").val();
-        //let description = $("#txtDescription").val();
-        //let parentId = $("#hidCategoryId").val();
-        //let categoryTypeID = $("#slcategoryTypeAdd").val();
-        //let sortOrder = $("#txtOrder").val();
-        //let homeOrder = $("#txtHomeOrder").val();
-        //let image = files[0].name;
-        //let homeFlag = $('#ckShowHome').prop('checked');
-        //let status = $("#ckStatus").prop('checked');
-        //let seoPageTitle = $("#txtSeoPageTitle").val();
-        //let seoAlias = $("#txtSeoAlias").val();
-        //let seoKeywords = $("#txtSeoKeyword").val();
-        //let seoDescription = $("#txtSeoDescription").val();
-        //let detail = $("#txtDetail").val();
-        //let fileImg = files[0];
-
-        //let dataPost = {
-        //    "Id": id,
-        //    "Name": name,
-        //    "Description": description,
-        //    "ParentId": parentId,
-        //    "CategoryTypeID": categoryTypeID,
-        //    "HomeOrder": homeOrder,
-        //    "Image": image,
-        //    "HomeFlag": homeFlag,
-        //    "SortOrder": sortOrder,
-        //    "Status": status,
-        //    "SeoPageTitle": seoPageTitle,
-        //    "SeoAlias": seoAlias,
-        //    "SeoKeywords": seoKeywords,
-        //    "SeoDescription": seoDescription,
-        //    "Detail": detail,
-        //    "filesImg": fileImg
-        //};
         $.ajax({
             type: "POST",
             url: "/admin/Category/SaveEntity",
-            data: formData,
-            dataType: "multipart/form-data",
+            data: formData,            
             processData: false,
             contentType: false,
             beforeSend: function () {
                 until.startLoading();
             },
-            success: function (response) {
-                if (response.status === "success") {
+            success: function (response) {                
                     if (id > 0) {
                         until.notify('Cập nhật thành công', 'success');
                         resetFormMaintainance();
@@ -615,14 +564,11 @@
                         resetFormMaintainance();
                     }
                     until.stopLoading();
-                    loadCategories();
-                } else {
-                    until.notify('Lỗi!', 'error' + err);
-                    until.stopLoading();
-                }
+                loadCategories();
+                loadCategoriesTotree();
             },
             error: function (err) {
-                until.notify('Lỗi không cập nhập hoặc thêm mới được!', 'error' + err);
+                until.notify('Lỗi không cập nhập hoặc thêm mới được!' + JSON.stringify(err), 'error');
                 until.stopLoading();
             }
         });
@@ -644,7 +590,9 @@
         $("#txtSeoKeyword").val('');
         $("#txtSeoDescription").val('');
         $("#txtDetail").val('');
+        $("#fuImage").val('');
+        $("#image-holder").html('');
+        $(".note-editable").html('');
     }
 
 }
-

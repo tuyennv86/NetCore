@@ -61,14 +61,14 @@
 function elfinderDialog(editor) {
   	    var fm = $('<div/>').dialogelfinder({
   		    baseUrl: "@Url.Content("~/lib/elfinder/")",
-            url: "@Url.Content("~/el-finder-file-system/connector")",            
+            url: "@Url.Content("~/el-finder-file-system/connector")",
   		    lang : 'vi',
   		    width : 840,
   		    height: 450,
   		    destroyOnClose : true,
   		    getFileCallback : function(files, fm) {
   		        console.log(files);
-                editor.invoke('editor.insertImage', files.url);
+                    editor.invoke('editor.insertImage', files.url);                    
   		},
   		commandsOptions : {
   			getfile : {
