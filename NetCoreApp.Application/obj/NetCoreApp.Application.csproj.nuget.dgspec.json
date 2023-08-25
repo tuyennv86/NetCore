@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj": {}
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj": {
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
+        "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
         "projectName": "NetCoreApp.Application",
-        "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
+        "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
         "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\obj\\",
+        "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -29,14 +29,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
-                "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj"
+              "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
+                "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj"
               },
-              "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
-                "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
+              "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
+                "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
               },
-              "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
-                "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj"
+              "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
+                "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj"
               }
             }
           }
@@ -75,14 +75,14 @@
         }
       }
     },
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
+        "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
         "projectName": "NetCoreApp.Data.EF",
-        "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
+        "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
         "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\obj\\",
+        "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -100,14 +100,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
-                "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
+              "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
+                "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
               },
-              "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj"
+              "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
+                "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj"
               },
-              "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
-                "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj"
+              "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
+                "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj"
               }
             }
           }
@@ -176,14 +176,14 @@
         }
       }
     },
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj",
+        "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj",
         "projectName": "NetCoreApp.Data",
-        "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj",
+        "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj",
         "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\obj\\",
+        "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -201,8 +201,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj"
+              "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
+                "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj"
               }
             }
           }
@@ -263,14 +263,14 @@
         }
       }
     },
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
+        "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
         "projectName": "NetCoreApp.Infrastructure",
-        "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
+        "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\obj\\",
+        "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -318,14 +318,14 @@
         }
       }
     },
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
+        "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
         "projectName": "NetCoreApp.Utilities",
-        "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
+        "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
         "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\obj\\",
+        "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",

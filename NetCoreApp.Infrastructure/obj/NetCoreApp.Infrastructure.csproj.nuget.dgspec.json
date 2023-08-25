@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {}
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
+    "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
+        "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
         "projectName": "NetCoreApp.Infrastructure",
-        "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
+        "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Infrastructure\\obj\\",
+        "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ddmQSVD/EIxkZNHUfWn011Q1CNj11rqwghP17XKcxcWwYmtUTiO1xyVqysRVYez+tmOc8qZkc40+++enpH7dNg==",
+  "dgSpecHash": "UDfDKkrMh35p7FH98wrNPk00x8o4ZJGuNcBVq8e6L0cllzGhBV7YnlBvqDGXemravJ4UcrmLgKVUW0/6FN5QSA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
+  "projectFilePath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Welcome\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

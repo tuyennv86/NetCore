@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
+      "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
       "projectName": "NetCoreApp.Utilities",
-      "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
+      "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
       "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\obj\\",
+      "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",

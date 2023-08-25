@@ -6807,11 +6807,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
+      "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
       "projectName": "NetCoreApp.Application",
-      "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
+      "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\NetCoreApp.Application.csproj",
       "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Application\\obj\\",
+      "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6829,14 +6829,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
-              "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj"
+            "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
+              "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj"
             },
-            "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
-              "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
+            "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
+              "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
             },
-            "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
-              "projectPath": "C:\\Users\\Welcome\\source\\repos\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj"
+            "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj": {
+              "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj"
             }
           }
         }
