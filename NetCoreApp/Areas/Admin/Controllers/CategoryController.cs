@@ -47,8 +47,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult GetById(int Id)
         {
-            var _model = _categoryService.GetById(Id);
-            return new OkObjectResult(_model);
+            var model = _categoryService.GetById(Id);
+            return new OkObjectResult(model);
         }
 
         [HttpPost]        

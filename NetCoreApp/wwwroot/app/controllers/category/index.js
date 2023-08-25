@@ -37,9 +37,11 @@
             e.preventDefault();
             $('#modalAddEdit').modal('show');
             let id = $(this).attr('data-id');
+            
+                        
             $.ajax({
                 type: "POST",
-                url: "/admin/category/getbyid",
+                url: "/admin/category/GetById",
                 //async: false,
                 cache: false,
                 data: { id: id },
@@ -51,7 +53,7 @@
                     until.stopLoading();
                     console.log(response);
                                        
-                    loadCategoriesTotreeBySelectID(response.parentId);
+                    //loadCategoriesTotreeBySelectID(response.parentId);
                     $("#hidCategoryId").val(response.parentId);
                     $("#hiIdCates").val(response.id);
                     $("#txtName").val(response.name);

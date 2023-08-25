@@ -29,7 +29,7 @@
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
-            var id = $(this).attr('data-id');
+            let id = $(this).attr('data-id');
 
             $.ajax({
                 type: "POST",
