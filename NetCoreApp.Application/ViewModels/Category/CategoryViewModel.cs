@@ -29,7 +29,7 @@ namespace NetCoreApp.Application.ViewModels.Category
         public DateTime DateModified { set; get; }
         public string CreateById { get; set; }
         public string EditById { get; set; }        
-        public virtual CategoryViewModel Parent { get; set; }
-        public virtual ICollection<CategoryViewModel> Children { get; set; }
+        //public virtual CategoryViewModel Parent { get; set; }
+        //public virtual ICollection<CategoryViewModel> Children { get; set; }
     }
 }

@@ -95,10 +95,10 @@ namespace NetCoreApp.Application.Implementation
             _categoryTypeRepository.Update(categoryType);
         }
 
-        public void UpdateIsDelete(int id, bool isDeleted)
+        public void UpdateIsDelete(int id)
         {
             var categoryType = _categoryTypeRepository.FindById(id);
-            categoryType.IsDeleted = isDeleted;
+            categoryType.IsDeleted = !categoryType.IsDeleted;
             _categoryTypeRepository.Update(categoryType);
         }
 
@@ -108,5 +108,6 @@ namespace NetCoreApp.Application.Implementation
             categoryType.SortOrder = sortOrder;
             _categoryTypeRepository.Update(categoryType);
         }
+        
     }
 }

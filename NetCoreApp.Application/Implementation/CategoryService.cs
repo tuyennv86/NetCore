@@ -82,9 +82,9 @@ namespace NetCoreApp.Application.Implementation
         }
 
         public CategoryViewModel GetById(int id)
-        {
+        {            
             return _mapper.Map<Category, CategoryViewModel>(_categoryRepository.FindById(id));
-        }
+        }               
 
         public List<CategoryViewModel> GetHomeCategories(int top)
         {
@@ -115,6 +115,12 @@ namespace NetCoreApp.Application.Implementation
             var category = _categoryRepository.FindById(Id);
             category.SortOrder = sortOrder;
             category.HomeOrder = homeOrder;
+            _categoryRepository.Update(category);
+        }
+        public void UpdateImageEmpty(int id)
+        {
+            var category = _categoryRepository.FindById(id);
+            category.Image = "";
             _categoryRepository.Update(category);
         }
 

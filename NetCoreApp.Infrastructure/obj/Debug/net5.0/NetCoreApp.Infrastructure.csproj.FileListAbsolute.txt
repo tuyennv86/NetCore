@@ -9,3 +9,15 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.pdb
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp.Infrastructure.deps.json
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp.Infrastructure.dll
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp.Infrastructure.pdb
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.AssemblyInfoInputs.cache
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.AssemblyInfo.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.csproj.CoreCompileInputs.cache
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.dll
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.pdb
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.csproj.AssemblyReference.cache

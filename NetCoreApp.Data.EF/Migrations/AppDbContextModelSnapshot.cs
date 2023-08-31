@@ -779,6 +779,28 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.ToTable("Functions");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Images", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("TourId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.Language", b =>
                 {
                     b.Property<string>("Id")
@@ -1232,6 +1254,134 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Tour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Cancellation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreateById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EditById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gift")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Preview")
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoPageTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Service")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("ServiceConten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceNotConten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TimeTour")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("TransPort")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tours");
+                });
+
+            modelBuilder.Entity("NetCoreApp.Data.Entities.TourDate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Conten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreateById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EditById")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TourId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("TourDates");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.WholePrice", b =>
                 {
                     b.Property<int>("Id")
@@ -1374,6 +1524,17 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Images", b =>
+                {
+                    b.HasOne("NetCoreApp.Data.Entities.Tour", "Tour")
+                        .WithMany("Images")
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tour");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.Permission", b =>
                 {
                     b.HasOne("NetCoreApp.Data.Entities.Function", "Function")
@@ -1459,6 +1620,17 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("NetCoreApp.Data.Entities.TourDate", b =>
+                {
+                    b.HasOne("NetCoreApp.Data.Entities.Tour", "Tour")
+                        .WithMany("TourDates")
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tour");
+                });
+
             modelBuilder.Entity("NetCoreApp.Data.Entities.WholePrice", b =>
                 {
                     b.HasOne("NetCoreApp.Data.Entities.Product", "Product")
@@ -1508,6 +1680,13 @@ namespace NetCoreApp.Data.EF.Migrations
             modelBuilder.Entity("NetCoreApp.Data.Entities.ProductCategory", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("NetCoreApp.Data.Entities.Tour", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("TourDates");
                 });
 #pragma warning restore 612, 618
         }

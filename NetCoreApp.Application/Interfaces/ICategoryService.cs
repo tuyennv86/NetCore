@@ -30,6 +30,7 @@ namespace NetCoreApp.Application.Interfaces
         void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items);
         List<CategoryViewModel> GetHomeCategories(int top);
         void UpdateOrder(int Id, int sortOrder, int homeOrder);
+        void UpdateImageEmpty(int id);
 
         void UpdateHomeFalg(int id);
 

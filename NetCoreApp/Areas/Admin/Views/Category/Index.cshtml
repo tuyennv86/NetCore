@@ -130,8 +130,8 @@
             {{^status}}<a href="#" id="btnStatus" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-lock" aria-hidden="true"></i> Khóa </a>{{/status}}
         </td>
         <td>
-            {{#homeFlag}}<a href="#" id="btnHome" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-eye" aria-hidden="true"></i> Trang chủ</a>{{/homeFlag}}
-            {{^homeFlag}}<a href="#" id="btnHome" class="badge bg-info" data-id="{{id}}"><i class="fa fa-eye-slash" aria-hidden="true"></i> Bình thường</a>{{/homeFlag}}
+            {{#homeFlag}}<a href="#" id="btnHome" class="badge bg-info" data-id="{{id}}"><i class="fa fa-eye" aria-hidden="true"></i> Trang chủ</a>{{/homeFlag}}
+            {{^homeFlag}}<a href="#" id="btnHome" class="badge bg-danger" data-id="{{id}}"><i class="fa fa-eye-slash" aria-hidden="true"></i> Bình thường</a>{{/homeFlag}}
         </td>
         <td>
               <input type="text" id="homeorder{{id}}" class="form-control form-control-sm img-size-64" value="{{homeOrder}}" placeholder="số tt" name="homeorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">

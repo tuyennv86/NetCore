@@ -12,9 +12,11 @@
         $('#slcategoryType').on('change', function () {
             loadCategories();
         });
+
         $("#btnSearch").on('click', function () {
             loadCategories();
         });
+
         $("#txtSearch").on('keypress', function (e) {
             if (e.which === 13) {
                 e.preventDefault();
@@ -28,7 +30,7 @@
 
         $('#addCategory').off('click').on('click', function () {           
             $('#modalAddEdit').modal('show');
-            viewCategoryType();
+            viewCategoryType(-1);
             loadCategoriesTotree();
 
         });
@@ -41,8 +43,7 @@
                         
             $.ajax({
                 type: "POST",
-                url: "/admin/category/GetById",
-                //async: false,
+                url: "/admin/category/GetById",                
                 cache: false,
                 data: { id: id },
                 dataType: "json",
@@ -53,13 +54,13 @@
                     until.stopLoading();
                     console.log(response);
                                        
-                    //loadCategoriesTotreeBySelectID(response.parentId);
+                    loadCategoriesTotreeBySelectID(response.parentId);
                     $("#hidCategoryId").val(response.parentId);
+                    viewCategoryType(response.categoryTypeID)
                     $("#hiIdCates").val(response.id);
                     $("#txtName").val(response.name);
                     $("#txtDescription").val(response.description);
-                    $("#hidCategoryId").val(response.parentId);
-                    $("#slcategoryTypeAdd").val(response.categoryTypeID);
+                    $("#hidCategoryId").val(response.parentId);                    
                     $("#txtHomeOrder").val(response.homeOrder);
                     $("#hidImage").val(response.image);
                     $('#ckShowHome').prop('checked', response.homeFlag);
@@ -68,8 +69,9 @@
                     $("#txtSeoPageTitle").val(response.seoPageTitle);
                     $("#txtSeoAlias").val(response.seoAlias);
                     $("#txtSeoKeyword").val(response.seoKeywords);
-                    $("#txtSeoDescription").val(response.seoKeywords);
-                    $("#txtDetail").val(response.detail);
+                    $("#txtSeoDescription").val(response.seoKeywords);                    
+                    $('#txtDetail').summernote('code', response.detail);
+                    $('#hplRemoveImg').attr('href', response.id);
                     $("#image-holder").html('<img class="img-thumbnail" src=' + response.image + '>');
                 },
                 error: function (status) {
@@ -193,6 +195,36 @@
             });
         });
 
+        // remove Img
+        $('body').on('click', '#hplRemoveImg', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('href');
+            bootbox.confirm('Bạn có muốn xóa ảnh này không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/category/DeleteImage",
+                        cache: false,
+                        data: { Id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa ảnh thành công', 'success');
+                            $("#image-holder").html('');
+                            loadCategories();
+                            until.stopLoading();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);                           
+                        }
+                    });
+                }
+            });
+
+        });
+
         // validator add and Edit
         $(function () {
             $.validator.setDefaults({
@@ -275,7 +307,7 @@
         })
     }
     // view chủng loại danh mục thêm sửa
-    function viewCategoryType() {
+    function viewCategoryType(id) {
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -289,6 +321,7 @@
                     render += "<option value='" + item.id + "'>" + item.name + "</option>"
                 });
                 $('#slcategoryTypeAdd').html(render);
+                $("#slcategoryTypeAdd > option[value=" + id + "]").prop("selected", true);
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
@@ -390,21 +423,7 @@
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }
-    
-    //function traverse(list) {
-    //    var html = '<ul>';
-    //    for (var i = 0; i < list.length; i++) {
-    //        html += '<li>' + list[i].Name;
-    //        if (list[i].children) {
-    //            html += traverse(list[i].children);
-    //        }
-    //        html += '</li>';
-    //    }
-    //    html += '</ul>';
-
-    //    return html;
-    //}
+    }       
     
     // dang childer tu mang
     function createTreeSub(arr) {
@@ -501,29 +520,7 @@
         });
     }
 
-    //let UpdateImg = function () {
-    //    // upload file
-    //    let fileUpload = $("#fuImage").get(0);
-    //    let files = fileUpload.files;
-    //    let data = new FormData();
-    //    for (const element of files) {
-    //        data.append(element.name, element);
-    //    }
-    //    $.ajax({
-    //        type: "POST",
-    //        url: "/Admin/Upload/UploadImage",
-    //        contentType: false,
-    //        processData: false,
-    //        data: data,
-    //        success: function (path) {
-    //            $('#hidImage').val(path);
-    //            tedu.notify('Upload image succesful!', 'success');
-    //        },
-    //        error: function () {
-    //            tedu.notify('There was error uploading files!', 'error');
-    //        }
-    //    });
-    //}
+    
     let AddEditAction = function () {
 
 
@@ -591,10 +588,9 @@
         $("#txtSeoAlias").val('');
         $("#txtSeoKeyword").val('');
         $("#txtSeoDescription").val('');
-        $("#txtDetail").val('');
+        $('#txtDetail').summernote('code', '');
         $("#fuImage").val('');
-        $("#image-holder").html('');
-        $(".note-editable").html('');
+        $("#image-holder").html('');        
     }
 
 }

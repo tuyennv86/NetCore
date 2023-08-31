@@ -1,4 +1,5 @@
-﻿using NetCoreApp.Application.ViewModels.Category;
+﻿
+using NetCoreApp.Application.ViewModels.Category;
 using NetCoreApp.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace NetCoreApp.Application.Interfaces
         PagedResult<CategoryTypeViewModel> GetAllPaging(string keyword, int page, int pageSize);
         CategoryTypeViewModel GetById(int id);        
         void UpdateOrder(int Id, int sortOrder);
-        void UpdateIsDelete(int id, bool isDeleted);
+        void UpdateIsDelete(int id);        
         void Save();
     }
 }

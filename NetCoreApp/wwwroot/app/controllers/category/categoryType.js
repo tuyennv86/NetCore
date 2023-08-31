@@ -89,7 +89,7 @@
                 if (result) {
                     $("#tblList tbody tr").each(function () {
 
-                        var checkItem = $(this).find("input:checked");
+                        let checkItem = $(this).find("input:checked");
                         if (checkItem.is(":checked")) {
                             listId.push($(this).find('a').last().attr('data-id'));
                         }
@@ -124,6 +124,29 @@
             $('#modalAddEdit').modal('show');
         });
 
+        $('body').on('click', '#btnStatus', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                url: "/admin/CategoryType/UpdateIsDeleted",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.notify('Cập nhật trạng thái thành công', 'success');
+                    until.stopLoading();
+                    loadData();
+                },
+                error: function (status) {
+                    until.notify('Lỗi không cập nhật được', 'error' + status);
+                    until.stopLoading();
+                }
+            });
+        });
         // validator add and Edit
         $(function () {
             $.validator.setDefaults({
@@ -171,7 +194,7 @@
                 until.startLoading();
             },
             success: function (response) {               
-                var templateWithData = Mustache.render($("#mp_template").html(), {
+                let templateWithData = Mustache.render($("#mp_template").html(), {
                     categoryTypeTag: response.results,
                     dateFormat: function () {
                         return function (timestamp, render) {

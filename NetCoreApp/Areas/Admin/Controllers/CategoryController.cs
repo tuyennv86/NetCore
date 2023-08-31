@@ -46,12 +46,12 @@ namespace NetCoreApp.Areas.Admin.Controllers
 
         [HttpPost]
         public IActionResult GetById(int Id)
-        {
+        {            
             var model = _categoryService.GetById(Id);
             return new OkObjectResult(model);
         }
 
-        [HttpPost]        
+        [HttpPost]
         public IActionResult SaveEntity(CategoryViewModel entity)
         {
             if (ModelState.IsValid)
@@ -95,7 +95,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 if (entity.Id == 0)
-                {                    
+                {
                     entity.CreateById = userId;
                     entity.EditById = userId;
                     entity.DateCreated = DateTime.Now;
@@ -123,20 +123,43 @@ namespace NetCoreApp.Areas.Admin.Controllers
             else
             {
                 var entity = _categoryService.GetById(Id);
-                if(!string.IsNullOrEmpty(entity.Image))
+                if (!string.IsNullOrEmpty(entity.Image))
                 {
                     try
-                    {                        
+                    {
                         System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
                     }
-                    catch (Exception ex){ string s = ex.Message; }
-                }    
+                    catch (Exception ex) { string s = ex.Message; }
+                }
                 _categoryService.Delete(Id);
                 _categoryService.Save();
                 return new OkObjectResult(Id);
             }
         }
 
+        [HttpPost]
+        public IActionResult DeleteImage(int Id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                var model = _categoryService.GetById(Id);
+                if (!string.IsNullOrEmpty( model.Image))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + model.Image);
+                    }
+                    catch (Exception ex) { string s = ex.Message; }
+                }
+                _categoryService.UpdateImageEmpty(Id);
+                _categoryService.Save();
+                return new OkObjectResult(model);
+            }
+        }
         [HttpPost]
         public IActionResult DeleteByListID(int[] listId)
         {

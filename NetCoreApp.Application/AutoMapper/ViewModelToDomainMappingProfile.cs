@@ -2,6 +2,7 @@
 using NetCoreApp.Application.ViewModels.Category;
 using NetCoreApp.Application.ViewModels.Product;
 using NetCoreApp.Application.ViewModels.System;
+using NetCoreApp.Application.ViewModels.Tour;
 using NetCoreApp.Data.Entities;
 
 namespace NetCoreApp.Application.AutoMapper
@@ -27,6 +28,17 @@ namespace NetCoreApp.Application.AutoMapper
                .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.Image, c.Price, c.OriginalPrice,
                c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Tags, c.Unit, c.Status,
                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
+
+            CreateMap<TourViewModel, Tour>()
+                .ConstructUsing(c => new Tour(c.Name, c.Preview, c.CategoryId, c.Order, c.HomeOrder, c.HomeStatus, c.Price, c.TimeTour,
+               c.DateStart, c.TransPort, c.Service, c.Gift, c.ServiceConten, c.ServiceNotConten, c.Image, c.Status,
+               c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
+            
+            CreateMap<ImagesViewModel, Images>()
+                .ConstructUsing(c => new Images(c.Name, c.TourId));
+
+            CreateMap<TourDateViewModel, TourDate>()
+                .ConstructUsing(c => new TourDate(c.TourId, c.Name, c.Conten, c.Status));
         }
     }
 }

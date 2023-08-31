@@ -120,6 +120,13 @@ namespace NetCoreApp
             services.AddTransient<ICategoryTypeService, CategoryTypeService>();
             services.AddTransient<ICategoryService, CategoryService>();
 
+            services.AddTransient<ITourRepository, TourRepository>();
+            services.AddTransient<ITourService, TourService>();
+
+            services.AddTransient<ITourDateRepository, TourDateRepository>();
+            services.AddTransient<ITourDateService, TourDateService>();
+
+
             services.AddMvc();
         }
 

@@ -43,7 +43,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
         {
             var model = _categoryTypeService.GetById(Id);
             return new OkObjectResult(model);
-        }
+        }        
 
         [HttpPost]
         public IActionResult SaveEntity(CategoryTypeViewModel categoryTypeViewmodel)
@@ -78,6 +78,20 @@ namespace NetCoreApp.Areas.Admin.Controllers
             else
             {
                 _categoryTypeService.UpdateOrder(Id, sortOrder);
+                _categoryTypeService.Save();
+                return new OkObjectResult(Id);
+            }
+        }
+        [HttpPost]       
+        public IActionResult UpdateIsDeleted(int Id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _categoryTypeService.UpdateIsDelete(Id);
                 _categoryTypeService.Save();
                 return new OkObjectResult(Id);
             }

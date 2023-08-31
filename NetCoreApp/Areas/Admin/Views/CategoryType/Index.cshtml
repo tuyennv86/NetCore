@@ -74,7 +74,7 @@
                             <th>Thứ tự</th>
                             <th>Trạng thái</th>
                             <th>Ngày tạo</th>
-                            <th>Người tạo</th>
+                            <th>Ngày sửa</th>
                             <th class="text-right">Action</th>
                         </tr>
                     </thead>
@@ -112,8 +112,8 @@
                 <input type="text" id="sortorder{{id}}" class="form-control form-control-sm img-size-64" value="{{sortOrder}}" placeholder="số thứ tự" name="sortorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
             </td>
             <td>
-                {{#isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Active</a>{{/isDeleted}}
-                {{^isDeleted}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Đang khóa</a>{{/isDeleted}}
+                {{#isDeleted}}<a href="#" id="btnStatus" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Active</a>{{/isDeleted}}
+                {{^isDeleted}}<a href="#" id="btnStatus" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Đang khóa</a>{{/isDeleted}}
             </td>
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
             <td> {{#dateFormat}}{{dateModified }}{{/dateFormat}}</td>

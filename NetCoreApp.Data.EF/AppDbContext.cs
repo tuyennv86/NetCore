@@ -58,6 +58,9 @@ namespace NetCoreApp.Data.EF
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryType> CategoryTypé { get; set; }
+        public DbSet<Tour> Tours { get; set; }
+        public DbSet<TourDate> TourDates { get; set; }
+        public DbSet<Images> Images { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
