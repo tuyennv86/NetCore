@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
-    public class TourController : Controller
+    public class TourController : BaseController
     {
         private readonly ITourService _tourService;        
         private readonly ILogger _logger;
@@ -23,6 +23,20 @@ namespace NetCoreApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult GetAll(string name, int cateogryId, int pageIndex, int pageSize)
+        {
+            var models = _tourService.GetAllPaging(cateogryId, name, pageIndex, pageSize);
+            return new OkObjectResult(models);
+        }
+
+        [HttpPost]
+        public IActionResult GetById(int id)
+        {
+            var model = _tourService.GetById(id);
+            return new OkObjectResult(model);
         }
     }
 }

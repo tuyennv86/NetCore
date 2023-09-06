@@ -51,6 +51,8 @@ namespace NetCoreApp.Data.Entities
         public string Preview { get; set; }
         [Required]
         public int CategoryId { get; set; }
+        //[ForeignKey("CategoryId")]
+        //public virtual Category Category { set; get; }
         public int Order { get; set; }
         public int HomeOrder { get; set; }
         public bool HomeStatus { get; set; }
