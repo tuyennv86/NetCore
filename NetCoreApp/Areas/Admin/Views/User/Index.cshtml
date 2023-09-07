@@ -1,0 +1,137 @@
+﻿@section ScriptsProduct{
+    <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="~/app/controllers/user/index.js"></script>
+    <script>
+        var user = new userController();
+        user.initialize();
+    </script>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh mục</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item active">Danh sách user</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <a class="btn btn-primary btn-sm" href="#">
+                    <i class="fas fa-plus-circle"></i>
+                    Thêm mới
+                </a>
+                <a class="btn btn-info btn-sm" href="#">
+                    <i class="fa fa-recycle"></i>
+                    Cập nhật
+                </a>
+                <a class="btn btn-danger btn-sm" href="#">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </a>
+            </div>
+            <div class="card-tools col-md-7">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="input-group">                            
+                            <input type="text" id="txtSearch" class="form-control form-control-sm" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button class="btn btn-sidebar" id="btnSearch">
+                                    <i class="fas fa-search fa-fw"></i>Tìm kiếm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 text-right">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 1%">
+                            <input type="checkbox" name="checkAll" id="checkAll">
+                        </th>
+                        <th>Tên sản phẩm</th>
+                        <th>Ảnh</th>
+                        <th>Danh mục</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th>Người tạo</th>
+                        <th class="text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tpl_content">
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer clearfix">
+            <div class="card-title">
+                <select class="ui dropdown small form-control" name="page" id="slChangPage">
+                    <option value="10" selected="selected">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            <ul class="pagination pagination-sm m-0 float-right" id="pagination">
+            </ul>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+<script type="x-tmpl-mustache" id="mp_template">
+        {{#userTag}}
+        <tr>
+            <td>
+                <input type="checkbox" name="checkItem">
+            </td>
+            <td>{{name}}</td>
+            <td>
+            {{#image}}
+                <img  class="product-image-thumb img-size-64" src="{{image}}">
+            {{/image}}
+            {{^image}}
+                <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg">
+            {{/image}}
+            </td>
+            <td>{{productCategory.name}}</td>
+            <td>{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
+            <td>
+                {{#status}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/status}}
+                {{^status}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
+            </td>
+            <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
+            <td> </td>
+            <td class="text-right">
+                <a class="btn btn-info btn-sm" href="#"> <i class="fas fa-pencil-alt"> </i> Edit </a>
+                <a class="btn btn-danger btn-sm" href="#"> <i class="fas fa-trash"> </i> Delete </a>
+            </td>
+        </tr>
+        {{/userTag}}
+</script>

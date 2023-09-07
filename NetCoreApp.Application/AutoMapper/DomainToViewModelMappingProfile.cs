@@ -19,6 +19,9 @@ namespace NetCoreApp.Application.AutoMapper
             CreateMap<Tour, TourViewModel>();
             CreateMap<TourDate, TourDateViewModel>();
             CreateMap<Images, ImagesViewModel>();
+            CreateMap<AppUser, AppUserViewModel>();
+            CreateMap<AppRole, AppRoleViewModel>();
+            CreateMap<Permission, PermissionViewModel>();
         }
     }
 }

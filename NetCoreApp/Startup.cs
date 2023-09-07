@@ -93,15 +93,12 @@ namespace NetCoreApp
 
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
-
-            //services.AddAutoMapper();
+            
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
-
-            //services.AddSingleton(Mapper.Configuration);
-            services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
-            //services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+            
+            services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());            
 
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
@@ -122,12 +119,14 @@ namespace NetCoreApp
 
             services.AddTransient<ITourRepository, TourRepository>();
             services.AddTransient<ITourService, TourService>();
-
             services.AddTransient<ITourDateRepository, TourDateRepository>();
             services.AddTransient<ITourDateService, TourDateService>();
-
             services.AddTransient<IImagesRepository, ImagesRepository>();
             services.AddTransient<IImagesService, ImagesService>();
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IPermissionRepository, PermissionRepository>();
 
 
             services.AddMvc();

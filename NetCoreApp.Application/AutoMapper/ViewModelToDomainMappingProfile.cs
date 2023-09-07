@@ -4,6 +4,7 @@ using NetCoreApp.Application.ViewModels.Product;
 using NetCoreApp.Application.ViewModels.System;
 using NetCoreApp.Application.ViewModels.Tour;
 using NetCoreApp.Data.Entities;
+using System;
 
 namespace NetCoreApp.Application.AutoMapper
 {
@@ -34,11 +35,15 @@ namespace NetCoreApp.Application.AutoMapper
                c.DateStart, c.TransPort, c.Service, c.Gift, c.ServiceConten, c.ServiceNotConten, c.Image, c.Status,
                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
             
-            CreateMap<ImagesViewModel, Images>()
-                .ConstructUsing(c => new Images(c.Name, c.TourId));
+            CreateMap<ImagesViewModel, Images>().ConstructUsing(c => new Images(c.Name, c.TourId));
 
-            CreateMap<TourDateViewModel, TourDate>()
-                .ConstructUsing(c => new TourDate(c.TourId, c.Name, c.Conten, c.Status));
+            CreateMap<TourDateViewModel, TourDate>().ConstructUsing(c => new TourDate(c.TourId, c.Name, c.Conten, c.Status));
+
+            CreateMap<AppUserViewModel, AppUser>()
+                .ConstructUsing(c => new AppUser(c.Id.GetValueOrDefault(Guid.Empty), c.FullName, c.UserName, c.Email, c.PhoneNumber, c.Avatar, c.Status));
+
+            CreateMap<PermissionViewModel, Permission>()
+                .ConstructUsing(c => new Permission(c.RoleId, c.FunctionId, c.CanCreate, c.CanRead, c.CanUpdate, c.CanDelete));
         }
     }
 }
