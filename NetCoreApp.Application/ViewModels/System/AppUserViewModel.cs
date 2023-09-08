@@ -1,6 +1,8 @@
-﻿using NetCoreApp.Data.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using NetCoreApp.Data.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetCoreApp.Application.ViewModels.System
 {
@@ -23,5 +25,7 @@ namespace NetCoreApp.Application.ViewModels.System
         public string Gender { get; set; }
         public DateTime DateCreated { get; set; }
         public List<string> Roles { get; set; }
+        [NotMapped]
+        public IFormFile filesImg { set; get; }
     }
 }

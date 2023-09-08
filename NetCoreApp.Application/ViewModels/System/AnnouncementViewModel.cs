@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetCoreApp.Data.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace NetCoreApp.Application.ViewModels.System

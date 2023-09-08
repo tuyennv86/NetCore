@@ -91,29 +91,29 @@
         })
     }
 
-    function wrapPaging(recordCount, callBack, changePageSize) {        
-        var totalsize = Math.ceil(recordCount / until.configs.pageSize);
+    function wrapPaging(recordCount, callBack, changePageSize) {
+        let totalsize = Math.ceil(recordCount / until.configs.pageSize);
         //Unbind pagination if it existed or click change pagesize
         if ($('#pagination a').length === 0 || changePageSize === true) {
             $('#pagination').empty();
             $('#pagination').removeData("twbs-pagination");
             $('#pagination').unbind("page");
         }
+        //$('#pagination').twbsPagination('destroy');
         //Bind Pagination Event
-        $('#pagination').twbsPagination('destroy');
         $('#pagination').twbsPagination({
-            totalPages: totalsize,
+            totalPages: (totalsize === 0) ? 1 : totalsize,
             visiblePages: 7,
             first: '<i class="fa fa-fast-backward"></i>',
             prev: '<i class="fa fa-angle-double-left"></i>',
             next: '<i class="fa fa-angle-double-right"></i>',
             last: '<i class="fa fa-fast-forward"></i>',
-            onPageClick: function (event, page) {                
+            onPageClick: function (event, page) {
                 until.configs.pageIndex = page;
                 setTimeout(callBack(), 200);
             }
         });
-    }       
+    }
     
 }
 

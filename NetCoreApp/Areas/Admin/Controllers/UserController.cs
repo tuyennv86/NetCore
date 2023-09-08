@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetCoreApp.Application.Interfaces;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace NetCoreApp.Areas.Admin.Controllers
 {
     public class UserController : BaseController
@@ -15,12 +17,12 @@ namespace NetCoreApp.Areas.Admin.Controllers
         private readonly IUserService _userService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
+        
         public UserController(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            userService = _userService;
-            unitOfWork = _unitOfWork;
-            mapper = _mapper;
+            _userService = userService;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;            
         }
         public IActionResult Index()
         {
@@ -56,6 +58,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new BadRequestObjectResult(allErrors);
             }else
             {
+                
                 if(userVm.Id == null)
                 {                    
                     await _userService.AddAsync(userVm);                   
@@ -74,6 +77,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new BadRequestObjectResult(ModelState);
             }else
             {
+                 
                 await _userService.DeleteAsync(id);
                 return new OkObjectResult(id);
             }    

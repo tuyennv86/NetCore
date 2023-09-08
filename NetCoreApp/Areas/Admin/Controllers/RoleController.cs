@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
-    public class RoleController : Controller
+    public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;        
 
@@ -22,11 +22,10 @@ namespace NetCoreApp.Areas.Admin.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var model = await _roleService.GetAllAsync();
-
             return new OkObjectResult(model);
         }
         [HttpGet]

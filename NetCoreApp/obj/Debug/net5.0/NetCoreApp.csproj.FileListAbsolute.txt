@@ -1023,3 +1023,5 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\ref\NetCoreApp.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.pdb
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.genruntimeconfig.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Tour\Index.cshtml.g.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\Index.cshtml.g.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\User\_AddEditUser.cshtml.g.cs
