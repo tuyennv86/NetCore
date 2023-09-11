@@ -24,6 +24,7 @@ namespace NetCoreApp.Application.ViewModels.System
         public Status Status { get; set; }
         public string Gender { get; set; }
         public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
         public List<string> Roles { get; set; }
         [NotMapped]
         public IFormFile filesImg { set; get; }

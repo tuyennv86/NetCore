@@ -68,7 +68,7 @@
                 if (result) {
                     $.ajax({
                         type: "POST",
-                        url: "/admin/categoryType/Delete",
+                        url: "/admin/User/Delete",
                         cache: false,
                         data: { id: id },
                         dataType: "json",
@@ -148,7 +148,8 @@
 
     }
     let AddEdit = function () {
-
+       
+        let id = $("#hidId").val();
 
         let formData = new FormData();
         formData.append("Id", $("#hidId").val());
@@ -156,11 +157,15 @@
         formData.append("UserName", $("#txtUserName").val());
         formData.append("Email", $("#txtEmail").val());
         formData.append("Password", $("#txtPasword").val());
-        formData.append("PhoneNumber", $("#txtPhone").val());
-        formData.append("Status", $("#ckStatus").prop('checked'));       
-        formData.append("filesImg", $("#fuImage")[0].files[0]);
-
-        let id = $("#hidId").val();
+        formData.append("PhoneNumber", $("#txtPhone").val());        
+        $.each($('input[name="ckRoles"]'), function (i, item) {
+            if ($(item).prop('checked') === true)                
+                formData.append("Roles", $(item).prop('value'));
+        });
+        formData.append("Status", $("#ckStatus").prop('checked'));
+        formData.append("DateCreated", Date());
+        formData.append("DateModified", Date());
+        formData.append("filesImg", $("#fuImage")[0].files[0]);       
 
         $.ajax({
             type: "POST",
@@ -221,7 +226,7 @@
                     render += Mustache.render(template,
                         {
                             Name: item.name,
-                            Description: item.description,
+                            Description: item.description + '- (' + item.name + ')',
                             Checked: checked
                         });
                 });

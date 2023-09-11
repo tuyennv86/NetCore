@@ -101,7 +101,7 @@
 
 <script type="x-tmpl-mustache" id="mp_template">
         {{#userTag}}
-        <tr>            
+        <tr>
             <td>{{fullName}}</td>
             <td>{{userName}}</td>
             <td>
@@ -119,13 +119,13 @@
                 {{^status}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Khóa</a>{{/status}}
             </td>
             <td class="text-right">
-                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded) {
-                    <a class="btn btn-info btn-sm" href="#"  data-id="{{id}}"> <i class="fas fa-pencil-alt"> </i> Edit </a>
-                 }
+                @*@if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded) {*@
+                    <a class="btn btn-info btn-sm" href="#" id="lbtEdit" data-id="{{id}}"> <i class="fas fa-pencil-alt"> </i> Edit </a>
+                 @*}
                 @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded)
-                {
-                <a class="btn btn-danger btn-sm" href="#"  data-id="{{id}}"> <i class="fas fa-trash"> </i> Delete </a>
-                }
+                {*@
+                <a class="btn btn-danger btn-sm" href="#" id="lbtDelete" data-id="{{id}}"> <i class="fas fa-trash"> </i> Delete </a>
+                @*}*@
             </td>
         </tr>
         {{/userTag}}

@@ -14,7 +14,7 @@ namespace NetCoreApp.Application.Implementation
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;        
         private readonly IMapper _mapper;
 
         public UserService(UserManager<AppUser> userManager, IMapper mapper)
@@ -39,14 +39,14 @@ namespace NetCoreApp.Application.Implementation
             {
                 var appUser = await _userManager.FindByNameAsync(user.UserName);
                 if (appUser != null)
-                    await _userManager.AddToRolesAsync(appUser, userVm.Roles);
+                    await _userManager.AddToRolesAsync(appUser, userVm.Roles);                
             }
             return true;
         }
 
         public async Task DeleteAsync(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);            
             await _userManager.DeleteAsync(user);
         }
 
