@@ -105,8 +105,7 @@ namespace NetCoreApp.Application.Implementation
         {
             var role = await _roleManager.FindByIdAsync(id.ToString());
             return _mapper.Map<AppRole, AppRoleViewModel>(role);
-        }
-
+        }        
         public List<PermissionViewModel> GetListFunctionWithRole(Guid roleId)
         {
             var functions = _functionRepository.FindAll();

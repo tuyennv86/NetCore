@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetCoreApp.Application.Interfaces;
@@ -15,18 +16,20 @@ using System.Threading.Tasks;
 namespace NetCoreApp.Areas.Admin.Controllers
 {
     public class UserController : BaseController
-    {
+    {        
         private readonly IUserService _userService;
+        private readonly IRoleService _roleService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public UserController(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment hostingEnvironment)
+        public UserController(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment hostingEnvironment,IRoleService roleService)
         {
             _userService = userService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _hostingEnvironment = hostingEnvironment;
+            _roleService = roleService;            
         }
         public IActionResult Index()
         {
@@ -110,7 +113,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     await _userService.AddAsync(userVm);                   
                 }else
                 {
-                    await _userService.UpdateAsync(userVm);
+                    await _userService.UpdateAsync(userVm);                    
                 }
                 return new OkObjectResult(userVm);
             }    
@@ -134,9 +137,37 @@ namespace NetCoreApp.Areas.Admin.Controllers
                         _ = ex.Message;
                     }
                 }
+                
+                
                 await _userService.DeleteAsync(id);                 
                 return new OkObjectResult(id);
             }    
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteImage(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                var entity = await _userService.GetById(id);
+                if (!string.IsNullOrEmpty(entity.Avatar))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Avatar);
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = ex.Message;
+                    }
+                }
+                entity.Avatar = "";
+                await _userService.UpdateAsync(entity);
+                return new OkObjectResult(id);
+            }
         }
     }
 }

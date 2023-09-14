@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 namespace NetCoreApp.Application.Implementation
 {
     public class UserService : IUserService
-    {
+    {        
         private readonly UserManager<AppUser> _userManager;        
         private readonly IMapper _mapper;
 
         public UserService(UserManager<AppUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
-            _mapper = mapper;
+            _mapper = mapper;            
         }
 
         public async Task<bool> AddAsync(AppUserViewModel userVm)
@@ -46,8 +46,15 @@ namespace NetCoreApp.Application.Implementation
 
         public async Task DeleteAsync(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);            
+            var user = await _userManager.FindByIdAsync(id);
+          
+            var roles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, roles);
+
+
             await _userManager.DeleteAsync(user);
+            
+            
         }
 
         public async Task<List<AppUserViewModel>> GetAllAsync()
@@ -102,8 +109,7 @@ namespace NetCoreApp.Application.Implementation
             //Remove current roles in db
             var currentRoles = await _userManager.GetRolesAsync(user);
 
-            var result = await _userManager.AddToRolesAsync(user,
-                userVm.Roles.Except(currentRoles).ToArray());
+            var result = await _userManager.AddToRolesAsync(user, userVm.Roles.Except(currentRoles).ToArray());
 
             if (result.Succeeded)
             {
@@ -115,7 +121,7 @@ namespace NetCoreApp.Application.Implementation
                 user.Status = userVm.Status;
                 user.Email = userVm.Email;
                 user.PhoneNumber = userVm.PhoneNumber;
-                await _userManager.UpdateAsync(user);
+                await _userManager.UpdateAsync(user);                
             }
         }
     }

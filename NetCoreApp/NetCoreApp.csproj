@@ -44,7 +44,6 @@
     <Folder Include="Logs\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Uploaded\Images\" />
-    <Folder Include="wwwroot\Uploaded\Images\20230818\" />
   </ItemGroup>
 
 </Project>

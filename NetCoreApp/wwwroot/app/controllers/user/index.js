@@ -28,6 +28,7 @@
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
+            $('#hplRemoveImg').show();
             let id = $(this).attr('data-id');
 
             $.ajax({
@@ -70,8 +71,7 @@
                         type: "POST",
                         url: "/admin/User/Delete",
                         cache: false,
-                        data: { id: id },
-                        dataType: "json",
+                        data: { id: id },                        
                         beforeSend: function () {
                             until.startLoading();
                         },
@@ -94,9 +94,61 @@
         $('body').on('click', '#lbtAddUser', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
+            $('#hplRemoveImg').hide();
             getListRole();
         });
-       
+
+        // remove Img
+        $('body').on('click', '#hplRemoveImg', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('href');
+            bootbox.confirm('Bạn có muốn xóa ảnh này không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/User/DeleteImage",
+                        cache: false,
+                        data: { Id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa ảnh thành công', 'success');
+                            $("#image-holder").html('');
+                            loadCategories();
+                            until.stopLoading();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                        }
+                    });
+                }
+            });
+
+        });
+        // View ảnh
+        $('body').on('change', "#fuImage", function () {
+
+            if (typeof (FileReader) !== "undefined") {
+                let image_holder = $("#image-holder");
+                image_holder.empty();
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $("<img />", {
+                        "src": e.target.result,
+                        "class": "img-thumbnail",
+                        "width": "250px"
+                    }).appendTo(image_holder);
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+                $("#hidImage").val($(this)[0].files[0].name);
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        });
+
         // validator add and Edit
         $(function () {
             $.validator.setDefaults({
@@ -206,7 +258,7 @@
         $("#ckStatus").prop('checked', false);        
         $("#fuImage").val('');
         $("#image-holder").html('');
-        $('input[name="ckRoles"]').removeAttr('checked');
+        $('input[name="ckRoles"]').prop('checked', false);
     }
 
     function getListRole(selectedRoles) {
