@@ -1,13 +1,12 @@
 @using Microsoft.AspNetCore.Identity
-@using NetCoreApp.Models
 @using NetCoreApp.Extensions;
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
-{
-    var avataUrl = @User.GetSpecificClaim("Avata").Length > 0 ? @User.GetSpecificClaim("Avata") : "/admin/dist/img/no-avata.jpg";
+{    
+    var avataUrl = @User.GetSpecificClaim("Avatar").Length > 0 ? @User.GetSpecificClaim("Avatar") : "/admin/dist/img/no-avata.jpg";
     var fullName = @User.GetSpecificClaim("FullName").Length > 0 ? @User.GetSpecificClaim("FullName") : "";
 
 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">   
@@ -37,10 +36,18 @@
     
 </li>   
 <li class="user-footer">
-    <a href="#" class="btn btn-default btn-flat">Profile</a>
-    <form action="/Admin/Account/Logout" method="post" id="logoutForm">
-        <button type="submit" class="btn btn-default btn-flat float-right">Sign out</button>
-    </form>
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <a href="#" class="btn btn-default btn-flat">Profile</a>
+        </div>
+        <div class="col-sm-6">
+            <form action="/Admin/Account/Logout" method="post" id="logoutForm">
+                <button type="submit" class="btn btn-default btn-flat float-right">Sign out</button>
+            </form>
+        </div>
+    </div>
+        
+       
 </li>
 </ul>    
 }

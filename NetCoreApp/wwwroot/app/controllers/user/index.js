@@ -32,7 +32,7 @@
             let id = $(this).attr('data-id');
 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "/admin/User/GetById",
                 cache: false,
                 data: { id: id },
@@ -42,17 +42,17 @@
                 },
                 success: function (response) {
                     until.stopLoading();
-                    $("#hiId").val(response.id);
+                    $("#hidId").val(response.id);
                     $("#txtFullName").val(response.fullName);
                     $("#txtUserName").val(response.userName);
                     $("#txtEmail").val(response.email);
                     $("#txtPhone").val(response.phone);
                     $("#ckStatus").prop("checked", response.status);
-                    $("#hidImage").val(response.avatar);
+                    $("#hidImage").val(response.avatar);                   
                     $('#hplRemoveImg').attr('href', response.id);
                     $("#image-holder").html('<img class="img-thumbnail" src=' + response.avatar + '>');
 
-                    getListRole(response.Roles);
+                    getListRole(response.roles);
                     disableFieldEdit(true);
                 },
                 error: function (status) {
@@ -209,12 +209,13 @@
         formData.append("UserName", $("#txtUserName").val());
         formData.append("Email", $("#txtEmail").val());
         formData.append("Password", $("#txtPasword").val());
-        formData.append("PhoneNumber", $("#txtPhone").val());        
+        formData.append("PhoneNumber", $("#txtPhone").val());
+        formData.append("Avatar", $("#hidImage").val());
         $.each($('input[name="ckRoles"]'), function (i, item) {
             if ($(item).prop('checked') === true)                
                 formData.append("Roles", $(item).prop('value'));
         });
-        formData.append("Status", $("#ckStatus").prop('checked'));
+        formData.append("Status", $("#ckStatus").prop('checked') === true ? 1 : 0);
         formData.append("DateCreated", Date());
         formData.append("DateModified", Date());
         formData.append("filesImg", $("#fuImage")[0].files[0]);       
@@ -229,7 +230,7 @@
                 until.startLoading();
             },
             success: function (response) {
-                if (id > 0) {
+                if (id.length > 0) {
                     until.notify('Cập nhật thành công', 'success');
                     resetFormMaintainance();
                     $('#modalAddEdit').modal('hide');
@@ -273,10 +274,10 @@
                 let render = '';
                 $.each(data, function (i, item) {
                     let checked = '';
-                    if (selectedRoles !== undefined && selectedRoles.indexOf(item.name) !== -1)
+                    if (selectedRoles !== undefined && selectedRoles.indexOf(item.name) !== -1) {
                         checked = 'checked';
-                    render += Mustache.render(template,
-                        {
+                    }
+                    render += Mustache.render(template, {
                             Name: item.name,
                             Description: item.description + '- (' + item.name + ')',
                             Checked: checked

@@ -97,7 +97,7 @@ namespace NetCoreApp.Application.Implementation
         public async Task<AppUserViewModel> GetById(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);            
             var userVm = _mapper.Map<AppUser, AppUserViewModel>(user);
             userVm.Roles = roles.ToList();
             return userVm;
@@ -113,15 +113,17 @@ namespace NetCoreApp.Application.Implementation
 
             if (result.Succeeded)
             {
-                string[] needRemoveRoles = currentRoles.Except(userVm.Roles).ToArray();
-                await _userManager.RemoveFromRolesAsync(user, needRemoveRoles);
+                string[] needRemoveRoles = currentRoles.Except(userVm.Roles).ToArray();                
+                var resultRole = await _userManager.RemoveFromRolesAsync(user, needRemoveRoles);
+                            
 
                 //Update user detail
                 user.FullName = userVm.FullName;
                 user.Status = userVm.Status;
                 user.Email = userVm.Email;
+                user.Avatar = userVm.Avatar;                
                 user.PhoneNumber = userVm.PhoneNumber;
-                await _userManager.UpdateAsync(user);                
+                await _userManager.UpdateAsync(user);
             }
         }
     }

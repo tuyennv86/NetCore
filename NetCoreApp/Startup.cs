@@ -41,6 +41,7 @@ namespace NetCoreApp
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConection"), o => o.UseRowNumberForPaging()));           
 
             services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            
 
             services.AddMemoryCache();
 

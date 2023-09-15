@@ -428,7 +428,7 @@
           "dependencies": {
             "EntityFrameworkCore.UseRowNumberForPaging": {
               "target": "Package",
-              "version": "[0.1.0, )"
+              "version": "[0.2.0, )"
             },
             "FileSignatures": {
               "target": "Package",
@@ -454,15 +454,15 @@
             },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Logging": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Logging.Abstractions": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.1, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -478,15 +478,15 @@
             },
             "WebMarkupMin.AspNet.Common": {
               "target": "Package",
-              "version": "[2.10.0, )"
+              "version": "[2.14.0, )"
             },
             "WebMarkupMin.AspNetCore3": {
               "target": "Package",
-              "version": "[2.11.0, )"
+              "version": "[2.14.1, )"
             },
             "WebMarkupMin.NUglify": {
               "target": "Package",
-              "version": "[2.11.0, )"
+              "version": "[2.14.0, )"
             },
             "elFinder.NetCore": {
               "target": "Package",

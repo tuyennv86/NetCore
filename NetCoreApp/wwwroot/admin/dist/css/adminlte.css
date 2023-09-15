@@ -15445,9 +15445,8 @@ body.text-sm .control-sidebar {
   background-color: #3a4047;
   color: #fff;
 }
-
 .dark-mode .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default {
-  color: #fff;
+    color: #fff;
 }
 
 .dark-mode .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default:hover, .dark-mode .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default:focus {
