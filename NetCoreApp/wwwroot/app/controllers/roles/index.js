@@ -1,4 +1,4 @@
-﻿let userController = function () {
+﻿let roleController = function () {
 
     this.initialize = function () {        
                
@@ -27,13 +27,12 @@
 
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
-            $('#modalAddEdit').modal('show');
-            $('#hplRemoveImg').show();
+            
             let id = $(this).attr('data-id');
 
             $.ajax({
                 type: "GET",
-                url: "/admin/User/GetById",
+                url: "/admin/Role/GetById",
                 cache: false,
                 data: { id: id },
                 dataType: "json",
@@ -43,17 +42,8 @@
                 success: function (response) {
                     until.stopLoading();
                     $("#hidId").val(response.id);
-                    $("#txtFullName").val(response.fullName);
-                    $("#txtUserName").val(response.userName);
-                    $("#txtEmail").val(response.email);
-                    $("#txtPhone").val(response.phone);
-                    $("#ckStatus").prop("checked", response.status);
-                    $("#hidImage").val(response.avatar);                   
-                    $('#hplRemoveImg').attr('href', response.id);
-                    $("#image-holder").html('<img class="img-thumbnail" src=' + response.avatar + '>');
-
-                    getListRole(response.roles);
-                    disableFieldEdit(true);
+                    $("#txtName").val(response.name);
+                    $("#txtDescription").val(response.description);
                 },
                 error: function (status) {
                     until.notify('Lỗi không xem được', 'error' + status);
@@ -69,7 +59,7 @@
                 if (result) {
                     $.ajax({
                         type: "POST",
-                        url: "/admin/User/Delete",
+                        url: "/admin/Role/Delete",
                         cache: false,
                         data: { id: id },                        
                         beforeSend: function () {
@@ -87,87 +77,13 @@
                     });
                 }
             });
-        });
-
-        $('body').on('click', '#btnStatus', function (e) {
-            e.preventDefault();
-            let id = $(this).attr('data-id');
-            $.ajax({
-                type: "POST",
-                url: "/admin/User/UpdateStatus",
-                cache: false,
-                data: { id: id },                
-                beforeSend: function () {
-                    until.startLoading();
-                },
-                success: function (response) {
-                    until.notify('Cập nhật trạng thái thành công', 'success');
-                    until.stopLoading();
-                    loadData();
-                },
-                error: function (status) {
-                    until.notify('Lỗi không cập nhật được', 'error' + status);
-                    until.stopLoading();
-                }
-            });
-        });
+        });        
 
         $('body').on('click', '#lbtAddUser', function (e) {
             e.preventDefault();
-            $('#modalAddEdit').modal('show');
-            $('#hplRemoveImg').hide();
-            getListRole();
-        });
-
-        // remove Img
-        $('body').on('click', '#hplRemoveImg', function (e) {
-            e.preventDefault();
-            let id = $(this).attr('href');
-            bootbox.confirm('Bạn có muốn xóa ảnh này không?', function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/admin/User/DeleteImage",
-                        cache: false,
-                        data: { Id: id },                       
-                        beforeSend: function () {
-                            until.startLoading();
-                        },
-                        success: function (response) {
-                            until.notify('Xóa ảnh thành công', 'success');
-                            $("#image-holder").html('');
-                            loadData();
-                            until.stopLoading();
-                        },
-                        error: function (status) {
-                            until.notify('Lỗi không xóa được', 'error' + status);
-                        }
-                    });
-                }
-            });
-
-        });
-        // View ảnh
-        $('body').on('change', "#fuImage", function () {
-
-            if (typeof (FileReader) !== "undefined") {
-                let image_holder = $("#image-holder");
-                image_holder.empty();
-                let reader = new FileReader();
-                reader.onload = function (e) {
-                    $("<img />", {
-                        "src": e.target.result,
-                        "class": "img-thumbnail",
-                        "width": "250px"
-                    }).appendTo(image_holder);
-                }
-                image_holder.show();
-                reader.readAsDataURL($(this)[0].files[0]);
-                $("#hidImage").val($(this)[0].files[0].name);
-            } else {
-                alert("This browser does not support FileReader.");
-            }
-        });
+            $('#modalAddEdit').modal('show');           
+        });       
+       
 
         // validator add and Edit
         $(function () {
@@ -178,24 +94,11 @@
             });
             $('#frmAddEdit').validate({
                 rules: {
-                    txtFullName: {
+                    txtName: {
                         required: true
                     },
-                    txtUserName: {
+                    txtDescription: {
                         required: true
-                    },
-                    txtPasword: {
-                        required: true,
-                        minlength: 6
-                    },
-                    txtConfirmPasword: {
-                        required: true,
-                        minlength: 6,
-                        equalTo: "#txtPasword"
-                    },                    
-                    txtEmail: {
-                        required: true,
-                        email: true
                     }
                 },
                 errorElement: 'span',
@@ -213,39 +116,24 @@
         });
 
     }   
-    function disableFieldEdit(disabled) {
-        $('#txtUserName').prop('disabled', disabled);
-        $('#txtPasword').prop('disabled', disabled);
-        $('#txtConfirmPasword').prop('disabled', disabled);
-
-    }
+    
     let AddEdit = function () {
+        let id = $("#hiId").val();
+        let name = $("#txtName").val();
+        let description = $("#txtDescription").val();
        
-        let id = $("#hidId").val();
-
-        let formData = new FormData();
-        formData.append("Id", $("#hidId").val());
-        formData.append("FullName", $("#txtFullName").val());
-        formData.append("UserName", $("#txtUserName").val());
-        formData.append("Email", $("#txtEmail").val());
-        formData.append("Password", $("#txtPasword").val());
-        formData.append("PhoneNumber", $("#txtPhone").val());
-        formData.append("Avatar", $("#hidImage").val());
-        $.each($('input[name="ckRoles"]'), function (i, item) {
-            if ($(item).prop('checked') === true)                
-                formData.append("Roles", $(item).prop('value'));
-        });
-        formData.append("Status", $("#ckStatus").prop('checked') === true ? 1 : 0);
-        formData.append("DateCreated", Date());
-        formData.append("DateModified", Date());
-        formData.append("filesImg", $("#fuImage")[0].files[0]);       
+        let dataPost = {
+            "Id": id,
+            "Name": name,
+            "Description": description
+        };
 
         $.ajax({
             type: "POST",
-            url: "/admin/User/SaveEntity",
-            data: formData,
+            url: "/admin/Role/SaveEntity",
+            data: dataPost,
             processData: false,
-            contentType: false,
+            dataType: "json",
             beforeSend: function () {
                 until.startLoading();
             },
@@ -267,46 +155,13 @@
             }
         });
     }
+
     function resetFormMaintainance() {
         $("#hidId").val(0);
-        $("#txtFullName").val('');
-        $("#txtUserName").val('');
-        $("#txtPasword").val('');
-        $("#txtConfirmPasword").val('');
-        $("#txtEmail").val('');
-        $("#txtPhone").val('');
-        $("#hidImage").val('');
-        $("#ckStatus").prop('checked', false);        
-        $("#fuImage").val('');
-        $("#image-holder").html('');
-        $('input[name="ckRoles"]').prop('checked', false);
+        $("#txtName").val('');
+        $("#txtDescription").val('');
     }
-
-    function getListRole(selectedRoles) {
-        $.ajax({
-            type: "GET",
-            url: "/admin/Role/GetAll",
-            cache: false,            
-            dataType: "json",            
-            success: function (response) {
-                let template = $('#role-template').html();
-                let data = response;
-                let render = '';
-                $.each(data, function (i, item) {
-                    let checked = '';
-                    if (selectedRoles !== undefined && selectedRoles.indexOf(item.name) !== -1) {
-                        checked = 'checked';
-                    }
-                    render += Mustache.render(template, {
-                            Name: item.name,
-                            Description: item.description + '- (' + item.name + ')',
-                            Checked: checked
-                        });
-                });
-                $('#list-roles').html(render);
-            }
-        });
-    }
+       
 
     let loadData = function (isPageChanged) {
         $.ajax({
@@ -317,13 +172,13 @@
                 pageIndex: until.configs.pageIndex,
                 pageSize: until.configs.pageSize
             },
-            url: '/admin/User/GetAllPaging',
+            url: '/admin/Role/GetAllPaging',
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {               
                 let templateWithData = Mustache.render($("#mp_template").html(), {
-                    userTag: response.results,
+                    rolesTag: response.results,
                     dateFormat: function () {
                         return function (timestamp, render) {
                             return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });

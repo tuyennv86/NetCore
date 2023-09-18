@@ -83,13 +83,13 @@ namespace NetCoreApp.Data.EF.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("RoleId", "UserId");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
 
                     b.ToTable("AppUserRoles");
                 });
@@ -1286,8 +1286,17 @@ namespace NetCoreApp.Data.EF.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("HomeOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("HomeStatus")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InActive")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -59,13 +59,14 @@ namespace NetCoreApp
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;                
-
+                options.Password.RequireLowercase = false;
+                
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 // User settings
                 options.User.RequireUniqueEmail = true;
+                
             });
                        
             //Config returnUrl when no login

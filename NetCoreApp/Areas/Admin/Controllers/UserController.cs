@@ -143,6 +143,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(id);
             }    
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteImage(string id)
         {
@@ -166,6 +167,20 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 }
                 entity.Avatar = "";
                 await _userService.UpdateAsync(entity);
+                return new OkObjectResult(id);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(string id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                await _userService.UpdateStatusAsync(id);
                 return new OkObjectResult(id);
             }
         }

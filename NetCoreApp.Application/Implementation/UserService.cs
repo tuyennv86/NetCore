@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.System;
 using NetCoreApp.Data.Entities;
+using NetCoreApp.Data.Enums;
 using NetCoreApp.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
@@ -49,11 +50,11 @@ namespace NetCoreApp.Application.Implementation
             var user = await _userManager.FindByIdAsync(id);
           
             var roles = await _userManager.GetRolesAsync(user);
-            await _userManager.RemoveFromRolesAsync(user, roles);
+            await _userManager.RemoveFromRolesAsync(user, roles); 
+            // Nếu gặp lỗi không xóa được thì đổi lại trong DBContext
+            // builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
 
-
-            await _userManager.DeleteAsync(user);
-            
+            await _userManager.DeleteAsync(user);           
             
         }
 
@@ -65,6 +66,7 @@ namespace NetCoreApp.Application.Implementation
         public PagedResult<AppUserViewModel> GetAllPagingAsync(string keyword, int page, int pageSize)
         {
             var query = _userManager.Users;
+
             if (!string.IsNullOrEmpty(keyword))
                 query = query.Where(x => x.FullName.Contains(keyword) || x.UserName.Contains(keyword) || x.Email.Contains(keyword));
 
@@ -72,7 +74,7 @@ namespace NetCoreApp.Application.Implementation
             query = query.Skip((page - 1) * pageSize).Take(pageSize);
 
             var data = query.Select(x => new AppUserViewModel()
-            {
+            {                
                 UserName = x.UserName,
                 Avatar = x.Avatar,
                 BirthDay = x.BirthDay.ToString(),
@@ -83,6 +85,7 @@ namespace NetCoreApp.Application.Implementation
                 Status = x.Status,
                 DateCreated = x.DateCreated
             }).ToList();
+            
             var paginationSet = new PagedResult<AppUserViewModel>()
             {
                 Results = data,
@@ -109,13 +112,12 @@ namespace NetCoreApp.Application.Implementation
             //Remove current roles in db
             var currentRoles = await _userManager.GetRolesAsync(user);
 
-            var result = await _userManager.AddToRolesAsync(user, userVm.Roles.Except(currentRoles).ToArray());
+            var result = await _userManager.AddToRolesAsync(user, userVm.Roles.Except(currentRoles).ToArray());            
 
             if (result.Succeeded)
             {
                 string[] needRemoveRoles = currentRoles.Except(userVm.Roles).ToArray();                
-                var resultRole = await _userManager.RemoveFromRolesAsync(user, needRemoveRoles);
-                            
+                await _userManager.RemoveFromRolesAsync(user, needRemoveRoles);
 
                 //Update user detail
                 user.FullName = userVm.FullName;
@@ -125,6 +127,16 @@ namespace NetCoreApp.Application.Implementation
                 user.PhoneNumber = userVm.PhoneNumber;
                 await _userManager.UpdateAsync(user);
             }
+        }
+
+        public async Task UpdateStatusAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user.Status == Status.Active)
+                user.Status = Status.InActive;
+            else
+                user.Status = Status.Active;
+            await _userManager.UpdateAsync(user);
         }
     }
 }

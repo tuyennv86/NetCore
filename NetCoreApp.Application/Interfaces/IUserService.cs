@@ -13,5 +13,6 @@ namespace NetCoreApp.Application.Interfaces
         PagedResult<AppUserViewModel> GetAllPagingAsync(string keyword, int page, int pageSize);
         Task<AppUserViewModel> GetById(string id);
         Task UpdateAsync(AppUserViewModel userVm);
+        Task UpdateStatusAsync(string id);
     }
 }

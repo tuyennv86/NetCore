@@ -4,14 +4,14 @@
 
 @section ScriptsProduct{
     <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
-    <script type="text/javascript" src="~/app/controllers/user/index.js"></script>
+    <script type="text/javascript" src="~/app/controllers/roles/index.js"></script>
     <script type="text/javascript" src="~/lib/bootbox/bootbox.min.js"></script>
     <script>
-        var user = new userController();
-        user.initialize();
+        var role = new roleController();
+        role.initialize();
     </script>
-}
-<!-- Content Header (Page header) -->
+}<!-- Content Header (Page header) -->
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -21,7 +21,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                    <li class="breadcrumb-item active">Danh sách user</li>
+                    <li class="breadcrumb-item active">Danh sách roles</li>
                 </ol>
             </div>
         </div>
@@ -37,8 +37,8 @@
                 <a class="btn btn-primary btn-sm" href="#" id="lbtAddUser">
                     <i class="fas fa-plus-circle"></i>
                     Thêm mới
-                </a>              
-               
+                </a>
+
             </div>
             <div class="card-tools col-md-7">
                 <div class="row">
@@ -66,13 +66,9 @@
         <div class="card-body p-0">
             <table class="table table-striped projects">
                 <thead>
-                    <tr>                       
-                        <th>Full Name</th>
-                        <th>User Name</th>
-                        <th>Ảnh</th>
-                        <th>Email</th>
-                        <th>Điện thoại</th>
-                        <th>Trạng thái</th>
+                    <tr>
+                        <th>Tên quyền</th>
+                        <th>Mô tả</th>                                         
                         <th class="text-right">Action</th>
                     </tr>
                 </thead>
@@ -95,29 +91,16 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
-    @await Html.PartialAsync("_AddEditUser")
+    @await Html.PartialAsync("_AddEditRole")
 </section>
 <!-- /.content -->
 
 <script type="x-tmpl-mustache" id="mp_template">
-        {{#userTag}}
+        {{#rolesTag}}
         <tr>
-            <td>{{fullName}}</td>
-            <td>{{userName}}</td>
-            <td>
-            {{#avatar}}
-                <img  class="product-image-thumb img-size-64" src="{{avatar}}">
-            {{/avatar}}
-            {{^avatar}}
-                <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg">
-            {{/avatar}}
-            </td>
-            <td>{{email}}</td>
-            <td>{{phoneNumber}}</td>
-            <td>
-                {{#status}}<a href="#" id="btnStatus" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Active</a>{{/status}}
-                {{^status}}<a href="#" id="btnStatus" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Khóa</a>{{/status}}
-            </td>
+            <td>{{name}}</td>
+            <td>{{description}}</td>
+
             <td class="text-right">
                 @*@if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded) {*@
                     <a class="btn btn-info btn-sm" href="#" id="lbtEdit" data-id="{{id}}"> <i class="fas fa-pencil-alt"> </i> Edit </a>
@@ -128,5 +111,5 @@
                 @*}*@
             </td>
         </tr>
-        {{/userTag}}
+        {{/rolesTag}}
 </script>
