@@ -87,13 +87,45 @@
         // show list role Permisstion
         $('body').on('click', '#lbtEditRole', function (e) {
             e.preventDefault();
-            $('#modalRoleEdit').modal('show');            
-            /* fillPermisstion(id);*/
+            $('#modalRoleEdit').modal('show');                        
             $('#hidRoleId').val($(this).data('id'));
-            $.when(loadFunctionList())
-                .done(fillPermisstion($('#hidRoleId').val()));
+            $.when(loadFunctionList()).done(fillPermisstion($('#hidRoleId').val()));
         });
 
+        $("#btnSavePermission").off('click').on('click', function () {
+            let listPermmission = [];
+            $.each($('#tblFunction tbody tr'), function (i, item) {
+                listPermmission.push({
+                    RoleId: $('#hidRoleId').val(),
+                    FunctionId: $(item).data('id'),
+                    CanRead: $(item).find('.ckView').first().prop('checked'),
+                    CanCreate: $(item).find('.ckAdd').first().prop('checked'),
+                    CanUpdate: $(item).find('.ckEdit').first().prop('checked'),
+                    CanDelete: $(item).find('.ckDelete').first().prop('checked'),
+                });
+            });
+            $.ajax({
+                type: "POST",
+                url: "/admin/role/SavePermission",
+                data: {
+                    listPermmission: listPermmission,
+                    roleId: $('#hidRoleId').val()
+                },
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    tedu.stopLoading();
+                    until.notify('Cập nhật quyền thành công!', 'success');
+                    $('#modalRoleEdit').modal('hide');                    
+                },
+                error: function () {
+                    until.notify('Lỗi trong cập nhật quyền', 'error');
+                    until.stopLoading();
+                }
+            });
+        });
+    
         // validator add and Edit
         $(function () {
             $.validator.setDefaults({
@@ -179,16 +211,13 @@
                 until.startLoading();
             },
             success: function (response) {
-
-                console.log(response);
-
                 let template = $('#result-data-function').html();
                 let render = "";
                 $.each(response, function (i, item) {
                     render += Mustache.render(template, {
                         Name: item.name,
                         treegridparent: item.parentId !== null ? "treegrid-parent-" + item.parentId : "",
-                        Id: item.Id,
+                        Id: item.id,
                         AllowCreate: item.allowCreate ? "checked" : "",
                         AllowEdit: item.allowEdit ? "checked" : "",
                         AllowView: item.allowView ? "checked" : "",
@@ -265,14 +294,17 @@
                 until.startLoading();
             },
             success: function (response) {
+
+                console.log(response);
+
                 let litsPermission = response;
                 $.each($('#tblFunction tbody tr'), function (i, item) {
                     $.each(litsPermission, function (j, jitem) {
                         if (jitem.FunctionId === $(item).data('id')) {
-                            $(item).find('.ckView').first().prop('checked', jitem.CanRead);
-                            $(item).find('.ckAdd').first().prop('checked', jitem.CanCreate);
-                            $(item).find('.ckEdit').first().prop('checked', jitem.CanUpdate);
-                            $(item).find('.ckDelete').first().prop('checked', jitem.CanDelete);
+                            $(item).find('.ckView').first().prop('checked', jitem.canRead);
+                            $(item).find('.ckAdd').first().prop('checked', jitem.canCreate);
+                            $(item).find('.ckEdit').first().prop('checked', jitem.canUpdate);
+                            $(item).find('.ckDelete').first().prop('checked', jitem.canDelete);
                         }
                     });
                 });
