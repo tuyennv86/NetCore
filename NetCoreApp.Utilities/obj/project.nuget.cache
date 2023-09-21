@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "9PRZIOoiQthnd/pV5f2vucbQN2bM1EFihYICWlsOg75bJFccBe8qDV/wlGCJpNkMlIvDuTgY0t/z6M0EMgSZsA==",
+  "dgSpecHash": "V9n30V/eFGVmqcG8FhsB+cI62av6j2Z7IYTduMhWEjNVjv3ttycOndju40xQCptjS4BoWl8vJjhfJaL+LH2edw==",
   "success": true,
   "projectFilePath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Welcome\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -1027,3 +1027,5 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.pdb
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.genruntimeconfig.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\_AddEditRole.cshtml.g.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\_AssignPermission.cshtml.g.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\System.Drawing.Common.dll

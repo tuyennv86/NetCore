@@ -55,6 +55,10 @@
     {
       "library": "summernote@0.8.20",
       "destination": "wwwroot/lib/summernote/"
-    }    
+    },
+    {
+      "library": "jquery-treegrid@0.2.0",
+        "destination": "wwwroot/lib/treegrid/"
+    }
   ]
 }

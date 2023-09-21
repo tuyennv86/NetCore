@@ -27,7 +27,7 @@
 
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
-            
+            $('#modalAddEdit').modal('show');
             let id = $(this).attr('data-id');
 
             $.ajax({
@@ -83,7 +83,16 @@
             e.preventDefault();
             $('#modalAddEdit').modal('show');           
         });       
-       
+
+        // show list role Permisstion
+        $('body').on('click', '#lbtEditRole', function (e) {
+            e.preventDefault();
+            $('#modalRoleEdit').modal('show');            
+            /* fillPermisstion(id);*/
+            $('#hidRoleId').val($(this).data('id'));
+            $.when(loadFunctionList())
+                .done(fillPermisstion($('#hidRoleId').val()));
+        });
 
         // validator add and Edit
         $(function () {
@@ -118,7 +127,7 @@
     }   
     
     let AddEdit = function () {
-        let id = $("#hiId").val();
+        let id = $("#hidId").val();
         let name = $("#txtName").val();
         let description = $("#txtDescription").val();
        
@@ -132,8 +141,8 @@
             type: "POST",
             url: "/admin/Role/SaveEntity",
             data: dataPost,
-            processData: false,
             dataType: "json",
+            async: true,
             beforeSend: function () {
                 until.startLoading();
             },
@@ -157,11 +166,144 @@
     }
 
     function resetFormMaintainance() {
-        $("#hidId").val(0);
+        $("#hidId").val('');
         $("#txtName").val('');
         $("#txtDescription").val('');
     }
-       
+    function loadFunctionList(callback) {        
+        $.ajax({
+            type: "GET",
+            url: "/admin/Function/GetAll",
+            dataType: "json",
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+
+                console.log(response);
+
+                let template = $('#result-data-function').html();
+                let render = "";
+                $.each(response, function (i, item) {
+                    render += Mustache.render(template, {
+                        Name: item.name,
+                        treegridparent: item.parentId !== null ? "treegrid-parent-" + item.parentId : "",
+                        Id: item.Id,
+                        AllowCreate: item.allowCreate ? "checked" : "",
+                        AllowEdit: item.allowEdit ? "checked" : "",
+                        AllowView: item.allowView ? "checked" : "",
+                        AllowDelete: item.allowDelete ? "checked" : "",
+                        Status: item.status,
+                    });
+                });
+                if (render !== undefined) {
+                    $('#lst-data-function').empty().html(render);
+                }
+                $('#tblFunction').treegrid();
+
+                $('#ckCheckAllView').on('click', function () {
+                    $('.ckView').prop('checked', $(this).prop('checked'));
+                });
+
+                $('#ckCheckAllCreate').on('click', function () {
+                    $('.ckAdd').prop('checked', $(this).prop('checked'));
+                });
+                $('#ckCheckAllEdit').on('click', function () {
+                    $('.ckEdit').prop('checked', $(this).prop('checked'));
+                });
+                $('#ckCheckAllDelete').on('click', function () {
+                    $('.ckDelete').prop('checked', $(this).prop('checked'));
+                });
+
+                $('.ckView').on('click', function () {
+                    if ($('.ckView:checked').length === response.length) {
+                        $('#ckCheckAllView').prop('checked', true);
+                    } else {
+                        $('#ckCheckAllView').prop('checked', false);
+                    }
+                });
+                $('.ckAdd').on('click', function () {
+                    if ($('.ckAdd:checked').length === response.length) {
+                        $('#ckCheckAllCreate').prop('checked', true);
+                    } else {
+                        $('#ckCheckAllCreate').prop('checked', false);
+                    }
+                });
+                $('.ckEdit').on('click', function () {
+                    if ($('.ckEdit:checked').length === response.length) {
+                        $('#ckCheckAllEdit').prop('checked', true);
+                    } else {
+                        $('#ckCheckAllEdit').prop('checked', false);
+                    }
+                });
+                $('.ckDelete').on('click', function () {
+                    if ($('.ckDelete:checked').length === response.length) {
+                        $('#ckCheckAllDelete').prop('checked', true);
+                    } else {
+                        $('#ckCheckAllDelete').prop('checked', false);
+                    }
+                });
+                if (callback !== undefined) {
+                    callback();
+                }
+                until.stopLoading();
+            },
+            error: function (status) {
+                console.log(status);
+            }
+        });
+    }
+    let fillPermisstion = function (roleId) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/Role/ListAllFunction",
+            data: {
+                roleId: roleId
+            },
+            dataType: "json",
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                let litsPermission = response;
+                $.each($('#tblFunction tbody tr'), function (i, item) {
+                    $.each(litsPermission, function (j, jitem) {
+                        if (jitem.FunctionId === $(item).data('id')) {
+                            $(item).find('.ckView').first().prop('checked', jitem.CanRead);
+                            $(item).find('.ckAdd').first().prop('checked', jitem.CanCreate);
+                            $(item).find('.ckEdit').first().prop('checked', jitem.CanUpdate);
+                            $(item).find('.ckDelete').first().prop('checked', jitem.CanDelete);
+                        }
+                    });
+                });
+
+                if ($('.ckView:checked').length === $('#tblFunction tbody tr .ckView').length) {
+                    $('#ckCheckAllView').prop('checked', true);
+                } else {
+                    $('#ckCheckAllView').prop('checked', false);
+                }
+                if ($('.ckAdd:checked').length === $('#tblFunction tbody tr .ckAdd').length) {
+                    $('#ckCheckAllCreate').prop('checked', true);
+                } else {
+                    $('#ckCheckAllCreate').prop('checked', false);
+                }
+                if ($('.ckEdit:checked').length === $('#tblFunction tbody tr .ckEdit').length) {
+                    $('#ckCheckAllEdit').prop('checked', true);
+                } else {
+                    $('#ckCheckAllEdit').prop('checked', false);
+                }
+                if ($('.ckDelete:checked').length === $('#tblFunction tbody tr .ckDelete').length) {
+                    $('#ckCheckAllDelete').prop('checked', true);
+                } else {
+                    $('#ckCheckAllDelete').prop('checked', false);
+                }
+                until.stopLoading();
+            },
+            error: function (status) {
+                console.log(status);
+            }
+        });
+    }
 
     let loadData = function (isPageChanged) {
         $.ajax({
@@ -169,7 +311,7 @@
             dataType: 'json',
             data: {               
                 keyword: $('#txtSearch').val(),
-                pageIndex: until.configs.pageIndex,
+                page: until.configs.pageIndex,
                 pageSize: until.configs.pageSize
             },
             url: '/admin/Role/GetAllPaging',

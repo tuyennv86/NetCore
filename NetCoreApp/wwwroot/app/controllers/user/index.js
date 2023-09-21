@@ -268,7 +268,7 @@
         });
     }
     function resetFormMaintainance() {
-        $("#hidId").val(0);
+        $("#hidId").val('');
         $("#txtFullName").val('');
         $("#txtUserName").val('');
         $("#txtPasword").val('');

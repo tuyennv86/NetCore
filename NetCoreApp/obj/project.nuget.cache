@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6TKxQvkALRFm+xz3bZoM18HaEPkcgyLSN1DmdGpiLwj92lnRU/VgBzo8HPBrU3fmV3yzMRBy6ZdzSIPKXj21Zw==",
+  "dgSpecHash": "Gp8yzK2HmfQ9TgxrZmUE24BqsuBstPZe3W2gWs+GFBFyKEZK2e2udSsFSR8XhntK4HxO1bFdS+nTARjv2bZapQ==",
   "success": true,
   "projectFilePath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp\\NetCoreApp.csproj",
   "expectedPackageFiles": [
@@ -107,7 +107,6 @@
     "C:\\Users\\Welcome\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\5.0.2\\microsoft.visualstudio.web.codegenerators.mvc.5.0.2.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\microsoft.win32.primitives\\4.0.1\\microsoft.win32.primitives.4.0.1.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
-    "C:\\Users\\Welcome\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\netstandard.library\\1.6.0\\netstandard.library.1.6.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\nuglify\\1.20.7\\nuglify.1.20.7.nupkg.sha512",
@@ -147,7 +146,7 @@
     "C:\\Users\\Welcome\\.nuget\\packages\\system.diagnostics.diagnosticsource\\7.0.0\\system.diagnostics.diagnosticsource.7.0.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",
-    "C:\\Users\\Welcome\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\Welcome\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\system.globalization\\4.3.0\\system.globalization.4.3.0.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\system.globalization.calendars\\4.0.1\\system.globalization.calendars.4.0.1.nupkg.sha512",
     "C:\\Users\\Welcome\\.nuget\\packages\\system.globalization.extensions\\4.3.0\\system.globalization.extensions.4.3.0.nupkg.sha512",

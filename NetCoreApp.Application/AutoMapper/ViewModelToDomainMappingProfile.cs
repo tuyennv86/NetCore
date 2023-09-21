@@ -44,6 +44,12 @@ namespace NetCoreApp.Application.AutoMapper
 
             CreateMap<PermissionViewModel, Permission>()
                 .ConstructUsing(c => new Permission(c.RoleId, c.FunctionId, c.CanCreate, c.CanRead, c.CanUpdate, c.CanDelete));
+
+            CreateMap<AnnouncementViewModel, Announcement>()
+                .ConstructUsing(c => new Announcement(c.Title, c.Content, c.UserId, c.Status));
+
+            CreateMap<AnnouncementUserViewModel, AnnouncementUser>()
+                .ConstructUsing(c => new AnnouncementUser(c.AnnouncementId, c.UserId, c.HasRead));
         }
     }
 }

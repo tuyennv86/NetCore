@@ -21,7 +21,7 @@
             <small>Member since Nov. 2012</small>
         </p>
     </li>   
-<li class="user-body">
+@*<li class="user-body">
 <div class="row">
     <div class="col-4 text-center">
         <a href="#">Followers</a>
@@ -34,15 +34,21 @@
     </div>
 </div>
     
-</li>   
+</li>*@   
 <li class="user-footer">
     <div class="form-group row">
         <div class="col-sm-6">
-            <a href="#" class="btn btn-default btn-flat">Profile</a>
+            <a href="#" class="btn btn-default btn-flat">
+                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                Profile
+            </a>
         </div>
         <div class="col-sm-6">
             <form action="/Admin/Account/Logout" method="post" id="logoutForm">
-                <button type="submit" class="btn btn-default btn-flat float-right">Sign out</button>
+                <button type="submit" class="btn btn-default btn-flat float-right">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Sign out
+                </button>
             </form>
         </div>
     </div>

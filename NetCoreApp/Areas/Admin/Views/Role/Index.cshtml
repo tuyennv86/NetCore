@@ -1,11 +1,11 @@
-﻿@using Microsoft.AspNetCore.Authorization
-@using NetCoreApp.Authorization
-@inject IAuthorizationService AuthorizationService
-
+﻿@section Styles{ 
+    <link rel="stylesheet" href="~/lib/treegrid/css/jquery.treegrid.min.css" />
+}
 @section ScriptsProduct{
     <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
     <script type="text/javascript" src="~/app/controllers/roles/index.js"></script>
     <script type="text/javascript" src="~/lib/bootbox/bootbox.min.js"></script>
+    <script type="text/javascript" src="~/lib/treegrid/js/jquery.treegrid.min.js"></script>
     <script>
         var role = new roleController();
         role.initialize();
@@ -92,6 +92,7 @@
     </div>
     <!-- /.card -->
     @await Html.PartialAsync("_AddEditRole")
+    @await Html.PartialAsync("_AssignPermission")
 </section>
 <!-- /.content -->
 
@@ -102,13 +103,9 @@
             <td>{{description}}</td>
 
             <td class="text-right">
-                @*@if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded) {*@
-                    <a class="btn btn-info btn-sm" href="#" id="lbtEdit" data-id="{{id}}"> <i class="fas fa-pencil-alt"> </i> Edit </a>
-                 @*}
-                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded)
-                {*@
+                <a class="btn btn-success btn-sm" href="#" id="lbtEditRole" title="Thiết lập quyền truy cập" data-id="{{id}}"> <i class="fa fa-address-card"></i> Role Limit </a>
+                <a class="btn btn-info btn-sm" href="#" id="lbtEdit" data-id="{{id}}"> <i class="fas fa-pencil-alt"> </i> Edit </a>
                 <a class="btn btn-danger btn-sm" href="#" id="lbtDelete" data-id="{{id}}"> <i class="fas fa-trash"> </i> Delete </a>
-                @*}*@
             </td>
         </tr>
         {{/rolesTag}}
