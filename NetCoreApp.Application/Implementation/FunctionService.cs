@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.System;
@@ -18,12 +19,15 @@ namespace NetCoreApp.Application.Implementation
         private readonly IFunctionRepository _functionRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPermissionRepository _permissionRepository;
+       
 
-        public FunctionService(IFunctionRepository functionRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public FunctionService(IFunctionRepository functionRepository, IUnitOfWork unitOfWork, IMapper mapper, IPermissionRepository permissionRepository)
         {
             _functionRepository = functionRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _permissionRepository = permissionRepository;
         }
 
         public void Add(FunctionViewModel functionVm)
@@ -53,6 +57,18 @@ namespace NetCoreApp.Application.Implementation
                 query = query.Where(x => x.Name.Contains(filter));
 
             return _mapper.ProjectTo<FunctionViewModel>(query.OrderBy(x => x.ParentId)).ToListAsync();
+        }
+
+        public List<FunctionViewModel> GetAllByUser(string[] rolesIds)
+        {            
+            var functions = _functionRepository.FindAll();
+            var permissions = _permissionRepository.FindAll();
+
+            var query = (from f in functions
+                        join p in permissions on f.Id equals p.FunctionId
+                        where rolesIds.Contains(p.RoleId.ToString()) && (p.CanCreate || p.CanUpdate || p.CanDelete || p.CanRead)
+                        select f).Distinct();            
+            return _mapper.ProjectTo<FunctionViewModel>(query).ToList();
         }
 
         public IEnumerable<FunctionViewModel> GetAllWithParentId(string parentId)

@@ -108,23 +108,27 @@ namespace NetCoreApp.Application.Implementation
         }        
         public List<PermissionViewModel> GetListFunctionWithRole(Guid roleId)
         {
-            var functions = _functionRepository.FindAll();
-            var permissions = _permissionRepository.FindAll();
+            
+            //var functions = _functionRepository.FindAll();
+            //var permissions = _permissionRepository.FindAll();
 
-            var query = from f in functions
-                        join p in permissions on f.Id equals p.FunctionId into fp
-                        from p in fp.DefaultIfEmpty()
-                        where p != null && p.RoleId == roleId
-                        select new PermissionViewModel()
-                        {
-                            RoleId = roleId,
-                            FunctionId = f.Id,
-                            CanCreate = p != null && p.CanCreate,
-                            CanDelete = p != null && p.CanDelete,
-                            CanRead = p != null && p.CanRead,
-                            CanUpdate = p != null && p.CanUpdate
-                        };
-            return query.ToList();
+            //var query = from f in functions
+            //            join p in permissions on f.Id equals p.FunctionId into fp
+            //            from p in fp.DefaultIfEmpty()
+            //            where p != null && p.RoleId == roleId
+            //            select new PermissionViewModel()
+            //            {
+            //                Id = p.Id,
+            //                RoleId = roleId,
+            //                FunctionId = f.Id,
+            //                CanCreate = p != null && p.CanCreate,
+            //                CanDelete = p != null && p.CanDelete,
+            //                CanRead = p != null && p.CanRead,
+            //                CanUpdate = p != null && p.CanUpdate
+            //            };
+            //return query.ToList();
+            var permisstion = _permissionRepository.FindAll().Where(x => x.RoleId == roleId);
+            return _mapper.ProjectTo<PermissionViewModel>(permisstion).ToList();
         }
 
         public void SavePermission(List<PermissionViewModel> permissionVm, Guid roleId)

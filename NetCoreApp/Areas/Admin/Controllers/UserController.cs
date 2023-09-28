@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.System;
+using NetCoreApp.Authorization;
 using NetCoreApp.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,21 +20,22 @@ namespace NetCoreApp.Areas.Admin.Controllers
     public class UserController : BaseController
     {        
         private readonly IUserService _userService;
-        private readonly IRoleService _roleService;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IAuthorizationService _authorizationService;
+        //private readonly IRoleService _roleService;
+        //private readonly IUnitOfWork _unitOfWork;
+        //private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public UserController(IUserService userService, IUnitOfWork unitOfWork, IMapper mapper, IWebHostEnvironment hostingEnvironment,IRoleService roleService)
+        public UserController(IUserService userService, IAuthorizationService authorizationService)
         {
             _userService = userService;
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _hostingEnvironment = hostingEnvironment;
-            _roleService = roleService;            
+            _authorizationService = authorizationService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var result = await _authorizationService.AuthorizeAsync(User, "USER", Operations.Read);
+            if (!result.Succeeded)
+                return new RedirectResult("/Admin/AccessDenied/Index");
             return View();
         }
         [HttpGet]

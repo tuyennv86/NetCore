@@ -89,7 +89,7 @@
             e.preventDefault();
             $('#modalRoleEdit').modal('show');                        
             $('#hidRoleId').val($(this).data('id'));
-            $.when(loadFunctionList()).done(fillPermisstion($('#hidRoleId').val()));
+            $.when(loadFunctionList()).done(fillPermisstion($('#hidRoleId').val()));           
         });
 
         $("#btnSavePermission").off('click').on('click', function () {
@@ -114,10 +114,10 @@
                 beforeSend: function () {
                     until.startLoading();
                 },
-                success: function (response) {
-                    tedu.stopLoading();
+                success: function (response) {                   
                     until.notify('Cập nhật quyền thành công!', 'success');
-                    $('#modalRoleEdit').modal('hide');                    
+                    $('#modalRoleEdit').modal('hide');
+                    until.stopLoading();
                 },
                 error: function () {
                     until.notify('Lỗi trong cập nhật quyền', 'error');
@@ -207,6 +207,7 @@
             type: "GET",
             url: "/admin/Function/GetAll",
             dataType: "json",
+            cache: false,
             beforeSend: function () {
                 until.startLoading();
             },
@@ -290,17 +291,21 @@
                 roleId: roleId
             },
             dataType: "json",
+            cache: false,
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
 
-                console.log(response);
+               /* console.log(response);*/
 
                 let litsPermission = response;
                 $.each($('#tblFunction tbody tr'), function (i, item) {
-                    $.each(litsPermission, function (j, jitem) {
-                        if (jitem.FunctionId === $(item).data('id')) {
+                    $.each(litsPermission, function (j, jitem) {                       
+                        if (jitem.functionId === $(item).data("id")) {
+
+                           /* console.log($(item).data("id"));*/
+
                             $(item).find('.ckView').first().prop('checked', jitem.canRead);
                             $(item).find('.ckAdd').first().prop('checked', jitem.canCreate);
                             $(item).find('.ckEdit').first().prop('checked', jitem.canUpdate);
@@ -333,6 +338,7 @@
             },
             error: function (status) {
                 console.log(status);
+                until.stopLoading();
             }
         });
     }

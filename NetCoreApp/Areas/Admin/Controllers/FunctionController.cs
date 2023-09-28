@@ -28,6 +28,12 @@ namespace NetCoreApp.Areas.Admin.Controllers
             return new OkObjectResult(model);
         }
         [HttpGet]
+        public IActionResult GetAllByUser(string[] rolesIds)
+        {            
+            var model = _functionService.GetAllByUser(rolesIds);
+            return new OkObjectResult(model);
+        }
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var model = await _functionService.GetAll(string.Empty);

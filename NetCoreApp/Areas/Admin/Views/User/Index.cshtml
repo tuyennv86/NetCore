@@ -34,12 +34,15 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <a class="btn btn-primary btn-sm" href="#" id="lbtAddUser">
-                    <i class="fas fa-plus-circle"></i>
-                    Thêm mới
-                </a>              
-               
-            </div>
+                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Create)).Succeeded)
+                {
+                    <a class="btn btn-primary btn-sm" href="#" id="lbtAddUser">
+                        <i class="fas fa-plus-circle"></i>
+                        Thêm mới
+                    </a>
+                }
+
+                        </div>
             <div class="card-tools col-md-7">
                 <div class="row">
                     <div class="col-10">
@@ -119,13 +122,13 @@
                 {{^status}}<a href="#" id="btnStatus" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Khóa</a>{{/status}}
             </td>
             <td class="text-right">
-                @*@if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded) {*@
+                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded) {
                     <a class="btn btn-info btn-sm" href="#" id="lbtEdit" data-id="{{id}}"> <i class="fas fa-pencil-alt"> </i> Edit </a>
-                 @*}
+                 }
                 @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded)
-                {*@
+                {
                 <a class="btn btn-danger btn-sm" href="#" id="lbtDelete" data-id="{{id}}"> <i class="fas fa-trash"> </i> Delete </a>
-                @*}*@
+                }
             </td>
         </tr>
         {{/userTag}}

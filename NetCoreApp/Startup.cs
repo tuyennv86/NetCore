@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EntityFrameworkCore.UseRowNumberForPaging;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Options;
 using NetCoreApp.Application.AutoMapper;
 using NetCoreApp.Application.Implementation;
 using NetCoreApp.Application.Interfaces;
+using NetCoreApp.Authorization;
 using NetCoreApp.Data.EF;
 using NetCoreApp.Data.EF.Repositories;
 using NetCoreApp.Data.Entities;
@@ -129,7 +131,9 @@ namespace NetCoreApp
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IPermissionRepository, PermissionRepository>();
-
+            
+            // đăng ký phân quyền 
+            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
 
             services.AddMvc();
         }
