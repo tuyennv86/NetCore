@@ -30,7 +30,7 @@
     <div class="card">
         <div class="card-header">
             <div class="card-title">
-                <a class="btn btn-primary btn-sm" href="#">
+                <a class="btn btn-primary btn-sm" href="#" id="addTour">
                     <i class="fas fa-plus-circle"></i>
                     Thêm mới
                 </a>
@@ -107,7 +107,7 @@
 
 </section>
 <!-- /.content -->
-
+@await Html.PartialAsync("_AddEditTourModel")
 <script type="x-tmpl-mustache" id="mp_template">
         {{#tourTag}}
         <tr>

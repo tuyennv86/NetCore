@@ -1,10 +1,14 @@
-﻿using NetCoreApp.Data.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using NetCoreApp.Data.Enums;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetCoreApp.Application.ViewModels.Tour
 {
     public class TourViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }       
         public string Preview { get; set; }        
         public int CategoryId { get; set; }
@@ -29,6 +33,10 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public string SeoKeywords { get; set; }
         public string SeoDescription { get; set; }
         public string CreateById { get; set; }
-        public string EditById { get; set; }        
+        public string EditById { get; set; }
+        [NotMapped]
+        public IFormFile file { get; set; }
+        [NotMapped]
+        public List<IFormFile> files { get; set; }
     }
 }
