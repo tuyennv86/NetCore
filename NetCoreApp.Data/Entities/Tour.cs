@@ -16,7 +16,7 @@ namespace NetCoreApp.Data.Entities
             Images = new List<Images>();
             TourDates = new List<TourDate>();
         }
-        public Tour(string name, string preview, int categoryId, int order, int homeOrder, bool homeStatus, decimal price, string timeTour, DateTime dateStart, 
+        public Tour(string name, string preview, int categoryId, int order, int homeOrder, bool homeStatus, decimal price, string timeTour, string dateStart, 
             string transPort, string service, string gift, string serviceConten, string serviceNotConten, string image, 
             Status status, string seoPageTitle, string seoAlias, string seoKeywords, string seoDescription)
         {
@@ -50,9 +50,7 @@ namespace NetCoreApp.Data.Entities
         [StringLength(512)]
         public string Preview { get; set; }
         [Required]
-        public int CategoryId { get; set; }
-        //[ForeignKey("CategoryId")]
-        //public virtual Category Category { set; get; }
+        public int CategoryId { get; set; }        
         public int Order { get; set; }
         public int HomeOrder { get; set; }
         public bool HomeStatus { get; set; }
@@ -60,7 +58,7 @@ namespace NetCoreApp.Data.Entities
         public decimal Price { get; set; }
         [StringLength(256)]
         public string TimeTour { get; set; }
-        public DateTime DateStart { get; set; }
+        public string DateStart { get; set; }
         [StringLength(256)]        
         public string TransPort { get; set; }// vận chuyển
         [StringLength(256)]
@@ -68,8 +66,7 @@ namespace NetCoreApp.Data.Entities
         [StringLength(256)]
         public string Gift { get; set; } // quà tặng
         public string ServiceConten { get; set; }
-        public string ServiceNotConten { get; set; }
-        public string Cancellation { get; set; }
+        public string ServiceNotConten { get; set; }        
         public string Image { get; set; }        
         public Status Status { get; set; }
         public DateTime DateCreated { get; set; }
@@ -80,8 +77,7 @@ namespace NetCoreApp.Data.Entities
         public string SeoDescription { get; set ; }
         public string CreateById { get; set; }
         public string EditById { get; set; }
-        public virtual ICollection<TourDate> TourDates { set; get; }
-        public virtual ICollection<Images> Images { get; set; }
-        public Status InActive { get; set; }
+        public virtual ICollection<TourDate> TourDates { set; get; }// lịch trình tour
+        public virtual ICollection<Images> Images { get; set; }        
     }
 }

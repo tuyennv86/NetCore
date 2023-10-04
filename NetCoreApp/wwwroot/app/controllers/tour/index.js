@@ -6,9 +6,7 @@
         loadData(true);
     }
 
-    let registerEvents = function () {
-
-        loadCategories();
+    let registerEvents = function () {        
 
         $('#slChangPage').on('change', function () {          
             until.configs.pageSize = $(this).val();
@@ -42,10 +40,10 @@
                 },
                 success: function (response) {
                     until.stopLoading();
-                    $("#hiId").val(response.id);
-                    $("#txtName").val(response.name);
-                    $("#txtOrder").val(response.sortOrder);
-                    $("#ckStatus").prop("checked", response.status);
+                    //$("#hiId").val(response.id);
+                    //$("#txtName").val(response.name);
+                    //$("#txtOrder").val(response.sortOrder);
+                    //$("#ckStatus").prop("checked", response.status);
                 },
                 error: function (status) {
                     until.notify('Lỗi không xem được', 'error' + status);
@@ -122,7 +120,8 @@
         $('body').on('click', '#addTour', function (e) {
             e.preventDefault();
             $('#modalAddEdit').modal('show');
-            loadCategories();
+            loadCategoriesTotree();
+            
         });
 
         $('body').on('click', '#btnStatus', function (e) {
@@ -130,7 +129,30 @@
             let id = $(this).attr('data-id');
             $.ajax({
                 type: "POST",
-                url: "/admin/CategoryType/UpdateIsDeleted",
+                url: "/admin/tour/UpdateStatus",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.notify('Cập nhật trạng thái thành công', 'success');
+                    until.stopLoading();
+                    loadData();
+                },
+                error: function (status) {
+                    until.notify('Lỗi không cập nhật được', 'error' + status);
+                    until.stopLoading();
+                }
+            });
+        });
+        $('body').on('click', '#btnHomeStatus', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            $.ajax({
+                type: "POST",
+                url: "/admin/tour/UpdateHomeStatus",
                 cache: false,
                 data: { id: id },
                 dataType: "json",
@@ -151,30 +173,32 @@
 
     }
 
-
-    function loadCategories(id) {
+    function loadCategoriesTotree(selectID) {
         $.ajax({
             type: 'GET',
-            dataType: 'json',           
-            url: '/admin/productcategory/GetAll',
+            dataType: 'json',
+            cache: false,
+            url: '/admin/Category/GetAll',
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
-                let render = "<option value=''>--Chọn danh mục--</option>";
-                $.each(response, function (i, item) {
-                    render += "<option value='" + item.id + "'>" + item.name + "</option>"
-                });
-                $('#slCategory').html(render);
-                if (id !== undefined) {
-                    $("#slCategory > option[value=" + id + "]").prop("selected", true);
+                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false });
+                comboTree1.clearSelection();
+                comboTree1.setSource(until.createTreeSub(response));
+                if (selectID !== undefined) {
+                    comboTree1.setSelection([selectID]);
                 }
+                comboTree1.onChange(function () {
+                    $('#hidCategoryId').val(comboTree1.getSelectedIds());
+                });
+
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }
+    }    
 
     let loadData = function (isPageChanged) {
         $.ajax({

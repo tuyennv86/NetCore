@@ -122,10 +122,10 @@
         return a.join('.');
     },
     unflattern: function (arr) {
-        var map = {};
-        var roots = [];
-        for (var i = 0; i < arr.length; i += 1) {
-            var node = arr[i];
+        let map = {};
+        let roots = [];
+        for (let i = 0; i < arr.length; i += 1) {
+            let node = arr[i];
             node.children = [];
             map[node.id] = i; // use map to look-up the parents
             if (node.parentId !== null) {
@@ -135,7 +135,38 @@
             }
         }
         return roots;
+    },
+    createTreeSub: function (arr) {
+        let tree = [],
+        mappedArr = {},
+        arrElem,
+        mappedElem;
+
+        // First map the nodes of the array to an object -> create a hash table.
+        for (let i = 0, len = arr.length; i < len; i++) {
+            arrElem = arr[i];
+            mappedArr[arrElem.id] = arrElem;
+            mappedArr[arrElem.id]['subs'] = [];
+        }
+
+        for (let id in mappedArr) {
+            if (mappedArr.hasOwnProperty(id)) {
+                mappedElem = mappedArr[id];
+                // If the element is not at the root level, add it to its parent array of children.
+                if (mappedElem.parentId) {
+                    mappedArr[mappedElem['parentId']]['subs'].push(mappedElem);
+                }
+                // If the element is at the root level, add it to first level elements array.
+                else {
+                    tree.push(mappedElem);
+                }
+            }
+        }
+        let parentITem = { id: 0, name: 'Root' };
+        tree.unshift(parentITem);
+        return tree;
     }
+
 }
 
 $(document).ajaxSend(function (e, xhr, options) {

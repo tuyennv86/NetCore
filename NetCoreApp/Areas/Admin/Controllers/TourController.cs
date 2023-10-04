@@ -101,5 +101,32 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(listId);
             }
         }
+        [HttpPost]
+        public IActionResult UpdateStatus(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _tourService.UpdateStatus(id);
+                _tourService.Save();
+                return new OkObjectResult(id);
+            }
+        }
+        [HttpPost]
+        public IActionResult UpdateHomeStatus(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }else
+            {
+                _tourService.UpdateHomeStatus(id);
+                _tourService.Save();
+                return new OkObjectResult(id);
+            }    
+        }
     }
 }

@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="~/lib/elfinder/css/elfinder.full.min.css" />
 <link rel="stylesheet" href="~/lib/elfinder/css/theme.min.css" />
-@*<link rel="stylesheet" href="~/css/elfinder-material-theme/Material/css/theme-gray.css" />*@
+
 <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
 <script src="~/lib/elfinder/js/elfinder.min.js"></script>
 
@@ -68,7 +68,7 @@ function elfinderDialog(editor) {
   		    destroyOnClose : true,
   		    getFileCallback : function(files, fm) {
   		        console.log(files);
-                    editor.invoke('editor.insertImage', files.url);                    
+                editor.invoke('editor.insertImage', files.url);                                        
   		},
   		commandsOptions : {
   			getfile : {
@@ -83,9 +83,9 @@ function elfinderDialog(editor) {
 $(document).ready(function() {
         $('@selector').summernote({
             height: @height,
-            toolbar: [
-                // [groupName, [list of button]]
+            toolbar: [                
                     ['style', ['style']],
+                    //['custom', ['pageTemplates', 'blocks']], // Custom Buttons
                     ['font', ['bold', 'italic','underline', 'clear']],
                     ['fontname', ['fontname']],
                     ['color', ['color']],
@@ -93,7 +93,25 @@ $(document).ready(function() {
                     ['table', ['table']],
                     ['insert', ['link', 'video', 'elfinder']],
                     ['view', ['fullscreen', 'codeview', 'help']],
-                ],
+            ],
+            //templates: {
+            //    templates: 'page-templates/', // The folder where the templates are stored.
+            //    insertDetails: false, // true|false This toggles whether the below options are automatically filled when inserting the chosen page template.
+            //    dateFormat: 'longDate',
+            //    yourName: 'Your Name',
+            //    yourTitle: 'Your Title',
+            //    yourCompany: 'Your Comapny',
+            //    yourPhone: 'Your Phone',
+            //    yourAddress: 'Your Address',
+            //    yourCity: 'Your City',
+            //    yourState: 'Your State',
+            //    yourCountry: 'Your Country',
+            //    yourPostcode: 'Your Postcode',
+            //    yourEmail: 'your@email.com'
+            //},
+            //blocks: {
+            //    templates: 'block-templates/' // The folder where the Block Templates are stored
+            //}
         });
     });
 

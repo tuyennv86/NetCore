@@ -21,4 +21,3 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Util
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\ref\NetCoreApp.Utilities.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.pdb
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.csproj.AssemblyReference.cache

@@ -54,7 +54,7 @@
                     until.stopLoading();
                     console.log(response);
                                        
-                    loadCategoriesTotreeBySelectID(response.parentId);
+                    loadCategoriesTotree(response.parentId);
                     $("#hidCategoryId").val(response.parentId);
                     viewCategoryType(response.categoryTypeID)
                     $("#hiIdCates").val(response.id);
@@ -367,37 +367,9 @@
             }
         })
     }
-    //load danh sách các danh mục thành cây danh mục
-    function loadCategoriesTotree() {
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            cache: false,
-            url: '/admin/Category/GetAll',
-            beforeSend: function () {
-                until.startLoading();
-            },
-            success: function (response) {                
-                
-               comboTree1 = $('#ddlCategory').comboTree({                    
-                    isMultiple: false
-                });
-
-                comboTree1.clearSelection();
-                comboTree1.setSource(createTreeSub(response));
-
-                comboTree1.onChange(function () {
-                    $('#hidCategoryId').val(comboTree1.getSelectedIds());
-                });
-
-                until.stopLoading();
-            }, error: function (status) {
-                until.notify("Không load được dữ liệu", status);
-            }
-        })
-    }
-    // load danh sách các danh mục dạng edit
-    function loadCategoriesTotreeBySelectID(selectID) {
+    
+    // load danh sách các danh mục
+    function loadCategoriesTotree(selectID) {
 
         $.ajax({
             type: 'GET',
@@ -411,9 +383,10 @@
                 comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false});
                
                 comboTree1.clearSelection();
-                comboTree1.setSource(createTreeSub(response));
-                comboTree1.setSelection([selectID]);                
-                
+                comboTree1.setSource(until.createTreeSub(response));
+                if (selectID !== undefined) {
+                    comboTree1.setSelection([selectID]);
+                }
                 comboTree1.onChange(function () {
                     $('#hidCategoryId').val(comboTree1.getSelectedIds());
                 });                
@@ -423,40 +396,8 @@
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }       
+    }      
     
-    // dang childer tu mang
-    function createTreeSub(arr) {
-        let tree = [],
-            mappedArr = {},
-            arrElem,
-            mappedElem;
-
-        // First map the nodes of the array to an object -> create a hash table.
-        for (let i = 0, len = arr.length; i < len; i++) {
-            arrElem = arr[i];
-            mappedArr[arrElem.id] = arrElem;
-            mappedArr[arrElem.id]['subs'] = [];
-        }
-
-        for (let id in mappedArr) {
-            if (mappedArr.hasOwnProperty(id)) {
-                mappedElem = mappedArr[id];
-                // If the element is not at the root level, add it to its parent array of children.
-                if (mappedElem.parentId) {
-                    mappedArr[mappedElem['parentId']]['subs'].push(mappedElem);
-                }
-                // If the element is at the root level, add it to first level elements array.
-                else {
-                    tree.push(mappedElem);
-                }
-            }
-        }
-        let parentITem = { id: 0, name: 'Root' };
-        tree.unshift(parentITem);
-        return tree;
-    }
-
     const recursiveArraySort = (list, parent = { id: 0, level: 0 }) => {
         let result = [];      
         const children = list.filter(item => item.parentId === parent.id);       
@@ -522,7 +463,6 @@
 
     
     let AddEditAction = function () {
-
 
         let formData = new FormData();
         formData.append("Id", $("#hiIdCates").val());

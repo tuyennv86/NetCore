@@ -1031,3 +1031,4 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\R
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\System.Drawing.Common.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Function\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\AccessDenied\Index.cshtml.g.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Tour\_AddEditTourModel.cshtml.g.cs

@@ -1,10 +1,19 @@
-﻿@section ScriptsProduct{
+﻿@section Styles{
+    <link rel="stylesheet" href="~/admin/plugins/comboTree/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="~/admin/plugins/comboTree/comboTreePlugin.css" /> 
+}
+@section ScriptsProduct{
+    <script type="text/javascript" src="~/admin/plugins/comboTree/comboTreePlugin.js"></script>
     <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
     <script type="text/javascript" src="~/app/controllers/tour/index.js"></script>
     <script>
         var tour = new tourController();
         tour.initialize();
     </script>
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtPreview" })
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtService" })
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtServiceConten" })
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtServiceNotConten" })
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -34,11 +43,11 @@
                     <i class="fas fa-plus-circle"></i>
                     Thêm mới
                 </a>
-                <a class="btn btn-info btn-sm" href="#">
+                <a class="btn btn-info btn-sm" href="#" id="btnUpdate">
                     <i class="fa fa-recycle"></i>
                     Cập nhật
                 </a>
-                <a class="btn btn-danger btn-sm" href="#">
+                <a class="btn btn-danger btn-sm" href="#" id="btnDeleteAll">
                     <i class="fas fa-trash"></i>
                     Delete
                 </a>
@@ -80,6 +89,7 @@
                         <th>Danh mục</th>
                         <th>Giá</th>
                         <th>Trạng thái</th>
+                        <th>Trang chủ</th>
                         <th>Ngày tạo</th>
                         <th>Người tạo</th>
                         <th class="text-right">Action</th>
@@ -126,8 +136,12 @@
             <td>{{productCategory.name}}</td>
             <td>{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
             <td>
-                {{#status}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/status}}
-                {{^status}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
+                {{#status}}<a href="#" data-id="{{id}}" id="btnStatus" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/status}}
+                {{^status}}<a href="#" data-id="{{id}}" id="btnStatus" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
+            </td>
+            <td>
+                {{#homeStatus}}<a href="#" data-id="{{id}}" id="btnHomeStatus" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/homeStatus}}
+                {{^homeStatus}}<a href="#" data-id="{{id}}" id="btnHomeStatus" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/homeStatus}}
             </td>
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
             <td> </td>

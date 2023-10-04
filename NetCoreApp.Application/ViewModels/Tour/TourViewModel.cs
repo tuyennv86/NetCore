@@ -17,13 +17,12 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public bool HomeStatus { get; set; }
         public decimal Price { get; set; }        
         public string TimeTour { get; set; }
-        public DateTime DateStart { get; set; }        
+        public string DateStart { get; set; }        
         public string TransPort { get; set; }// vận chuyển        
         public string Service { get; set; }        
         public string Gift { get; set; } // quà tặng
         public string ServiceConten { get; set; }
-        public string ServiceNotConten { get; set; }
-        public string Cancellation { get; set; }
+        public string ServiceNotConten { get; set; }        
         public string Image { get; set; }
         public Status Status { get; set; }
         public DateTime DateCreated { get; set; }
