@@ -8,19 +8,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
     public class TourController : BaseController
     {
-        private readonly ITourService _tourService;        
+        private readonly ITourService _tourService;
         private readonly ILogger _logger;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ITourDateService _tourDateService;
         private readonly IImagesService _imagesService;
 
-        public TourController(ITourService tourService, ILogger<ProductController> logger, 
+        public TourController(ITourService tourService, ILogger<ProductController> logger,
             IWebHostEnvironment hostingEnvironment, ITourDateService tourDateService, IImagesService imagesService)
         {
             _tourService = tourService;
@@ -29,6 +28,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _tourDateService = tourDateService;
             _imagesService = imagesService;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -63,7 +63,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 if (entity.Id == 0)
                 {
                     entity.CreateById = userId;
-                    entity.EditById = userId;                    
+                    entity.EditById = userId;
                     entity.DateModified = DateTime.Now;
                     _tourService.Add(entity);
                 }
@@ -91,7 +91,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 _tourDateService.DeleteByTourID(id);
                 //xóa danh sách các ảnh liên quan Images
                 var images = _imagesService.GetAll(id);
-                foreach(ImagesViewModel image in images)
+                foreach (ImagesViewModel image in images)
                 {
                     if (!string.IsNullOrEmpty(image.Name))
                     {
@@ -99,7 +99,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                         {
                             System.IO.File.Delete(_hostingEnvironment.WebRootPath + image.Name);
                         }
-                        catch (Exception ex) { string s = ex.Message; }
+                        catch (Exception ex) { _logger.LogError(ex.Message); }
                     }
                 }
                 _imagesService.DeleteByTourId(id);
@@ -111,7 +111,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     {
                         System.IO.File.Delete(_hostingEnvironment.WebRootPath + model.Image);
                     }
-                    catch (Exception ex) { string s = ex.Message; }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
                 }
                 _tourService.Delete(id);
 
@@ -121,6 +121,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(id);
             }
         }
+
         [HttpDelete]
         public IActionResult DeleteByListId(int[] listId)
         {
@@ -130,11 +131,43 @@ namespace NetCoreApp.Areas.Admin.Controllers
             }
             else
             {
+                foreach (int id in listId)
+                {
+                    var entity = _tourService.GetById(id);
+                    if (!string.IsNullOrEmpty(entity.Image))
+                    {
+                        //xóa lịch trình tour TourDate
+                        _tourDateService.DeleteByTourID(id);
+                        //xóa danh sách các ảnh liên quan Images
+                        var images = _imagesService.GetAll(id);
+                        foreach (ImagesViewModel image in images)
+                        {
+                            if (!string.IsNullOrEmpty(image.Name))
+                            {
+                                try
+                                {
+                                    System.IO.File.Delete(_hostingEnvironment.WebRootPath + image.Name);
+                                }
+                                catch (Exception ex) { _logger.LogError(ex.Message); }
+                            }
+                        }
+                        _imagesService.DeleteByTourId(id);
+                        //xóa ảnh đại diện dang sách tour
+                        try
+                        {
+                            System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
+                        }
+                        catch (Exception ex) { _logger.LogError(ex.Message); }
+                    }
+                }
                 _tourService.DeleteAll(listId);
+                _tourDateService.Save();
+                _imagesService.Save();
                 _tourService.Save();
                 return new OkObjectResult(listId);
             }
         }
+
         [HttpPost]
         public IActionResult UpdateStatus(int id)
         {
@@ -149,18 +182,20 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(id);
             }
         }
+
         [HttpPost]
         public IActionResult UpdateHomeStatus(int id)
         {
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(ModelState);
-            }else
+            }
+            else
             {
                 _tourService.UpdateHomeStatus(id);
                 _tourService.Save();
                 return new OkObjectResult(id);
-            }    
+            }
         }
     }
 }

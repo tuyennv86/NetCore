@@ -129,7 +129,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     {
                         System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
                     }
-                    catch (Exception ex) { string s = ex.Message; }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
+                        
                 }
                 _categoryService.Delete(Id);
                 _categoryService.Save();
@@ -153,7 +154,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     {
                         System.IO.File.Delete(_hostingEnvironment.WebRootPath + model.Image);
                     }
-                    catch (Exception ex) { string s = ex.Message; }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
                 }
                 _categoryService.UpdateImageEmpty(Id);
                 _categoryService.Save();
@@ -178,7 +179,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                         {
                             System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
                         }
-                        catch (Exception) { }
+                        catch (Exception ex) { _logger.LogError(ex.Message); }
                     }
                 }
                 _categoryService.DeleteAll(listId);
