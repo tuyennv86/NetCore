@@ -4,11 +4,8 @@ using NetCoreApp.Application.ViewModels.Tour;
 using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.IRepositories;
 using NetCoreApp.Infrastructure.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Implementation
 {
@@ -44,6 +41,13 @@ namespace NetCoreApp.Application.Implementation
                 list.Add(_imagesRepository.FindById(id));
             }
             _imagesRepository.RemoveMultiple(list);
+        }
+
+        public void DeleteByTourId(int TourID)
+        {
+            var entities = _imagesRepository.FindAll(x => x.TourId == TourID).ToList();
+            _imagesRepository.RemoveMultiple(entities);
+
         }
 
         public List<ImagesViewModel> GetAll(int TourID)

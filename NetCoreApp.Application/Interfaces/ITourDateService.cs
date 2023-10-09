@@ -14,8 +14,10 @@ namespace NetCoreApp.Application.Interfaces
         void Update(TourDateViewModel tourViewModel);
         void Delete(int id);
         void DeleteAll(int[] listId);
+        void DeleteByTourID(int TourID);
         List<TourDateViewModel> GetAll();
         List<TourDateViewModel> GetAll(string keyword);
+        List<TourDateViewModel> GetAllByTourID(int TourID);
         PagedResult<TourDateViewModel> GetAllPaging(string keyword, int page, int pageSize);
         TourDateViewModel GetById(int id);      
         void UpdateStatus(int id);       

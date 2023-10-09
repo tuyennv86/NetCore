@@ -13,6 +13,7 @@ namespace NetCoreApp.Application.Interfaces
         void Update(ImagesViewModel tourViewModel);
         void Delete(int id);
         void DeleteAll(int[] listId);
+        void DeleteByTourId(int TourID);
         List<ImagesViewModel> GetAll(int TourID);
         ImagesViewModel GetById(int id);        
         void Save();

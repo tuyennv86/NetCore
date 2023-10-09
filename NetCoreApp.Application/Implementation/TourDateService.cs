@@ -49,6 +49,12 @@ namespace NetCoreApp.Application.Implementation
             _tourDateRepository.RemoveMultiple(list);
         }
 
+        public void DeleteByTourID(int TourID)
+        {
+            var entities = _tourDateRepository.FindAll(x => x.TourId == TourID).ToList();
+            _tourDateRepository.RemoveMultiple(entities);
+        }
+
         public List<TourDateViewModel> GetAll()
         {
             return _mapper.ProjectTo<TourDateViewModel>(_tourDateRepository.FindAll()).ToList();
@@ -64,6 +70,11 @@ namespace NetCoreApp.Application.Implementation
             {
                 return _mapper.ProjectTo<TourDateViewModel>(_tourDateRepository.FindAll()).ToList();
             }
+        }
+
+        public List<TourDateViewModel> GetAllByTourID(int TourID)
+        {
+            return _mapper.ProjectTo<TourDateViewModel>(_tourDateRepository.FindAll(x => x.TourId == TourID)).ToList();
         }
 
         public PagedResult<TourDateViewModel> GetAllPaging(string keyword, int page, int pageSize)

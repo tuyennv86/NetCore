@@ -36,7 +36,7 @@
                 // Tạo nút bấm
                 context.memo('button.elfinder', function () {
                     var button = ui.button({
-                        contents: '<i class="note-icon-picture"/>',
+                        contents: '<i class="note-icon-picture"/> elfinder',
                         tooltip: 'Quản lý file',
                         click: function () {
                             // Bấm vào nút bấm gọi hàm elfinderDialog
@@ -84,34 +84,19 @@ $(document).ready(function() {
         $('@selector').summernote({
             height: @height,
             toolbar: [                
-                    ['style', ['style']],
-                    //['custom', ['pageTemplates', 'blocks']], // Custom Buttons
-                    ['font', ['bold', 'italic','underline', 'clear']],
-                    ['fontname', ['fontname']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'video', 'elfinder']],
-                    ['view', ['fullscreen', 'codeview', 'help']],
+                ['style', ['style']],                
+                ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'video', 'picture', 'elfinder', 'hr']],
+                ['view', ['fullscreen', 'codeview', 'help']],
             ],
-            //templates: {
-            //    templates: 'page-templates/', // The folder where the templates are stored.
-            //    insertDetails: false, // true|false This toggles whether the below options are automatically filled when inserting the chosen page template.
-            //    dateFormat: 'longDate',
-            //    yourName: 'Your Name',
-            //    yourTitle: 'Your Title',
-            //    yourCompany: 'Your Comapny',
-            //    yourPhone: 'Your Phone',
-            //    yourAddress: 'Your Address',
-            //    yourCity: 'Your City',
-            //    yourState: 'Your State',
-            //    yourCountry: 'Your Country',
-            //    yourPostcode: 'Your Postcode',
-            //    yourEmail: 'your@email.com'
-            //},
-            //blocks: {
-            //    templates: 'block-templates/' // The folder where the Block Templates are stored
-            //}
+            onImageUpload: function (files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+            }
+            
         });
     });
 

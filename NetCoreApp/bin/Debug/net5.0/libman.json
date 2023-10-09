@@ -58,7 +58,11 @@
     },
     {
       "library": "jquery-treegrid@0.2.0",
-        "destination": "wwwroot/lib/treegrid/"
+      "destination": "wwwroot/lib/treegrid/"
+    },
+    {
+      "library": "jquery-datetimepicker@2.5.20",
+      "destination": "wwwroot/lib/datetimepicker/"
     }
   ]
 }

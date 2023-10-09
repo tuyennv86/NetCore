@@ -40,10 +40,27 @@
                 },
                 success: function (response) {
                     until.stopLoading();
-                    //$("#hiId").val(response.id);
-                    //$("#txtName").val(response.name);
-                    //$("#txtOrder").val(response.sortOrder);
-                    //$("#ckStatus").prop("checked", response.status);
+                    $("#hidId").val(response.id);
+                    $("#txtName").val(response.name);
+                    loadCategoriesTotree(response.categoryId);
+                    $("#hidCategoryId").val(response.categoryId);
+                    $("#txtSeoPageTitle").val(response.seoPageTitle);
+                    $("#txtSeoAlias").val(response.seoAlias);
+                    $("#txtSeoKeyword").val(response.seoKeywords);
+                    $("#txtSeoDescription").val(response.seoDescription);
+                    $("#txtOrder").val(response.order);
+                    $("#txtHomeOrder").val(response.homeOrder);
+                    $("#txtPrice").val(response.price);
+                    $("#txtTimeTour").val(response.timeTour);
+                    $("#txtDateStart").val(response.dateStart);
+                    $("#txtTransPort").val(response.transPort);
+                    $("#txtGift").val(response.gift);
+                    $("#txtPreview").summernote('code', response.preview);
+                    $("#txtService").summernote('code', response.service);
+                    $("#txtServiceConten").summernote('code', response.serviceConten);
+                    $("#txtServiceNotConten").summernote('code', response.serviceNotConten);
+                    $("#ckStatus").prop("checked", response.status);
+                    $("#ckShowHome").prop("checked", response.homeStatus);
                 },
                 error: function (status) {
                     until.notify('Lỗi không xem được', 'error' + status);
@@ -171,6 +188,72 @@
             });
         });
 
+        // validator add and Edit
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    AddEditAction();
+                }
+            });
+            $('#frmMaintainance').validate({
+                rules: {
+                    txtName: {
+                        required: true
+                    },
+                    txtSeoPageTitle: {
+                        required: true
+                    },
+                    txtSeoAlias: {
+                        required: true
+                    },
+                    txtSeoKeyword: {
+                        required: true
+                    },
+                    txtSeoDescription: {
+                        required: true
+                    },
+                    txtOrder: {
+                        required: true,
+                        digits: true
+                    },
+                    txtHomeOrder: {
+                        required: true,
+                        digits: true
+                    },
+                    txtPrice: {
+                        required: true,
+                        digits: true
+                    },
+                    txtTimeTour: {
+                        required: true
+                    },
+                    txtService: {
+                        required: true
+                    },
+                    txtServiceConten: {
+                        required: true
+                    },
+                    txtServiceNotConten: {
+                        required: true
+                    },
+                    txtCreateDate: {
+                        required: true
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group .col-sm-10').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
     }
 
     function loadCategoriesTotree(selectID) {
@@ -265,13 +348,103 @@
             }
         });
     }
-    
+
+    function resetFormMaintainance() {
+
+        $("#hidId").val(0);
+        $("#txtName").val('');
+        loadCategoriesTotree();
+        $("#hidCategoryId").val(0);
+        $("#txtSeoPageTitle").val('');
+        $("#txtSeoAlias").val('');
+        $("#txtSeoKeyword").val('');
+        $("#txtSeoDescription").val('');
+        $("#txtOrder").val(0);
+        $("#txtHomeOrder").val(0);
+        $("#txtPrice").val(0);
+        $("#txtTimeTour").val('');
+        $("#txtDateStart").val('');
+        $("#txtTransPort").val('');
+        $("#txtGift").val('');
+        $("#txtPreview").summernote('code', '');
+        $("#txtService").summernote('code', '');
+        $("#txtServiceConten").summernote('code', '');
+        $("#txtServiceNotConten").summernote('code', '');
+        $("#ckStatus").prop("checked", false);
+        $("#ckShowHome").prop("checked", false);
+    }
+
+    let AddEditAction = function () {
+
+        let formData = new FormData();
+        formData.append("Id", $("#hiIdCates").val());
+        formData.append("Name", $("#txtName").val());
+        formData.append("Preview", $("#txtPreview").val());
+        formData.append("CategoryTypeID", $("#slcategoryTypeAdd").val());
+        formData.append("Order", $("#txtOrder").val());
+        formData.append("HomeOrder", $("#txtHomeOrder").val());        
+        formData.append("HomeStatus", $('#ckShowHome').prop('checked'));
+        formData.append("Price", $().val());
+        formData.append("TimeTour", $().val());
+        formData.append("DateStart", $().val());
+        formData.append("TransPort", $().val());
+        formData.append("Service", $().val());
+        formData.append("Gift", $().val());
+        formData.append("ServiceConten", $().val());
+        formData.append("ServiceNotConten", $().val());
+        formData.append("Image", $("#hidImage").val());
+        formData.append("Status", $("#ckStatus").prop('checked'));
+        formData.append("SeoPageTitle", $("#txtSeoPageTitle").val());
+        formData.append("SeoAlias", $("#txtSeoAlias").val());
+        formData.append("SeoKeywords", $("#txtSeoKeyword").val());
+        formData.append("SeoDescription", $("#txtSeoDescription").val());
+        formData.append("DateCreated", $("#txtCreateDate").val());
+        formData.append("file", $("#fuImage")[0].files[0]);
+        formData.append("files", $("#fuImageList")[0].files);
+
+        let id = $("#hiIdCates").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/tour/SaveEntity",
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                if (id > 0) {
+                    until.notify('Cập nhật thành công', 'success');
+                    resetFormMaintainance();
+                    $('#modalAddEdit').modal('hide');
+                } else {
+                    until.notify('Thêm mới thành công', 'success');
+                    resetFormMaintainance();
+                }
+                until.stopLoading();
+                loadCategories();
+                loadCategoriesTotree();
+            },
+            error: function (err) {
+                until.notify('Lỗi không cập nhập hoặc thêm mới được!' + JSON.stringify(err), 'error');
+                until.stopLoading();
+            }
+        });
+    }
+
 }
 
 $(document).ready(function () {    
 
     $("#checkAll").change(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+   
+    $.datetimepicker.setLocale('vi');
+    $('#txtCreateDate').datetimepicker({
+        format: 'd/m/Y h:m',
+        mask: true
     });
 
 });

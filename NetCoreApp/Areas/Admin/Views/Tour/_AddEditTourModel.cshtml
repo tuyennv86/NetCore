@@ -10,12 +10,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="hiIdCates" value="0" />
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Tên tour</label>
                         <div class="col-sm-10">
                             <input type="hidden" id="hidId" value="0" />
-                            <input type="text" name="txtName" class="form-control" id="txtName" placeholder="Nhập tên danh mục">
+                            <input type="text" name="txtName" class="form-control" id="txtName" placeholder="Nhập tên tour">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -29,7 +28,7 @@
                         <label class="col-sm-2 col-form-label">Ảnh đại diện</label>
                         <div class="col-sm-10">
                             <input type="hidden" name="hidImage" id="hidImage" />
-                            <input type="file" name="attachment" id="fuImage" accept=".png, .jpg, .jpeg, .gif">
+                            <input type="file" name="attachment" id="fuImage" accept="image/png, image/jpg, image/jpeg, image/gif">
                             <div id="image-holder"></div>
                             <a href="#" id="hplRemoveImg"><i class="fa fa-trash" aria-hidden="true"></i> xóa ảnh</a>
                         </div>
@@ -38,7 +37,7 @@
                         <label class="col-sm-2 col-form-label">Ảnh liên quan</label>
                         <div class="col-sm-10">
                             <input type="hidden" name="hidImage" id="hidImage" />
-                            <input type="file" name="attachment" id="fuImage" multiple accept=".png, .jpg, .jpeg, .gif">
+                            <input type="file" name="attachment" id="fuImageList" multiple accept="image/png, image/jpg, image/jpeg, image/gif">
                             <div id="image-holder"></div>
                             <a href="#" id="hplRemoveImg"><i class="fa fa-trash" aria-hidden="true"></i> xóa ảnh</a>
                         </div>
@@ -133,6 +132,12 @@
                         <label class="col-sm-12 col-form-label">Dịch vụ không kèm:</label>
                         <div class="col-sm-12">
                             <textarea rows="3" name="txtServiceNotConten" class="form-control" id="txtServiceNotConten"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Ngày đăng</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="txtCreateDate" class="form-control col-md-4" id="txtCreateDate">
                         </div>
                     </div>
                     <div class="form-group row">
