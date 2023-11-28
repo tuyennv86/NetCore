@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EntityFrameworkCore.UseRowNumberForPaging;
+﻿using EntityFrameworkCore.UseRowNumberForPaging;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -19,7 +18,6 @@ using NetCoreApp.Data.EF;
 using NetCoreApp.Data.EF.Repositories;
 using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.IRepositories;
-using NetCoreApp.Extensions;
 using NetCoreApp.Helpers;
 using NetCoreApp.Infrastructure.Interfaces;
 using NetCoreApp.Services;

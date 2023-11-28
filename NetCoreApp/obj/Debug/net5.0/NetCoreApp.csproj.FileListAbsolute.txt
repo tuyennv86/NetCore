@@ -816,7 +816,9 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.EntityFramework
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.Design.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
