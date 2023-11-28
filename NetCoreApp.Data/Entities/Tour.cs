@@ -13,7 +13,7 @@ namespace NetCoreApp.Data.Entities
     {
         public Tour()
         {
-            Images = new List<Images>();
+            TourImages = new List<TourImages>();
             TourDates = new List<TourDate>();
         }
         public Tour(string name, string preview, int categoryId, int order, int homeOrder, bool homeStatus, decimal price, string timeTour, string dateStart, 
@@ -40,7 +40,7 @@ namespace NetCoreApp.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoKeywords;
             SeoDescription = seoDescription;
-            Images = new List<Images>();
+            TourImages = new List<TourImages>();
             TourDates = new List<TourDate>();
         }
 
@@ -50,7 +50,10 @@ namespace NetCoreApp.Data.Entities
         [StringLength(512)]
         public string Preview { get; set; }
         [Required]
-        public int CategoryId { get; set; }        
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { set; get; }
+
         public int Order { get; set; }
         public int HomeOrder { get; set; }
         public bool HomeStatus { get; set; }
@@ -78,6 +81,6 @@ namespace NetCoreApp.Data.Entities
         public string CreateById { get; set; }
         public string EditById { get; set; }
         public virtual ICollection<TourDate> TourDates { set; get; }// lịch trình tour
-        public virtual ICollection<Images> Images { get; set; }        
+        public virtual ICollection<TourImages> TourImages { get; set; }        
     }
 }

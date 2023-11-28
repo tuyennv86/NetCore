@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NetCoreApp.Infrastructure.SharedKernel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using NetCoreApp.Infrastructure.SharedKernel;
 
 namespace NetCoreApp.Data.Entities
 {

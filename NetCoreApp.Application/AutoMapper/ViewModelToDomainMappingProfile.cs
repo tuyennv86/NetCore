@@ -35,7 +35,7 @@ namespace NetCoreApp.Application.AutoMapper
                c.DateStart, c.TransPort, c.Service, c.Gift, c.ServiceConten, c.ServiceNotConten, c.Image, c.Status,
                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
             
-            CreateMap<ImagesViewModel, Images>().ConstructUsing(c => new Images(c.Name, c.TourId));
+            CreateMap<TourImagesViewModel, TourImages>().ConstructUsing(c => new TourImages(c.Name, c.TourId));
 
             CreateMap<TourDateViewModel, TourDate>().ConstructUsing(c => new TourDate(c.TourId, c.Name, c.Conten, c.Status));
 

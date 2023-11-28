@@ -42,8 +42,7 @@ namespace NetCoreApp
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConection"), o => o.UseRowNumberForPaging()));           
 
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
-            
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();            
 
             services.AddMemoryCache();
 
@@ -114,6 +113,8 @@ namespace NetCoreApp
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IProductTagRepository, ProductTagRepository>();
 
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
@@ -125,7 +126,7 @@ namespace NetCoreApp
             services.AddTransient<ITourService, TourService>();
             services.AddTransient<ITourDateRepository, TourDateRepository>();
             services.AddTransient<ITourDateService, TourDateService>();
-            services.AddTransient<IImagesRepository, ImagesRepository>();
+            services.AddTransient<ITourImagesRepository, TourImagesRepository>();
             services.AddTransient<IImagesService, ImagesService>();
 
             services.AddTransient<IUserService, UserService>();
@@ -172,7 +173,7 @@ namespace NetCoreApp
                     "areaRoute",
                     "{area:exists}/{controller=Login}/{action=Index}/{id?}");
             });
-            
+         
         }
         
     }

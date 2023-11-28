@@ -61,9 +61,7 @@ namespace NetCoreApp.Data.Entities
         public string SeoKeywords { set; get; }
         [StringLength(256)]
         public string SeoDescription { set; get; }
-        public string Detail { get; set; }
-        //[NotMapped]
-        //public IFormFile filesImg { set; get; }
+        public string Detail { get; set; }        
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         [StringLength(255)]
@@ -73,6 +71,8 @@ namespace NetCoreApp.Data.Entities
         [ForeignKey("Id")]
         public virtual Category Parent { get; set; }
         public virtual ICollection<Category> Children { get; set; }
-        
+        public virtual ICollection<Product> Products { set; get; }
+        public virtual ICollection<Tour> Tours { set; get; }
+
     }
 }

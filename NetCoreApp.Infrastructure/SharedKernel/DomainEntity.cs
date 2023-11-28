@@ -4,6 +4,8 @@
     {
         public T Id { get; set; }
 
+        //public int Identifier { get; }
+
         /// <summary>
         /// True if domain entity has an identity
         /// </summary>

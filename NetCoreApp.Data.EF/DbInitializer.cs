@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.Enums;
 using NetCoreApp.Utilities.Constants;
@@ -60,6 +61,7 @@ namespace NetCoreApp.Data.EF
                 var user = await _userManager.FindByNameAsync("admin");
                 await _userManager.AddToRoleAsync(user, "Admin");
             }
+
             if (_context.Functions.Count() == 0)
             {
                 _context.Functions.AddRange(new List<Function>()
@@ -100,8 +102,7 @@ namespace NetCoreApp.Data.EF
                 {
                     Id = CommonConstants.DefaultFooterId,
                     Content = content
-                });
-                //_context.SaveChanges();
+                });                
             }
 
             if (_context.Colors.Count() == 0)
@@ -171,11 +172,11 @@ namespace NetCoreApp.Data.EF
                 _context.Sizes.AddRange(listSize);
             }
 
-            //if (_context.ProductCategories.Count() == 0)
+            //if (_context.Categories.Count() == 0)
             //{
-            //    List<ProductCategory> listProductCategory = new List<ProductCategory>()
+            //    List<Category> listProductCategory = new List<Category>()
             //    {
-            //        new ProductCategory() { Name="Áo nam",SeoAlias="ao-nam",ParentId = 0,Status=Status.Active,SortOrder=1,
+            //        new Category() { Name="Áo nam",SeoAlias="ao-nam",ParentId = 0,Status=Status.Active,SortOrder=1,
             //            Products = new List<Product>()
             //            {
             //                new Product(){Name = "Sản phẩm 1",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-1",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
@@ -185,7 +186,7 @@ namespace NetCoreApp.Data.EF
             //                new Product(){Name = "Sản phẩm 5",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-5",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
             //            }
             //        },
-            //        new ProductCategory() { Name="Áo nữ",SeoAlias="ao-nu",ParentId = 0,Status=Status.Active ,SortOrder=2,
+            //        new Category() { Name="Áo nữ",SeoAlias="ao-nu",ParentId = 0,Status=Status.Active ,SortOrder=2,
             //            Products = new List<Product>()
             //            {
             //                new Product(){Name = "Sản phẩm 6",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-6",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
@@ -194,7 +195,7 @@ namespace NetCoreApp.Data.EF
             //                new Product(){Name = "Sản phẩm 9",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-9",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
             //                new Product(){Name = "Sản phẩm 10",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-10",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
             //            }},
-            //        new ProductCategory() { Name="Giày nam",SeoAlias="giay-nam",ParentId = 0,Status=Status.Active ,SortOrder=3,
+            //        new Category() { Name="Giày nam",SeoAlias="giay-nam",ParentId = 0,Status=Status.Active ,SortOrder=3,
             //            Products = new List<Product>()
             //            {
             //                new Product(){Name = "Sản phẩm 11",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-11",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
@@ -203,7 +204,7 @@ namespace NetCoreApp.Data.EF
             //                new Product(){Name = "Sản phẩm 14",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-14",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
             //                new Product(){Name = "Sản phẩm 15",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-15",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
             //            }},
-            //        new ProductCategory() { Name="Giày nữ",SeoAlias="giay-nu",ParentId = 0,Status=Status.Active,SortOrder=4,
+            //        new Category() { Name="Giày nữ",SeoAlias="giay-nu",ParentId = 0,Status=Status.Active,SortOrder=4,
             //            Products = new List<Product>()
             //            {
             //                new Product(){Name = "Sản phẩm 16",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-16",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
@@ -213,7 +214,7 @@ namespace NetCoreApp.Data.EF
             //                new Product(){Name = "Sản phẩm 20",Image="/client-side/images/products/product-1.jpg",SeoAlias = "san-pham-20",Price = 1000,Status = Status.Active,OriginalPrice = 1000},
             //            }}
             //    };
-            //    _context.ProductCategories.AddRange(listProductCategory);
+            //    _context.Categories.AddRange(listProductCategory);
             //}
 
             if (!_context.SystemConfigs.Any(x => x.Id == "HomeTitle"))

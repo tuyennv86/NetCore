@@ -11,19 +11,19 @@ namespace NetCoreApp.Application.Implementation
 {
     public class ImagesService : IImagesService
     {
-        private readonly IImagesRepository _imagesRepository;
+        private readonly ITourImagesRepository _imagesRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ImagesService(IImagesRepository imagesRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ImagesService(ITourImagesRepository imagesRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _imagesRepository = imagesRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public ImagesViewModel Add(ImagesViewModel imagesViewModel)
+        public TourImagesViewModel Add(TourImagesViewModel imagesViewModel)
         {
-            var entity = _mapper.Map<ImagesViewModel, Images>(imagesViewModel);
+            var entity = _mapper.Map<TourImagesViewModel, TourImages>(imagesViewModel);
             _imagesRepository.Add(entity);
             return imagesViewModel;
         }
@@ -35,7 +35,7 @@ namespace NetCoreApp.Application.Implementation
 
         public void DeleteAll(int[] listId)
         {
-            List<Images> list = new();
+            List<TourImages> list = new();
             foreach(int id in listId)
             {
                 list.Add(_imagesRepository.FindById(id));
@@ -50,14 +50,14 @@ namespace NetCoreApp.Application.Implementation
 
         }
 
-        public List<ImagesViewModel> GetAll(int TourID)
+        public List<TourImagesViewModel> GetAll(int TourID)
         {
-            return _mapper.ProjectTo<ImagesViewModel>(_imagesRepository.FindAll(x => x.TourId == TourID)).ToList();
+            return _mapper.ProjectTo<TourImagesViewModel>(_imagesRepository.FindAll(x => x.TourId == TourID)).ToList();
         }
 
-        public ImagesViewModel GetById(int id)
+        public TourImagesViewModel GetById(int id)
         {
-            return _mapper.Map<Images, ImagesViewModel>(_imagesRepository.FindById(id));
+            return _mapper.Map<TourImages, TourImagesViewModel>(_imagesRepository.FindById(id));
         }
 
         public void Save()
@@ -65,9 +65,9 @@ namespace NetCoreApp.Application.Implementation
             _unitOfWork.Commit();
         }
 
-        public void Update(ImagesViewModel imagesViewModel)
+        public void Update(TourImagesViewModel imagesViewModel)
         {
-            var entity = _mapper.Map<ImagesViewModel, Images>(imagesViewModel);
+            var entity = _mapper.Map<TourImagesViewModel, TourImages>(imagesViewModel);
             _imagesRepository.Update(entity);
         }
         

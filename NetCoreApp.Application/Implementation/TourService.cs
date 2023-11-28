@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Tour;
 using NetCoreApp.Data.Entities;
@@ -24,11 +25,18 @@ namespace NetCoreApp.Application.Implementation
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public TourViewModel Add(TourViewModel tourViewModel)
+        public TourViewModel Add(TourViewModel tourViewModel, List<TourImagesViewModel> tourImages)
         {
             var tour = _mapper.Map<TourViewModel, Tour>(tourViewModel);
+
+            foreach (TourImagesViewModel tourImage in tourImages)
+            {
+                var image = _mapper.Map<TourImagesViewModel, TourImages>(tourImage);
+                tour.TourImages.Add(image);
+            }
             _tourRepository.Add(tour);
-            return tourViewModel;
+           
+           return tourViewModel;
         }
 
         public void Delete(int id)
@@ -90,7 +98,7 @@ namespace NetCoreApp.Application.Implementation
 
         public TourViewModel GetById(int id)
         {
-            return _mapper.Map<Tour, TourViewModel>(_tourRepository.FindById(id));
+            return _mapper.Map<Tour, TourViewModel>(_tourRepository.FindById(id));            
         }
 
         public void Save()

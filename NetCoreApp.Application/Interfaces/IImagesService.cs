@@ -9,13 +9,13 @@ namespace NetCoreApp.Application.Interfaces
 {
     public interface IImagesService
     {
-        ImagesViewModel Add(ImagesViewModel tourViewModel);
-        void Update(ImagesViewModel tourViewModel);
+        TourImagesViewModel Add(TourImagesViewModel imagesViewModel);
+        void Update(TourImagesViewModel imagesViewModel);
         void Delete(int id);
         void DeleteAll(int[] listId);
         void DeleteByTourId(int TourID);
-        List<ImagesViewModel> GetAll(int TourID);
-        ImagesViewModel GetById(int id);        
+        List<TourImagesViewModel> GetAll(int TourID);
+        TourImagesViewModel GetById(int id);        
         void Save();
     }
 }

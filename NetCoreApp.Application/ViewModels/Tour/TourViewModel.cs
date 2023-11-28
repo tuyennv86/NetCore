@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using NetCoreApp.Data.EF;
 using NetCoreApp.Data.Enums;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,9 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public string SeoDescription { get; set; }
         public string CreateById { get; set; }
         public string EditById { get; set; }
+        //public virtual ICollection<TourDateViewModel> TourDates { set; get; }// lịch trình tour
+        //public virtual ICollection<TourImagesViewModel> Images { get; set; }
+
         [NotMapped]
         public IFormFile file { get; set; }
         [NotMapped]

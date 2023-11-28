@@ -60,23 +60,16 @@ namespace NetCoreApp.Data.EF
         public DbSet<CategoryType> CategoryTypé { get; set; }
         public DbSet<Tour> Tours { get; set; }
         public DbSet<TourDate> TourDates { get; set; }
-        public DbSet<Images> Images { get; set; }
+        public DbSet<TourImages> TourImages { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
 
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
-
-            builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims")
-                .HasKey(x => x.Id);
-
+            builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims").HasKey(x => x.Id);
             builder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
-
-            builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles")
-                .HasKey(x => new { x.UserId, x.RoleId });            
-
-            builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens")
-               .HasKey(x => new { x.UserId });
+            builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });            
+            builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => new { x.UserId });
 
             #endregion Identity Config
 
@@ -100,9 +93,8 @@ namespace NetCoreApp.Data.EF
             var modified = ChangeTracker.Entries().Where(e => e.State == EntityState.Modified || e.State == EntityState.Added);
 
             foreach (EntityEntry item in modified)
-            {
-                var changedOrAddedItem = item.Entity as IDateTracking;
-                if (changedOrAddedItem != null)
+            { 
+                if (item.Entity is IDateTracking changedOrAddedItem)
                 {
                     if (item.State == EntityState.Added)
                     {
@@ -110,6 +102,7 @@ namespace NetCoreApp.Data.EF
                     }
                     changedOrAddedItem.DateModified = DateTime.Now;
                 }
+
             }
             return base.SaveChanges();
         }
@@ -119,9 +112,7 @@ namespace NetCoreApp.Data.EF
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json").Build();
+            IConfiguration configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
             var builder = new DbContextOptionsBuilder<AppDbContext>();
             var connectionString = configuration.GetConnectionString("DefaultConection");
             builder.UseSqlServer(connectionString);

@@ -15,7 +15,7 @@ namespace NetCoreApp.Infrastructure.Interfaces
 
         IQueryable<T> FindAll(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
 
-        void Add(T entity);
+        void Add(T entity);       
 
         void Update(T entity);
 

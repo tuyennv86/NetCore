@@ -6,6 +6,7 @@ using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Tour;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 
@@ -59,22 +60,157 @@ namespace NetCoreApp.Areas.Admin.Controllers
             else
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                // cập nhật ảnh
+                if (entity.file != null)
+                {
+                    string pathPhoto = $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}";
+                    string folder = _hostingEnvironment.WebRootPath + pathPhoto;
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+
+                    string photoName = Path.GetFileName(entity.file.FileName);
+                    string tempfileName = "";
+                    string pathToCheck = Path.Combine(folder, photoName);
+
+                    if (System.IO.File.Exists(pathToCheck))
+                    {
+                        int counter = 1;
+                        while (System.IO.File.Exists(pathToCheck))
+                        {
+                            tempfileName = counter.ToString() + photoName;
+                            pathToCheck = pathPhoto + tempfileName;
+                            counter++;
+                        }
+                        photoName = tempfileName;
+                    }
+
+                    using FileStream stream = new(Path.Combine(folder, photoName), FileMode.Create);
+                    entity.file.CopyTo(stream);
+                    stream.Flush();
+                    entity.Image = Path.Combine(pathPhoto, photoName);
+                }
+                List<TourImagesViewModel> listTourImages = new List<TourImagesViewModel>();
+                if (entity.files != null)
+                {
+                    // list ảnh
+                    foreach (var file in entity.files)
+                    {
+                        string pathPhoto = $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}";
+                        string folder = _hostingEnvironment.WebRootPath + pathPhoto;
+                        if (!Directory.Exists(folder))
+                        {
+                            Directory.CreateDirectory(folder);
+                        }
+
+                        string photoName = Path.GetFileName(file.FileName);
+                        string tempfileName = "";
+                        string pathToCheck = Path.Combine(folder, photoName);
+
+                        if (System.IO.File.Exists(pathToCheck))
+                        {
+                            int counter = 1;
+                            while (System.IO.File.Exists(pathToCheck))
+                            {
+                                tempfileName = counter.ToString() + photoName;
+                                pathToCheck = pathPhoto + tempfileName;
+                                counter++;
+                            }
+                            photoName = tempfileName;
+                        }
+
+                        using FileStream stream = new(Path.Combine(folder, photoName), FileMode.Create);
+                        file.CopyTo(stream);
+                        stream.Flush();
+                        TourImagesViewModel imagesView = new();
+
+                        string ImagePath = Path.Combine(pathPhoto, photoName);
+                        imagesView.Name = ImagePath;
+                        imagesView.TourId = entity.Id;
+
+                        listTourImages.Add(imagesView);                        
+                    }
+                }
+                // hêt list ảnh 
 
                 if (entity.Id == 0)
-                {
+                {                    
                     entity.CreateById = userId;
                     entity.EditById = userId;
                     entity.DateModified = DateTime.Now;
-                    _tourService.Add(entity);
+                    _tourService.Add(entity, listTourImages);                    
                 }
                 else
                 {
+                    // xóa ảnh khi update 
+                    if(entity.file != null)
+                    {
+                        if (!string.IsNullOrEmpty(entity.Image))
+                        {
+                            try
+                            {
+                                System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
+                            }
+                            catch (Exception ex) { _logger.LogError(ex.Message); }
+                        }
+                    }
+
                     entity.EditById = userId;
                     entity.DateModified = DateTime.Now;
                     _tourService.Update(entity);
                 }
+                
                 _tourService.Save();
                 return new OkResult();
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteImagesByImgId(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                var modelImg = _imagesService.GetById(id);
+                if (!string.IsNullOrEmpty(modelImg.Name))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + modelImg.Name);
+                    }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
+                }
+                _imagesService.Delete(id);
+                _imagesService.Save();
+                return new OkObjectResult(id);
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteImge(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                var model = _tourService.GetById(id);                
+                if (!string.IsNullOrEmpty(model.Image))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + model.Image);
+                    }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
+                }               
+                _tourService.UpdateImageEmpty(id);
+                _tourService.Save();
+                return new OkObjectResult(id);
             }
         }
 
@@ -90,8 +226,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 //xóa lịch trình tour TourDate
                 _tourDateService.DeleteByTourID(id);
                 //xóa danh sách các ảnh liên quan Images
-                var images = _imagesService.GetAll(id);
-                foreach (ImagesViewModel image in images)
+                List<TourImagesViewModel> images = _imagesService.GetAll(id);
+                foreach (TourImagesViewModel image in images)
                 {
                     if (!string.IsNullOrEmpty(image.Name))
                     {
@@ -140,7 +276,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                         _tourDateService.DeleteByTourID(id);
                         //xóa danh sách các ảnh liên quan Images
                         var images = _imagesService.GetAll(id);
-                        foreach (ImagesViewModel image in images)
+                        foreach (TourImagesViewModel image in images)
                         {
                             if (!string.IsNullOrEmpty(image.Name))
                             {

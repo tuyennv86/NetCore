@@ -10,7 +10,7 @@ namespace NetCoreApp.Application.Interfaces
 {
     public interface ITourService:IDisposable
     {
-        TourViewModel Add(TourViewModel tourViewModel);
+        TourViewModel Add(TourViewModel tourViewModel, List<TourImagesViewModel> tourImages);
         void Update(TourViewModel tourViewModel);
         void Delete(int id);
         void DeleteAll(int[] listId);

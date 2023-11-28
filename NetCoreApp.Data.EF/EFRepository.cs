@@ -20,7 +20,7 @@ namespace NetCoreApp.Data.EF
         public void Add(T entity)
         {
             _context.Add(entity);
-        }
+        }       
 
         public void Dispose()
         {

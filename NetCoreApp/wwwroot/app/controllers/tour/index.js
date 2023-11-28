@@ -53,6 +53,8 @@
                     $("#txtPrice").val(response.price);
                     $("#txtTimeTour").val(response.timeTour);
                     $("#txtDateStart").val(response.dateStart);
+                    $("#hidImage").val(response.Image);
+                    $("#image-holder").html('<img class="img-thumbnail" src=' + response.image + '>');
                     $("#txtTransPort").val(response.transPort);
                     $("#txtGift").val(response.gift);
                     $("#txtPreview").summernote('code', response.preview);
@@ -377,21 +379,21 @@
     let AddEditAction = function () {
 
         let formData = new FormData();
-        formData.append("Id", $("#hiIdCates").val());
+        formData.append("Id", $("#hidId").val());
         formData.append("Name", $("#txtName").val());
         formData.append("Preview", $("#txtPreview").val());
-        formData.append("CategoryTypeID", $("#slcategoryTypeAdd").val());
+        formData.append("CategoryId", $("#hidCategoryId").val());
         formData.append("Order", $("#txtOrder").val());
         formData.append("HomeOrder", $("#txtHomeOrder").val());        
         formData.append("HomeStatus", $('#ckShowHome').prop('checked'));
-        formData.append("Price", $().val());
-        formData.append("TimeTour", $().val());
-        formData.append("DateStart", $().val());
-        formData.append("TransPort", $().val());
-        formData.append("Service", $().val());
-        formData.append("Gift", $().val());
-        formData.append("ServiceConten", $().val());
-        formData.append("ServiceNotConten", $().val());
+        formData.append("Price", $("#txtPrice").val());
+        formData.append("TimeTour", $("#txtTimeTour").val());
+        formData.append("DateStart", $("#txtDateStart").val());
+        formData.append("TransPort", $("#txtTransPort").val());
+        formData.append("Service", $("#txtService").val());
+        formData.append("Gift", $("#txtGift").val());
+        formData.append("ServiceConten", $("#txtServiceConten").val());
+        formData.append("ServiceNotConten", $("#txtServiceNotConten").val());
         formData.append("Image", $("#hidImage").val());
         formData.append("Status", $("#ckStatus").prop('checked'));
         formData.append("SeoPageTitle", $("#txtSeoPageTitle").val());
@@ -400,9 +402,14 @@
         formData.append("SeoDescription", $("#txtSeoDescription").val());
         formData.append("DateCreated", $("#txtCreateDate").val());
         formData.append("file", $("#fuImage")[0].files[0]);
-        formData.append("files", $("#fuImageList")[0].files);
 
-        let id = $("#hiIdCates").val();
+        let totalFiles = document.getElementById("fuImageList").files.length;
+        for (let i = 0; i < totalFiles; i++) {
+            let file = document.getElementById("fuImageList").files[i];
+            formData.append("files", file);
+        }      
+
+        let id = $("#hidId").val();
 
         $.ajax({
             type: "POST",
@@ -422,9 +429,8 @@
                     until.notify('Thêm mới thành công', 'success');
                     resetFormMaintainance();
                 }
-                until.stopLoading();
-                loadCategories();
-                loadCategoriesTotree();
+                until.stopLoading();               
+                loadData();
             },
             error: function (err) {
                 until.notify('Lỗi không cập nhập hoặc thêm mới được!' + JSON.stringify(err), 'error');

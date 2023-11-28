@@ -1,7 +1,7 @@
 ﻿<div class="modal fade" id="modalAddEdit" data-backdrop="static">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" id="frmMaintainance" name="frmMaintainance" enctype="multipart/form-data">
+            <form class="form-horizontal" id="frmMaintainance" name="frmMaintainance" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Lưu cập nhật tour</h5>
@@ -41,6 +41,150 @@
                             <div id="image-holder"></div>
                             <a href="#" id="hplRemoveImg"><i class="fa fa-trash" aria-hidden="true"></i> xóa ảnh</a>
                         </div>
+
+                        <!-- /.card-body -->
+                        <!--<div class="card-footer bg-white">
+                            <ul class="list-group list-group-horizontal position-relative overflow-auto w-100">
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar4.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar2.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar4.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar2.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar4.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar2.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar.png" alt="Attachment"></span>
+
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="mailbox-attachment-icon has-img"><img src="~/admin/dist/img/avatar3.png" alt="Attachment"></span>
+                                    <div class="mailbox-attachment-info">
+                                        <a href="#" class="mailbox-attachment-name"><i class="fas fa-trash"></i> Xóa ảnh</a>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div> -->
+                        <!-- /.card-footer -->
+
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">SEO Title</label>

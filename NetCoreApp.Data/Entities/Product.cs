@@ -21,8 +21,7 @@ namespace NetCoreApp.Data.Entities
             decimal price, decimal originalPrice, decimal? promotionPrice,
             string description, string content, bool? homeFlag, bool? hotFlag,
             string tags, string unit, Status status, string seoPageTitle,
-            string seoAlias, string seoMetaKeyword,
-            string seoMetaDescription)
+            string seoAlias, string seoMetaKeyword, string seoMetaDescription)
         {
             Name = name;
             CategoryId = categoryId;
@@ -80,6 +79,8 @@ namespace NetCoreApp.Data.Entities
 
         [Required]
         public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { set; get; }
 
         [StringLength(255)]
         public string Image { get; set; }
@@ -109,9 +110,7 @@ namespace NetCoreApp.Data.Entities
 
         [StringLength(255)]
         public string Unit { get; set; }
-
-        //[ForeignKey("CategoryId")]
-        //public virtual ProductCategory ProductCategory { set; get; }
+              
         public virtual ICollection<ProductTag> ProductTags { set; get; }
         public string SeoPageTitle { set; get; }
 
