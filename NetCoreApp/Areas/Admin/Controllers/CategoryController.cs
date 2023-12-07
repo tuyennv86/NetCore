@@ -15,20 +15,33 @@ namespace NetCoreApp.Areas.Admin.Controllers
     public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryService;
+        private readonly ICategoryTypeService _categoryTypeService;
         private readonly ILogger _logger;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger, IWebHostEnvironment hostingEnvironment)
+        public CategoryController(ICategoryService categoryService, ICategoryTypeService categoryTypeService, ILogger<CategoryController> logger, IWebHostEnvironment hostingEnvironment)
         {
             _categoryService = categoryService;
+            _categoryTypeService = categoryTypeService;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
+        {            
+            return View();         
+        }        
+        public IActionResult Details(int? id)
         {
-            return View();
+            int typeId = (int)(id == null ? 0 : id);
+            if (typeId == 0)
+            {
+                return NotFound();
+            }
+            var model = _categoryTypeService.GetById(typeId);
+            return View(model);
         }
+
 
         [HttpGet]
         public IActionResult GetAll()
@@ -36,7 +49,13 @@ namespace NetCoreApp.Areas.Admin.Controllers
             var models = _categoryService.GetAll();
             return new OkObjectResult(models);
         }
-
+        [Route("admin/category/index/{type}")]
+        [HttpGet]
+        public IActionResult GetAllByCategoryType(int type)
+        {
+            var models = _categoryService.GetByType(type);
+            return new OkObjectResult(models);
+        }
         [HttpPost]
         public IActionResult GetByTypeAndKeyWord(string keyWord, int categoryTypeID)
         {

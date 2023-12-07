@@ -1,30 +1,26 @@
-﻿let categoryController = function () {
+﻿let indexTypeController = function () {
 
     this.initialize = function () {
-        loadCategoryType();
-        loadCategories();
+
+        loadCategoriesByType();
+        loadCategoryType();        
         registerEvents();
         updateOrder();
     }
 
     let registerEvents = function () {
         $('#slcategoryType').on('change', function () {
-            loadCategories();
+            loadCategoriesByType();
         });
 
         $("#btnSearch").on('click', function () {
-            loadCategories();
-        });
-
-        $("#txtName").on('keypress', function (e) {
-            let title = until.removeVietnamese($("#txtName").val());
-            $("#txtSeoPageTitle").val(title);
+            loadCategoriesByType();
         });
 
         $("#txtSearch").on('keypress', function (e) {
             if (e.which === 13) {
                 e.preventDefault();
-                loadCategories();
+                loadCategoriesByType();
             }
         });
 
@@ -32,9 +28,14 @@
             $('input:checkbox').not(this).prop('checked', this.checked);
         });
 
+        $("#txtName").on('keypress', function (e) {
+            let title = until.removeVietnamese($("#txtName").val());
+            $("#txtSeoPageTitle").val(title);
+        });
+
         $('#addCategory').off('click').on('click', function () {           
             $('#modalAddEdit').modal('show');
-            viewCategoryType(-1);
+            viewCategoryType();
             loadCategoriesTotree();
 
         });
@@ -60,7 +61,7 @@
                                        
                     loadCategoriesTotree(response.parentId);
                     $("#hidCategoryId").val(response.parentId);
-                    viewCategoryType(response.categoryTypeID)
+                    viewCategoryType()
                     $("#hiIdCates").val(response.id);
                     $("#txtName").val(response.name);
                     $("#txtDescription").val(response.description);
@@ -103,7 +104,7 @@
                         success: function (response) {
                             until.notify('Xóa thành công', 'success');
                             until.stopLoading();
-                            loadCategories();
+                            loadCategoriesByType();
                         },
                         error: function (status) {
                             until.notify('Lỗi không xóa được', 'error' + status);
@@ -140,7 +141,7 @@
                         success: function (response) {
                             until.notify('Xóa thành công', 'success');
                             until.stopLoading();
-                            loadCategories();
+                            loadCategoriesByType();
                         },
                         error: function (status) {
                             until.notify('Lỗi không xóa được', 'error' + status);
@@ -166,7 +167,7 @@
                 success: function (response) {
                     until.notify('Cập nhật trạng thái thành công', 'success');
                     until.stopLoading();
-                    loadCategories();
+                    loadCategoriesByType();
                 },
                 error: function (status) {
                     until.notify('Lỗi không cập nhật được', 'error' + status);
@@ -190,7 +191,7 @@
                 success: function (response) {
                     until.notify('Cập nhật thành công', 'success');
                     until.stopLoading();
-                    loadCategories();
+                    loadCategoriesByType();
                 },
                 error: function (status) {
                     until.notify('Lỗi không cập nhật được', 'error' + status);
@@ -217,7 +218,7 @@
                         success: function (response) {
                             until.notify('Xóa ảnh thành công', 'success');
                             $("#image-holder").html('');
-                            loadCategories();
+                            loadCategoriesByType();
                             until.stopLoading();
                         },
                         error: function (status) {
@@ -291,58 +292,53 @@
     }
     // load chủng loại danh mục tìm kiếm hiển thị
     function loadCategoryType() {
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '/admin/CategoryType/GetAll',
-            beforeSend: function () {
-                until.startLoading();
-            },
-            success: function (response) {
-                let render = "<option value='0'>Chọn loại danh mục</option>";
-                $.each(response, function (i, item) {
-                    render += "<option value='" + item.id + "'>" + item.name + "</option>"
-                });
-                $('#slcategoryType').html(render);
-                until.stopLoading();
-            }, error: function (status) {
-                until.notify("Không load được dữ liệu", status);
-            }
-        })
-    }
-    // view chủng loại danh mục thêm sửa
-    function viewCategoryType(id) {
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '/admin/CategoryType/GetAll',
-            beforeSend: function () {
-                until.startLoading();
-            },
-            success: function (response) {
-                let render = "";
-                $.each(response, function (i, item) {
-                    render += "<option value='" + item.id + "'>" + item.name + "</option>"
-                });
-                $('#slcategoryTypeAdd').html(render);
-                $("#slcategoryTypeAdd > option[value=" + id + "]").prop("selected", true);
-                until.stopLoading();
-            }, error: function (status) {
-                until.notify("Không load được dữ liệu", status);
-            }
-        })
-    }
-    // load danh sách các danh mục
-    function loadCategories() {
+        let id = $("#hidCategoryType").val();
         $.ajax({
             type: 'POST',
+            data: { Id: id },
+            dataType: 'json',
+            url: '/admin/CategoryType/GetById',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {              
+                $('#slcategoryType').html("<option value='" + response.id + "'>" + response.name + "</option>");
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+
+    // view chủng loại danh mục thêm sửa
+    function viewCategoryType() {
+        let id = $("#hidCategoryType").val();
+        $.ajax({
+            type: 'POST',
+            data: { Id: id },
+            dataType: 'json',
+            url: '/admin/CategoryType/GetById',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {                
+                $('#slcategoryTypeAdd').html("<option value='" + response.id + "'>" + response.name + "</option>");              
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+
+    // load danh sách các danh mục theo type   
+    function loadCategoriesByType() {
+
+        let typeId = $("#hidCategoryType").val();
+        $.ajax({
+            type: 'GET',
             dataType: 'json',
             cache: false,
-            url: '/admin/Category/GetByTypeAndKeyWord',
-            data: {
-                keyWord: $("#txtSearch").val(),
-                categoryTypeID: $("#slcategoryType").val()
-            },
+            url: '/admin/category/index/' + typeId,
             beforeSend: function () {
                 until.startLoading();
             },
@@ -350,7 +346,7 @@
 
                 //console.log(response);
 
-                let templateWithData = Mustache.render($("#mp_template").html(), {
+                let templateWithData = Mustache.render($("#mp_templateType").html(), {
                     categoryTag: recursiveArraySort(response),
                     dateFormat: function () {
                         return function (timestamp, render) {
@@ -358,7 +354,7 @@
                         };
                     }
                 });
-                $("#tpl_content").empty().html(templateWithData);
+                $("#tpl_contentType").empty().html(templateWithData);
                 $('#tblList').simpleTreeTable({
                     expander: $('#expander'),
                     collapser: $('#collapser'),
@@ -370,7 +366,7 @@
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }       
+    }
 
     // load danh sách các danh mục
     function loadCategoriesTotree(selectID) {
@@ -435,7 +431,7 @@
                             success: function (response) {
                                 until.notify('Cập nhật thành công', 'success');
                                 until.stopLoading();
-                                loadCategories();
+                                loadCategoriesByType();
                             },
                             error: function (status) {
                                 until.notify('Lỗi cập nhật được được', 'error' + status);
@@ -464,7 +460,6 @@
             });
         });
     }
-
     
     let AddEditAction = function () {
 
@@ -507,7 +502,7 @@
                         resetFormMaintainance();
                     }
                     until.stopLoading();
-                loadCategories();
+                loadCategoriesByType();
                 loadCategoriesTotree();
             },
             error: function (err) {

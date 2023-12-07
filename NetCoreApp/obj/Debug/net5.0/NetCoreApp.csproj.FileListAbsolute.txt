@@ -967,6 +967,7 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.RazorCoreGener
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\AccessDenied\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryType\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\CategoryType\_AddEditCategoryTypeModel.cshtml.g.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Details.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Category\_AddEditCategoryModel.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\FileManager\Index.cshtml.g.cs

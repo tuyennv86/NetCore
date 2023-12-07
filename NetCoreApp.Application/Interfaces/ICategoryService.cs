@@ -23,6 +23,7 @@ namespace NetCoreApp.Application.Interfaces
         List<CategoryViewModel> GetAllByParentId(int parentId, int categoryTypeID);
 
         CategoryViewModel GetById(int id);
+        List<CategoryViewModel> GetByType(int type);
 
         void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items);
         List<CategoryViewModel> GetHomeCategories(int top);

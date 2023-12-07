@@ -137,5 +137,10 @@ namespace NetCoreApp.Application.Implementation
             else category.Status = Status.InActive;
             _categoryRepository.Update(category);
         }
+
+        public List<CategoryViewModel> GetByType(int type)
+        {
+            return _mapper.ProjectTo<CategoryViewModel>(_categoryRepository.FindAll(x => x.CategoryTypeID == type).OrderBy(x => x.SortOrder)).ToList();
+        }
     }
 }

@@ -17,6 +17,6 @@ namespace NetCoreApp.Application.Interfaces
         CategoryTypeViewModel GetById(int id);        
         void UpdateOrder(int Id, int sortOrder);
         void UpdateIsDelete(int id);        
-        void Save();
+        void Save();        
     }
 }
