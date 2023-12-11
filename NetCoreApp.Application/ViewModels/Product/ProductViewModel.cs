@@ -1,4 +1,5 @@
-﻿using NetCoreApp.Data.Enums;
+﻿using NetCoreApp.Application.ViewModels.Category;
+using NetCoreApp.Data.Enums;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -45,7 +46,7 @@ namespace NetCoreApp.Application.ViewModels.Product
         [StringLength(255)]
         public string Unit { get; set; }
 
-        public ProductCategoryViewModel ProductCategory { set; get; }
+        public CategoryViewModel Category { set; get; }
 
         public string SeoPageTitle { set; get; }
 
@@ -62,5 +63,7 @@ namespace NetCoreApp.Application.ViewModels.Product
         public DateTime DateModified { set; get; }
 
         public Status Status { set; get; }
+        public Guid CreateById { get; set; }
+        public Guid EditById { get; set; }
     }
 }

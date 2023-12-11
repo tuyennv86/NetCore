@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NetCoreApp.Data.Entities
 {
     [Table("Products")]
-    public class Product : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData
+    public class Product : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData, ICreateTracking
     {
         public Product()
         {
@@ -128,5 +128,7 @@ namespace NetCoreApp.Data.Entities
         public DateTime DateModified { set; get; }
 
         public Status Status { set; get; }
+        public Guid CreateById { get; set; }
+        public Guid EditById { get; set; }
     }
 }

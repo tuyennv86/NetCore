@@ -27,8 +27,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                    <li class="breadcrumb-item"><a href="#">Danh mục</a></li>
+                    <li class="breadcrumb-item"><a href="/Admin/Home/Index">Admin</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/category">Danh mục</a></li>
                     <li class="breadcrumb-item active">Danh sách tour</li>
                 </ol>
             </div>
@@ -87,7 +87,7 @@
                         <th style="width: 1%">
                             <input type="checkbox" name="checkAll" id="checkAll">
                         </th>
-                        <th>Tên sản phẩm</th>
+                        <th>Tên tour</th>
                         <th>Ảnh</th>
                         <th>Danh mục</th>
                         <th>Giá</th>
@@ -136,7 +136,7 @@
                 <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg">
             {{/image}}
             </td>
-            <td> </td>
+            <td> {{category.name}}</td>
             <td>{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
             <td>
                 {{#status}}<a href="#" data-id="{{id}}" id="btnStatus" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/status}}
@@ -147,7 +147,7 @@
                 {{^homeStatus}}<a href="#" data-id="{{id}}" id="btnHomeStatus" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/homeStatus}}
             </td>
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
-            <td> </td>
+            <td>{{ createBy.userName }}</td>
             <td class="text-right">
                 <a class="btn btn-info btn-sm" href="#"> <i class="fas fa-pencil-alt"> </i> Edit </a>
                 <a class="btn btn-danger btn-sm" href="#"> <i class="fas fa-trash"> </i> Delete </a>

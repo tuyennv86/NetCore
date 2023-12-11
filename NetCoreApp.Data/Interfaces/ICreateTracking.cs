@@ -5,8 +5,8 @@ namespace NetCoreApp.Data.Interfaces
 {
     public interface ICreateTracking
     {
-        string CreateById { get; set; }
+        Guid CreateById { get; set; }
      
-        string EditById { get; set; }
+        Guid EditById { get; set; }
     }
 }

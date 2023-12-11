@@ -65,9 +65,9 @@ namespace NetCoreApp.Data.Entities
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         [StringLength(255)]
-        public string CreateById { get; set; }
+        public Guid CreateById { get; set; }
         [StringLength(255)]
-        public string EditById { get; set; }
+        public Guid EditById { get; set; }
         [ForeignKey("Id")]
         public virtual Category Parent { get; set; }
         public virtual ICollection<Category> Children { get; set; }

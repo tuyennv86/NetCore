@@ -15,7 +15,7 @@
                         var itemChild = Model.Where(x => x.ParentId == item.Id);
                         if (itemChild.Count() > 0)
                         {
-                            <li class="nav-item">
+                            <li class="nav-item menu-is-opening menu-open">
                                 <a href="#" class="nav-link">
                                     <i class="@item.IconCss"></i>
                                     <p>

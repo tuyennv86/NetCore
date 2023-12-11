@@ -18,7 +18,7 @@
 
         $("#txtName").on('keypress', function (e) {
             let title = until.removeVietnamese($("#txtName").val());
-            $("#txtSeoPageTitle").val(title);
+            $("#txtSeoAlias").val(title);
         });
 
         $("#txtSearch").on('keypress', function (e) {

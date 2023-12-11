@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using NetCoreApp.Application.ViewModels.Category;
+using NetCoreApp.Application.ViewModels.System;
 using NetCoreApp.Data.EF;
 using NetCoreApp.Data.Enums;
 using System;
@@ -32,11 +34,14 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public string SeoAlias { get; set; }
         public string SeoKeywords { get; set; }
         public string SeoDescription { get; set; }
-        public string CreateById { get; set; }
-        public string EditById { get; set; }
-        //public virtual ICollection<TourDateViewModel> TourDates { set; get; }// lịch trình tour
-        //public virtual ICollection<TourImagesViewModel> Images { get; set; }
+        public Guid CreateById { get; set; }        
+        public Guid EditById { get; set; }
+        public  AppUserViewModel CreateBy { set; get; }       
+        public AppUserViewModel EditBy { set; get; }
 
+        //public virtual ICollection<TourDateViewModel> TourDates { set; get; }// lịch trình tour
+        public ICollection<TourImagesViewModel> TourImages { get; set; }
+        public CategoryViewModel Category { set; get; }
         [NotMapped]
         public IFormFile file { get; set; }
         [NotMapped]

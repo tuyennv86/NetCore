@@ -28,7 +28,7 @@ namespace NetCoreApp.Data.Entities
         public Status Status { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        public string CreateById { get; set ; }
-        public string EditById { get; set; }
+        public Guid CreateById { get; set ; }
+        public Guid EditById { get; set; }
     }
 }

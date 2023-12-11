@@ -27,8 +27,8 @@ namespace NetCoreApp.Application.ViewModels.Category
         public IFormFile filesImg { set; get; }
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
-        public string CreateById { get; set; }
-        public string EditById { get; set; }        
+        public Guid CreateById { get; set; }
+        public Guid EditById { get; set; }        
         //public virtual CategoryViewModel Parent { get; set; }
         //public virtual ICollection<CategoryViewModel> Children { get; set; }
     }

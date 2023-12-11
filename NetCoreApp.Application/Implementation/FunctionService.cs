@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Implementation
 {
-    public class FunctionService : IFunctionService
+    public partial class FunctionService : IFunctionService
     {
         private readonly IFunctionRepository _functionRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -56,7 +56,7 @@ namespace NetCoreApp.Application.Implementation
             if (!string.IsNullOrEmpty(filter))
                 query = query.Where(x => x.Name.Contains(filter));
 
-            return _mapper.ProjectTo<FunctionViewModel>(query.OrderBy(x => x.ParentId)).ToListAsync();
+            return _mapper.ProjectTo<FunctionViewModel>(query.OrderBy(x => x.SortOrder)).ToListAsync();
         }
 
         public List<FunctionViewModel> GetAllByUser(string[] rolesIds)
@@ -66,14 +66,14 @@ namespace NetCoreApp.Application.Implementation
 
             var query = (from f in functions
                         join p in permissions on f.Id equals p.FunctionId
-                        where rolesIds.Contains(p.RoleId.ToString()) && (p.CanCreate || p.CanUpdate || p.CanDelete || p.CanRead)
+                        where rolesIds.Contains(p.RoleId.ToString()) && (p.CanCreate || p.CanUpdate || p.CanDelete || p.CanRead) && f.Status == Status.Active
                         select f).Distinct();            
-            return _mapper.ProjectTo<FunctionViewModel>(query).ToList();
+            return _mapper.ProjectTo<FunctionViewModel>(query.OrderBy(x => x.SortOrder)).ToList();
         }
 
         public IEnumerable<FunctionViewModel> GetAllWithParentId(string parentId)
         {
-            return _mapper.ProjectTo<FunctionViewModel>(_functionRepository.FindAll(x => x.ParentId == parentId));
+            return _mapper.ProjectTo<FunctionViewModel>(_functionRepository.FindAll(x => x.ParentId == parentId && x.Status == Status.Active).OrderBy(x => x.SortOrder));
         }
 
         public FunctionViewModel GetById(string id)

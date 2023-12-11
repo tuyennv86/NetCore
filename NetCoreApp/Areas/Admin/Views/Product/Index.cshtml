@@ -122,10 +122,10 @@
                 <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg">
             {{/image}}
             </td>
-            <td>{{productCategory.name}}</td>
+            <td>{{Category.name}}</td>
             <td>{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
             <td>
-                {{#status}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/status}}
+                {{#status}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/status}}
                 {{^status}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
             </td>
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>

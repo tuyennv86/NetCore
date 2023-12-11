@@ -91,7 +91,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     stream.Flush();
                     entity.Image = Path.Combine(pathPhoto, photoName);
                 }
-                List<TourImagesViewModel> listTourImages = new List<TourImagesViewModel>();
+                List<TourImagesViewModel> listTourImages = new();
                 if (entity.files != null)
                 {
                     // list ảnh
@@ -136,8 +136,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
 
                 if (entity.Id == 0)
                 {                    
-                    entity.CreateById = userId;
-                    entity.EditById = userId;
+                    entity.CreateById = new Guid(userId);
+                    entity.EditById = new Guid(userId);
                     entity.DateModified = DateTime.Now;
                     _tourService.Add(entity, listTourImages);                    
                 }
@@ -156,9 +156,9 @@ namespace NetCoreApp.Areas.Admin.Controllers
                         }
                     }
 
-                    entity.EditById = userId;
+                    entity.EditById = new Guid(userId);
                     entity.DateModified = DateTime.Now;
-                    _tourService.Update(entity);
+                    _tourService.Update(entity, listTourImages);
                 }
                 
                 _tourService.Save();

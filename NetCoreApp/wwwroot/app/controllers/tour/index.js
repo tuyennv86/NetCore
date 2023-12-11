@@ -13,7 +13,10 @@
             until.configs.pageIndex = 1;
             loadData(true);
         });
-
+        $("#txtName").on('keypress', function (e) {
+            let title = until.removeVietnamese($("#txtName").val());
+            $("#txtSeoAlias").val(title);
+        });        
         $("#btnSearch").on('click', function () {
             loadData(true);
         });
@@ -257,6 +260,24 @@
         });
 
     }
+    // láy danh sách các danh mục lên để tìm kiếm
+    function loadCategoryType() {
+        let typeId = $("#hidCategoryType").val();
+        $.ajax({
+            type: 'GET',          
+            dataType: 'json',
+            url: 'admin/category/index/' + typeId,
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                $('#slCategory').html("<option value='" + response.id + "'>" + response.name + "</option>");
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
 
     function loadCategoriesTotree(selectID) {
         $.ajax({
@@ -300,6 +321,10 @@
                 until.startLoading();
             },
             success: function (response) {
+
+                console.log('danh sách');
+                console.log(response.results);
+
                 let templateWithData = Mustache.render($("#mp_template").html(), {
                     tourTag: response.results,
                     dateFormat: function () {

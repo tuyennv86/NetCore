@@ -80,7 +80,7 @@ namespace NetCoreApp.Application.Implementation
             var query = _tourRepository.FindAll();
             if (!string.IsNullOrEmpty(keyword))
                 query = query.Where(x => x.Name.Contains(keyword));
-            if (categoryId.HasValue)
+            if (categoryId.HasValue && categoryId != 0)
                 query = query.Where(x => x.CategoryId == categoryId.Value);
             int totalRow = query.Count();
             query = query.OrderByDescending(x => x.DateCreated).Skip((page - 1) * pageSize).Take(pageSize);
@@ -106,9 +106,14 @@ namespace NetCoreApp.Application.Implementation
             _unitOfWork.Commit();
         }
 
-        public void Update(TourViewModel tourViewModel)
+        public void Update(TourViewModel tourViewModel, List<TourImagesViewModel> tourImages)
         {
             var tour = _mapper.Map<TourViewModel, Tour>(tourViewModel);
+            foreach (TourImagesViewModel tourImage in tourImages)
+            {
+                var image = _mapper.Map<TourImagesViewModel, TourImages>(tourImage);
+                tour.TourImages.Add(image);
+            }            
             _tourRepository.Update(tour);
         }
 

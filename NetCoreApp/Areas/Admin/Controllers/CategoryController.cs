@@ -115,15 +115,15 @@ namespace NetCoreApp.Areas.Admin.Controllers
 
                 if (entity.Id == 0)
                 {
-                    entity.CreateById = userId;
-                    entity.EditById = userId;
+                    entity.CreateById = new Guid(userId);
+                    entity.EditById = new Guid(userId);
                     entity.DateCreated = DateTime.Now;
                     entity.DateModified = DateTime.Now;
                     _categoryService.Add(entity);
                 }
                 else
                 {
-                    entity.EditById = userId;
+                    entity.EditById = new Guid(userId);
                     entity.DateModified = DateTime.Now;
                     _categoryService.Update(entity);
                 }
