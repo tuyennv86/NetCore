@@ -56,8 +56,6 @@
                 },
                 success: function (response) {
                     until.stopLoading();
-                    console.log(response);
-                                       
                     loadCategoriesTotree(response.parentId);
                     $("#hidCategoryId").val(response.parentId);
                     viewCategoryType(response.categoryTypeID)
@@ -346,9 +344,7 @@
             beforeSend: function () {
                 until.startLoading();
             },
-            success: function (response) {
-
-                //console.log(response);
+            success: function (response) {             
 
                 let templateWithData = Mustache.render($("#mp_template").html(), {
                     categoryTag: recursiveArraySort(response),

@@ -36,12 +36,12 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public string SeoDescription { get; set; }
         public Guid CreateById { get; set; }        
         public Guid EditById { get; set; }
-        public  AppUserViewModel CreateBy { set; get; }       
+        public AppUserViewModel CreateBy { set; get; }       
         public AppUserViewModel EditBy { set; get; }
-
-        //public virtual ICollection<TourDateViewModel> TourDates { set; get; }// lịch trình tour
+        public ICollection<TourDateViewModel> TourDates { set; get; }// lịch trình tour
         public ICollection<TourImagesViewModel> TourImages { get; set; }
         public CategoryViewModel Category { set; get; }
+
         [NotMapped]
         public IFormFile file { get; set; }
         [NotMapped]

@@ -28,8 +28,9 @@ namespace NetCoreApp.Application.ViewModels.Category
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         public Guid CreateById { get; set; }
-        public Guid EditById { get; set; }        
-        //public virtual CategoryViewModel Parent { get; set; }
-        //public virtual ICollection<CategoryViewModel> Children { get; set; }
+        public Guid EditById { get; set; }
+        public CategoryTypeViewModel CategoryType { set; get; }
+        public CategoryViewModel Parent { get; set; }
+        public ICollection<CategoryViewModel> Children { get; set; }
     }
 }

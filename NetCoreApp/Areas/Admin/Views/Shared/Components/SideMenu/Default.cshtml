@@ -26,26 +26,50 @@
                                 <ul class="nav nav-treeview">
                                     @foreach (var itemC in Model.Where(x => x.ParentId == item.Id))
                                     {
-                                        <li class="nav-item">
+                                    <li class="nav-item">
+                                        @if (itemC.IsType)
+                                        {
+                                            <a href="@itemC.URL/@itemC.CategoryTypeID" class="nav-link">
+                                                <i class="@itemC.IconCss"></i>
+                                                <p>@itemC.Name</p>
+                                            </a>
+                                        }
+                                        else
+                                        {
                                             <a href="@itemC.URL" class="nav-link">
                                                 <i class="@itemC.IconCss"></i>
                                                 <p>@itemC.Name</p>
                                             </a>
-                                        </li>
+                                        }
+
+                                    </li>
                                     }
                                 </ul>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
+                        <li class="nav-item">
+                            @if (item.IsType)
+                            {
+                                <a href="@item.URL/@item.CategoryTypeID" class="nav-link">
+                                    <i class="@item.IconCss"></i>
+                                    <p>
+                                        @item.Name
+                                    </p>
+                                </a>
+                            }
+                            else
+                            {
                                 <a href="@item.URL" class="nav-link">
                                     <i class="@item.IconCss"></i>
                                     <p>
                                         @item.Name
                                     </p>
                                 </a>
-                            </li>
+                            }
+
+                        </li>
                         }
 
                     }

@@ -19,11 +19,6 @@ C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\Ne
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\ref\NetCoreApp.Application.dll
 C:\Users\Welcome\source\repos\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.pdb
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.csproj.AssemblyReference.cache
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.GeneratedMSBuildEditorConfig.editorconfig
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.AssemblyInfoInputs.cache
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.AssemblyInfo.cs
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.csproj.CoreCompileInputs.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\bin\Debug\net5.0\NetCoreApp.Application.deps.json
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\bin\Debug\net5.0\NetCoreApp.Application.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\bin\Debug\net5.0\ref\NetCoreApp.Application.dll
@@ -36,6 +31,11 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\bin\Debug\net5.0\NetCoreApp.Da
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\bin\Debug\net5.0\NetCoreApp.Data.pdb
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\bin\Debug\net5.0\NetCoreApp.Utilities.pdb
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\bin\Debug\net5.0\NetCoreApp.Infrastructure.pdb
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.csproj.AssemblyReference.cache
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.AssemblyInfoInputs.cache
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.AssemblyInfo.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.csproj.CoreCompileInputs.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.csproj.CopyComplete
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\NetCoreApp.Application.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Application\obj\Debug\net5.0\ref\NetCoreApp.Application.dll

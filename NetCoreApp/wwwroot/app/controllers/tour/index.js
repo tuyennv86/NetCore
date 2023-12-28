@@ -4,6 +4,7 @@
                
         registerEvents();
         loadData(true);
+        loadCategoryType();
     }
 
     let registerEvents = function () {        
@@ -64,8 +65,10 @@
                     $("#txtService").summernote('code', response.service);
                     $("#txtServiceConten").summernote('code', response.serviceConten);
                     $("#txtServiceNotConten").summernote('code', response.serviceNotConten);
+                    $("#txtCreateDate").val(moment(response.dateCreated).format("DD/MM/YYYY hh:mm"));
                     $("#ckStatus").prop("checked", response.status);
-                    $("#ckShowHome").prop("checked", response.homeStatus);
+                    $("#ckShowHome").prop("checked", response.homeStatus);                    
+                    console.log(response.tourImages);
                 },
                 error: function (status) {
                     until.notify('Lỗi không xem được', 'error' + status);
@@ -266,12 +269,16 @@
         $.ajax({
             type: 'GET',          
             dataType: 'json',
-            url: 'admin/category/index/' + typeId,
+            url: '/admin/category/index/' + typeId,
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
-                $('#slCategory').html("<option value='" + response.id + "'>" + response.name + "</option>");
+                let render = "<option value='0'>Chọn loại danh mục</option>";
+                $.each(response, function (i, item) {
+                    render += "<option value='" + item.id + "'>" + item.name + "</option>"
+                });
+                $('#slCategory').html(render);                                
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
@@ -280,11 +287,12 @@
     }
 
     function loadCategoriesTotree(selectID) {
+        let typeId = $("#hidCategoryType").val();
         $.ajax({
             type: 'GET',
             dataType: 'json',
             cache: false,
-            url: '/admin/Category/GetAll',
+            url: '/admin/category/index/' + typeId,
             beforeSend: function () {
                 until.startLoading();
             },
@@ -321,10 +329,6 @@
                 until.startLoading();
             },
             success: function (response) {
-
-                console.log('danh sách');
-                console.log(response.results);
-
                 let templateWithData = Mustache.render($("#mp_template").html(), {
                     tourTag: response.results,
                     dateFormat: function () {
@@ -434,7 +438,7 @@
             formData.append("files", file);
         }      
 
-        let id = $("#hidId").val();
+         let id = $("#hidId").val();
 
         $.ajax({
             type: "POST",

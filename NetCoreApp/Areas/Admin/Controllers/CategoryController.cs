@@ -34,11 +34,15 @@ namespace NetCoreApp.Areas.Admin.Controllers
         public IActionResult Details(int? id)
         {
             int typeId = (int)(id == null ? 0 : id);
-            if (typeId == 0)
+            //if (typeId == 0)
+            //{
+            //    return NotFound();
+            //}
+            var model = _categoryTypeService.GetById(typeId);
+            if(model == null)
             {
                 return NotFound();
             }
-            var model = _categoryTypeService.GetById(typeId);
             return View(model);
         }
 

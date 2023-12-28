@@ -40,7 +40,7 @@ namespace NetCoreApp.Data.Entities
             SeoAlias = seoAlias;
             SeoKeywords = seoKeywords;
             SeoDescription = seoDescription;
-            TourImages = new List<TourImages>();
+            TourImages = new List<TourImages>();           
             TourDates = new List<TourDate>();
         }
 
@@ -88,6 +88,6 @@ namespace NetCoreApp.Data.Entities
         public virtual AppUser EditBy { set; get; }
 
         public virtual ICollection<TourDate> TourDates { set; get; }// lịch trình tour
-        public virtual ICollection<TourImages> TourImages { get; set; }        
+        public virtual ICollection<TourImages> TourImages { get; set; }// danh sách ảnh        
     }
 }

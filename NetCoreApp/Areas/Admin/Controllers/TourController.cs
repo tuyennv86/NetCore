@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using NetCoreApp.Application.Interfaces;
+using NetCoreApp.Application.ViewModels.Category;
 using NetCoreApp.Application.ViewModels.Tour;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,9 @@ namespace NetCoreApp.Areas.Admin.Controllers
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ITourDateService _tourDateService;
         private readonly IImagesService _imagesService;
+        private readonly ICategoryTypeService _categoryTypeService;
 
-        public TourController(ITourService tourService, ILogger<ProductController> logger,
+        public TourController(ITourService tourService, ILogger<ProductController> logger, ICategoryTypeService categoryTypeService,
             IWebHostEnvironment hostingEnvironment, ITourDateService tourDateService, IImagesService imagesService)
         {
             _tourService = tourService;
@@ -28,11 +30,20 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _hostingEnvironment = hostingEnvironment;
             _tourDateService = tourDateService;
             _imagesService = imagesService;
+            _categoryTypeService = categoryTypeService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            return View();
+            // ceck nếu có id thì lấy thông tin categoryType trả về view
+            int typeId = (int)(id == null ? 0 : id);           
+            var model = _categoryTypeService.GetById(typeId);
+            if(model == null)
+            {
+                CategoryTypeViewModel model1 = new();
+                return View(model1);
+            }
+            return View(model);
         }
 
         [HttpPost]

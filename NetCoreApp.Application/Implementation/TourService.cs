@@ -97,8 +97,8 @@ namespace NetCoreApp.Application.Implementation
         }
 
         public TourViewModel GetById(int id)
-        {
-            return _mapper.Map<Tour, TourViewModel>(_tourRepository.FindById(id));            
+        {            
+            return _mapper.Map<Tour, TourViewModel>(_tourRepository.FindById(id)); 
         }
 
         public void Save()

@@ -1,6 +1,8 @@
-﻿@section Styles{
+﻿@model NetCoreApp.Application.ViewModels.Category.CategoryTypeViewModel
+
+@section Styles{
     <link rel="stylesheet" href="~/admin/plugins/comboTree/css/materialdesignicons.min.css" />
-    <link rel="stylesheet" href="~/admin/plugins/comboTree/comboTreePlugin.css" /> 
+    <link rel="stylesheet" href="~/admin/plugins/comboTree/comboTreePlugin.css" />
     <link rel="stylesheet" href="~/lib/datetimepicker/jquery.datetimepicker.min.css" />
 }
 @section ScriptsProduct{
@@ -8,7 +10,8 @@
     <script type="text/javascript" src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
     <script type="text/javascript" src="~/lib/datetimepicker/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript" src="~/app/controllers/tour/index.js"></script>
-    
+    <script type="text/javascript" src="~/lib/moment/moment.min.js"></script>
+
     <script>
         var tour = new tourController();
         tour.initialize();
@@ -24,6 +27,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1>Danh sách các tour</h1>
+                <input type="hidden" id="hidCategoryType" value="@Model.Id" />
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -149,8 +153,8 @@
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
             <td>{{ createBy.userName }}</td>
             <td class="text-right">
-                <a class="btn btn-info btn-sm" href="#"> <i class="fas fa-pencil-alt"> </i> Edit </a>
-                <a class="btn btn-danger btn-sm" href="#"> <i class="fas fa-trash"> </i> Delete </a>
+                <a class="btn btn-info btn-sm" href="#" data-id="{{id}}" id="lbtEdit"> <i class="fas fa-pencil-alt"> </i> Edit </a>
+                <a class="btn btn-danger btn-sm" href="#" data-id="{{id}}"  id="lbtDelete"> <i class="fas fa-trash"> </i> Delete </a>
             </td>
         </tr>
         {{/tourTag}}

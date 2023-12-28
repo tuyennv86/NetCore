@@ -602,6 +602,8 @@ namespace NetCoreApp.Data.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryTypeID");
+
                     b.ToTable("Categories");
                 });
 
@@ -751,8 +753,14 @@ namespace NetCoreApp.Data.EF.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<int>("CategoryTypeID")
+                        .HasColumnType("int");
+
                     b.Property<string>("IconCss")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsType")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1330,6 +1338,10 @@ namespace NetCoreApp.Data.EF.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("CreateById");
+
+                    b.HasIndex("EditById");
+
                     b.ToTable("Tours");
                 });
 
@@ -1528,11 +1540,19 @@ namespace NetCoreApp.Data.EF.Migrations
 
             modelBuilder.Entity("NetCoreApp.Data.Entities.Category", b =>
                 {
+                    b.HasOne("NetCoreApp.Data.Entities.CategoryType", "CategoryType")
+                        .WithMany()
+                        .HasForeignKey("CategoryTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("NetCoreApp.Data.Entities.Category", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+
+                    b.Navigation("CategoryType");
 
                     b.Navigation("Parent");
                 });
@@ -1636,12 +1656,28 @@ namespace NetCoreApp.Data.EF.Migrations
             modelBuilder.Entity("NetCoreApp.Data.Entities.Tour", b =>
                 {
                     b.HasOne("NetCoreApp.Data.Entities.Category", "Category")
-                        .WithMany("Tours")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("NetCoreApp.Data.Entities.AppUser", "CreateBy")
+                        .WithMany()
+                        .HasForeignKey("CreateById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NetCoreApp.Data.Entities.AppUser", "EditBy")
+                        .WithMany()
+                        .HasForeignKey("EditById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("CreateBy");
+
+                    b.Navigation("EditBy");
                 });
 
             modelBuilder.Entity("NetCoreApp.Data.Entities.TourDate", b =>
@@ -1707,8 +1743,6 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("Products");
-
-                    b.Navigation("Tours");
                 });
 
             modelBuilder.Entity("NetCoreApp.Data.Entities.Product", b =>

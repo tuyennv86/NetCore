@@ -1,8 +1,6 @@
-﻿using NetCoreApp.Data.Enums;
-using System;
-using System.Collections.Generic;
+﻿using NetCoreApp.Application.ViewModels.Category;
+using NetCoreApp.Data.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace NetCoreApp.Application.ViewModels.System
 {
@@ -16,7 +14,8 @@ namespace NetCoreApp.Application.ViewModels.System
         [Required]
         [StringLength(250)]
         public string URL { set; get; }
-
+        public int CategoryTypeID { get; set; }
+        //public CategoryTypeViewModel CategoryType { set; get; }
 
         [StringLength(128)]
         public string ParentId { set; get; }
@@ -24,5 +23,6 @@ namespace NetCoreApp.Application.ViewModels.System
         public string IconCss { get; set; }
         public int SortOrder { set; get; }
         public Status Status { set; get; }
+        public bool IsType { get; set; }
     }
 }
