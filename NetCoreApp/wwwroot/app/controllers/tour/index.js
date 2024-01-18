@@ -3,8 +3,9 @@
     this.initialize = function () {        
                
         registerEvents();
-        loadData(true);
         loadCategoryType();
+        loadData(true);
+        
     }
 
     let registerEvents = function () {        
@@ -58,7 +59,9 @@
                     $("#txtTimeTour").val(response.timeTour);
                     $("#txtDateStart").val(response.dateStart);
                     $("#hidImage").val(response.Image);
-                    $("#image-holder").html('<img class="img-thumbnail" src=' + response.image + '>');
+                    if (response.image !== null) {
+                        $("#image-holder").html('<img class="img-thumbnail-max400" src=' + response.image + '><br><a href="#" id="hplRemoveImg" data-id=' + response.id + '><i class="fa fa-trash" aria-hidden="true"></i> xóa ảnh</a>');
+                    }
                     $("#txtTransPort").val(response.transPort);
                     $("#txtGift").val(response.gift);
                     $("#txtPreview").summernote('code', response.preview);
@@ -67,13 +70,56 @@
                     $("#txtServiceNotConten").summernote('code', response.serviceNotConten);
                     $("#txtCreateDate").val(moment(response.dateCreated).format("DD/MM/YYYY hh:mm"));
                     $("#ckStatus").prop("checked", response.status);
-                    $("#ckShowHome").prop("checked", response.homeStatus);                    
-                    console.log(response.tourImages);
+                    $("#ckShowHome").prop("checked", response.homeStatus);
+                    $("#hidCreateById").val(response.createById);
+                    $("#hidEditById").val(response.editById);
+
+                    let templateWithData = Mustache.render($("#images-template").html(),{
+                        imagesTag: response.tourImages
+                    });
+                    $("#list-image").empty().html(templateWithData);
+                   
                 },
                 error: function (status) {
                     until.notify('Lỗi không xem được', 'error' + status);
                     until.stopLoading();
                 }
+            });
+        });
+        // xoa anh đại diện Edit
+        $('body').on('click', '#hplRemoveImg', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Tour/DeleteImge",
+                        cache: false,
+                        data: { Id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa ảnh thành công', 'success');
+                            $("#image-holder").html('');
+                            loadData();
+                            until.stopLoading();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                        }
+                    });
+                }
+            });
+        });
+        // xóa ảnh liên quan khi edit
+        $('body').on('click', '#btnDeleteImgDetail', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                
             });
         });
 
@@ -407,6 +453,8 @@
 
     let AddEditAction = function () {
 
+        //let status = $("#ckStatus").prop('checked') === true ? '1' : '0';
+
         let formData = new FormData();
         formData.append("Id", $("#hidId").val());
         formData.append("Name", $("#txtName").val());
@@ -425,11 +473,14 @@
         formData.append("ServiceNotConten", $("#txtServiceNotConten").val());
         formData.append("Image", $("#hidImage").val());
         formData.append("Status", $("#ckStatus").prop('checked'));
+
         formData.append("SeoPageTitle", $("#txtSeoPageTitle").val());
         formData.append("SeoAlias", $("#txtSeoAlias").val());
         formData.append("SeoKeywords", $("#txtSeoKeyword").val());
         formData.append("SeoDescription", $("#txtSeoDescription").val());
         formData.append("DateCreated", $("#txtCreateDate").val());
+        formData.append("CreateById", $("#hidCreateById").val());
+        formData.append("EditById", $("#hidEditById").val());
         formData.append("file", $("#fuImage")[0].files[0]);
 
         let totalFiles = document.getElementById("fuImageList").files.length;
@@ -438,7 +489,7 @@
             formData.append("files", file);
         }      
 
-         let id = $("#hidId").val();
+        let id = $("#hidId").val();
 
         $.ajax({
             type: "POST",

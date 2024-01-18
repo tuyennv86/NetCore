@@ -61,6 +61,8 @@
                 }
             });
         });
+        
+
 
         $('body').on('click', '#lbtDelete', function (e) {
             e.preventDefault();

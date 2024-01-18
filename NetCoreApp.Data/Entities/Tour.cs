@@ -78,15 +78,12 @@ namespace NetCoreApp.Data.Entities
         public string SeoAlias { get; set; }
         public string SeoKeywords { get; set; }
         public string SeoDescription { get; set ; }
-
         public Guid CreateById { get; set; }
         [ForeignKey("CreateById")]
         public virtual AppUser CreateBy { set; get; }
-
         public Guid EditById { get; set; }
         [ForeignKey("EditById")]
         public virtual AppUser EditBy { set; get; }
-
         public virtual ICollection<TourDate> TourDates { set; get; }// lịch trình tour
         public virtual ICollection<TourImages> TourImages { get; set; }// danh sách ảnh        
     }

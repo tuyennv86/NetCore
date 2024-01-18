@@ -100,6 +100,17 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     using FileStream stream = new(Path.Combine(folder, photoName), FileMode.Create);
                     entity.file.CopyTo(stream);
                     stream.Flush();
+                    // xóa ảnh cũ nếu trước khi update ảnh đại diện               
+                    if (!string.IsNullOrEmpty(entity.Image))
+                    {
+                        try
+                        {
+                            System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
+                        }
+                        catch (Exception ex) { _logger.LogError(ex.Message); }
+                    }
+                    // đổi lại thành ảnh mới
+
                     entity.Image = Path.Combine(pathPhoto, photoName);
                 }
                 List<TourImagesViewModel> listTourImages = new();
@@ -153,21 +164,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     _tourService.Add(entity, listTourImages);                    
                 }
                 else
-                {
-                    // xóa ảnh khi update 
-                    if(entity.file != null)
-                    {
-                        if (!string.IsNullOrEmpty(entity.Image))
-                        {
-                            try
-                            {
-                                System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
-                            }
-                            catch (Exception ex) { _logger.LogError(ex.Message); }
-                        }
-                    }
-
-                    entity.EditById = new Guid(userId);
+                { 
+                    entity.EditById = new Guid(userId);                    
                     entity.DateModified = DateTime.Now;
                     _tourService.Update(entity, listTourImages);
                 }

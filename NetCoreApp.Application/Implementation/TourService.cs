@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Tour;
 using NetCoreApp.Data.Entities;
@@ -18,26 +17,15 @@ namespace NetCoreApp.Application.Implementation
         private readonly ITourRepository _tourRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ITourImagesRepository _tourImagesRepository;
 
-        public TourService(ITourRepository tourRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public TourService(ITourRepository tourRepository, IUnitOfWork unitOfWork, IMapper mapper, ITourImagesRepository tourImagesRepository)
         {
             _tourRepository = tourRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-        }
-        public TourViewModel Add(TourViewModel tourViewModel, List<TourImagesViewModel> tourImages)
-        {
-            var tour = _mapper.Map<TourViewModel, Tour>(tourViewModel);
-
-            foreach (TourImagesViewModel tourImage in tourImages)
-            {
-                var image = _mapper.Map<TourImagesViewModel, TourImages>(tourImage);
-                tour.TourImages.Add(image);
-            }
-            _tourRepository.Add(tour);
-           
-           return tourViewModel;
-        }
+            _tourImagesRepository = tourImagesRepository;
+        }        
 
         public void Delete(int id)
         {
@@ -77,15 +65,15 @@ namespace NetCoreApp.Application.Implementation
 
         public PagedResult<TourViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
         {
+            
             var query = _tourRepository.FindAll();
             if (!string.IsNullOrEmpty(keyword))
                 query = query.Where(x => x.Name.Contains(keyword));
             if (categoryId.HasValue && categoryId != 0)
                 query = query.Where(x => x.CategoryId == categoryId.Value);
             int totalRow = query.Count();
-            query = query.OrderByDescending(x => x.DateCreated).Skip((page - 1) * pageSize).Take(pageSize);
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);            
             var data = _mapper.ProjectTo<TourViewModel>(query).ToList();
-
             var pageResult = new PagedResult<TourViewModel>()
             {
                 Results = data,
@@ -97,15 +85,29 @@ namespace NetCoreApp.Application.Implementation
         }
 
         public TourViewModel GetById(int id)
-        {            
-            return _mapper.Map<Tour, TourViewModel>(_tourRepository.FindById(id)); 
+        {
+            var model = _tourRepository.FindById(id);
+            model.TourImages = _tourImagesRepository.FindAll(x => x.TourId == id).ToList();
+            return _mapper.Map<Tour, TourViewModel>(model); 
         }
 
         public void Save()
         {
             _unitOfWork.Commit();
         }
+        public TourViewModel Add(TourViewModel tourViewModel, List<TourImagesViewModel> tourImages)
+        {
+            var tour = _mapper.Map<TourViewModel, Tour>(tourViewModel);
 
+            foreach (TourImagesViewModel tourImage in tourImages)
+            {
+                var image = _mapper.Map<TourImagesViewModel, TourImages>(tourImage);
+                tour.TourImages.Add(image);
+            }
+            _tourRepository.Add(tour);
+
+            return tourViewModel;
+        }
         public void Update(TourViewModel tourViewModel, List<TourImagesViewModel> tourImages)
         {
             var tour = _mapper.Map<TourViewModel, Tour>(tourViewModel);

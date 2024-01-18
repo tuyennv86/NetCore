@@ -492,6 +492,15 @@ mark,
   max-width: 100%;
   height: auto;
 }
+.img-thumbnail-max400 {
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075);
+    max-width: 400px;
+    height: auto;
+}
 
 .figure {
   display: inline-block;
@@ -34828,7 +34837,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 }
 
 .mailbox-attachment-name {
-  color: #666;
+  color: #dc3545;
   font-weight: 700;
 }
 
@@ -44510,10 +44519,18 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 
 .img-size-64,
 .img-size-50,
-.img-size-32 {
-  height: auto;
+.img-size-32,
+.img-size-150,
+.img-size-200{
+    height: auto;
 }
 
+.img-size-200{
+    width:200px;
+}
+.img-size-150 {
+    width: 150px;
+}
 .img-size-64 {
   width: 64px;
 }

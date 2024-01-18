@@ -15,6 +15,7 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public string Name { get; set; }       
         public string Preview { get; set; }        
         public int CategoryId { get; set; }
+        public CategoryViewModel Category { set; get; }
         public int Order { get; set; }
         public int HomeOrder { get; set; }
         public bool HomeStatus { get; set; }
@@ -34,13 +35,12 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public string SeoAlias { get; set; }
         public string SeoKeywords { get; set; }
         public string SeoDescription { get; set; }
-        public Guid CreateById { get; set; }        
-        public Guid EditById { get; set; }
-        public AppUserViewModel CreateBy { set; get; }       
+        public Guid CreateById { get; set; }
+        public AppUserViewModel CreateBy { set; get; }
+        public Guid EditById { get; set; }        
         public AppUserViewModel EditBy { set; get; }
         public ICollection<TourDateViewModel> TourDates { set; get; }// lịch trình tour
         public ICollection<TourImagesViewModel> TourImages { get; set; }
-        public CategoryViewModel Category { set; get; }
 
         [NotMapped]
         public IFormFile file { get; set; }
