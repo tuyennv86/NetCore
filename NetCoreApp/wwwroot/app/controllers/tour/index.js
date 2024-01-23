@@ -453,8 +453,6 @@
 
     let AddEditAction = function () {
 
-        //let status = $("#ckStatus").prop('checked') === true ? '1' : '0';
-
         let formData = new FormData();
         formData.append("Id", $("#hidId").val());
         formData.append("Name", $("#txtName").val());
@@ -473,7 +471,6 @@
         formData.append("ServiceNotConten", $("#txtServiceNotConten").val());
         formData.append("Image", $("#hidImage").val());
         formData.append("Status", $("#ckStatus").prop('checked'));
-
         formData.append("SeoPageTitle", $("#txtSeoPageTitle").val());
         formData.append("SeoAlias", $("#txtSeoAlias").val());
         formData.append("SeoKeywords", $("#txtSeoKeyword").val());
@@ -513,6 +510,7 @@
                 loadData();
             },
             error: function (err) {
+                console.log(err);
                 until.notify('Lỗi không cập nhập hoặc thêm mới được!' + JSON.stringify(err), 'error');
                 until.stopLoading();
             }

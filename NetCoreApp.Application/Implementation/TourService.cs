@@ -144,9 +144,7 @@ namespace NetCoreApp.Application.Implementation
         public void UpdateStatus(int id)
         {
             var entity = _tourRepository.FindById(id);
-            if (entity.Status == Status.InActive)
-                entity.Status = Status.Active;
-            else entity.Status = Status.InActive;
+            entity.Status = !entity.Status;
             _tourRepository.Update(entity);
         }
     }

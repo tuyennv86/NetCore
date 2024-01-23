@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NetCoreApp.Data.Entities
 {
     [Table("Tours")]
-    public class Tour : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData, ICreateTracking
+    public class Tour : DomainEntity<int>, IDateTracking, IHasSeoMetaData, ICreateTracking
     {
         public Tour()
         {
@@ -18,7 +18,7 @@ namespace NetCoreApp.Data.Entities
         }
         public Tour(string name, string preview, int categoryId, int order, int homeOrder, bool homeStatus, decimal price, string timeTour, string dateStart, 
             string transPort, string service, string gift, string serviceConten, string serviceNotConten, string image, 
-            Status status, string seoPageTitle, string seoAlias, string seoKeywords, string seoDescription)
+            bool status, string seoPageTitle, string seoAlias, string seoKeywords, string seoDescription)
         {
             Name = name;
             Preview = preview;
@@ -71,7 +71,7 @@ namespace NetCoreApp.Data.Entities
         public string ServiceConten { get; set; }
         public string ServiceNotConten { get; set; }        
         public string Image { get; set; }        
-        public Status Status { get; set; }
+        public bool Status { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public string SeoPageTitle { get ; set; }

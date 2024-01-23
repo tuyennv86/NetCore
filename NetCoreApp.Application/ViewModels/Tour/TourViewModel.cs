@@ -28,7 +28,7 @@ namespace NetCoreApp.Application.ViewModels.Tour
         public string ServiceConten { get; set; }
         public string ServiceNotConten { get; set; }        
         public string Image { get; set; }
-        public Status Status { get; set; }
+        public bool Status { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public string SeoPageTitle { get; set; }

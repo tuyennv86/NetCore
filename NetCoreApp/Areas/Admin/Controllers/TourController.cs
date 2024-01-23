@@ -63,7 +63,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult SaveEntity(TourViewModel entity)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 return new BadRequestObjectResult(allErrors);
