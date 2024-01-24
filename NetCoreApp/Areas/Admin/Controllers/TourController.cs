@@ -351,6 +351,15 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new BadRequestObjectResult(ModelState);
             }else
             {
+                var imageTour = _imagesService.GetById(id);
+                if (!string.IsNullOrEmpty(imageTour.Name))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + imageTour.Name);
+                    }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
+                }
                 _imagesService.Delete(id);
                 _imagesService.Save();
                 return new OkObjectResult(id);
