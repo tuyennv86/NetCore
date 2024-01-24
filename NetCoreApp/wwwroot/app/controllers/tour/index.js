@@ -119,7 +119,26 @@
             e.preventDefault();
             let id = $(this).attr('data-id');
             bootbox.confirm('Bạn có muốn xóa không?', function (result) {
-                
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Tour/DeleteImageTour",
+                        cache: false,
+                        data: { Id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa ảnh thành công', 'success');
+                            $('#li-' + id).remove();
+                            until.stopLoading();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                        }
+                    });
+                }
             });
         });
 

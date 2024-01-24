@@ -342,5 +342,19 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(id);
             }
         }
+
+        [HttpDelete]
+        public IActionResult DeleteImageTour(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }else
+            {
+                _imagesService.Delete(id);
+                _imagesService.Save();
+                return new OkObjectResult(id);
+            }    
+        }
     }
 }
