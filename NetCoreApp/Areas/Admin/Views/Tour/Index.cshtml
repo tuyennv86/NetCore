@@ -21,6 +21,8 @@
     @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtService" })
     @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtServiceConten" })
     @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtServiceNotConten" })
+
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtTourDateConten" })
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -42,90 +44,97 @@
 </section>
 <!-- Main content -->
 <section class="content">
-
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title">
-                <a class="btn btn-primary btn-sm" href="#" id="addTour">
-                    <i class="fas fa-plus-circle"></i>
-                    Thêm mới
-                </a>
-                <a class="btn btn-info btn-sm" href="#" id="btnUpdate">
-                    <i class="fa fa-recycle"></i>
-                    Cập nhật
-                </a>
-                <a class="btn btn-danger btn-sm" href="#" id="btnDeleteAll">
-                    <i class="fas fa-trash"></i>
-                    Delete
-                </a>
-            </div>
-            <div class="card-tools col-md-7">
-                <div class="row">
-                    <div class="col-10">
-                        <div class="input-group">
-                            <select class="form-control form-control-sm col-md-4" name="slCategory" id="slCategory">
-                            </select>
-                            <input type="text" id="txtSearch" class="form-control form-control-sm" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button class="btn btn-sidebar" id="btnSearch">
-                                    <i class="fas fa-search fa-fw"></i>Tìm kiếm
-                                </button>
+    <form id="myform" data-form-validate="true" method="post" name="myform" action="">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <a class="btn btn-primary btn-sm" href="#" id="addTour">
+                        <i class="fas fa-plus-circle"></i>
+                        Thêm mới
+                    </a>
+                    @*<a class="btn btn-info btn-sm" href="#" id="btnUpdate">
+                            <i class="fa fa-recycle"></i>
+                            Cập nhật
+                        </a>*@
+                    <button type="submit" class="btn btn-info btn-sm">
+                        <i class="fa fa-recycle"></i>
+                        Cập nhật
+                    </button>
+                    <a class="btn btn-danger btn-sm" href="#" id="btnDeleteAll">
+                        <i class="fas fa-trash"></i>
+                        Delete
+                    </a>
+                </div>
+                <div class="card-tools col-md-7">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="input-group">
+                                <select class="form-control form-control-sm col-md-4" name="slCategory" id="slCategory">
+                                </select>
+                                <input type="text" id="txtSearch" class="form-control form-control-sm" placeholder="Search...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-sidebar" id="btnSearch">
+                                        <i class="fas fa-search fa-fw"></i>Tìm kiếm
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-2 text-right">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        <div class="col-2 text-right">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card-body p-0">
-            <table class="table table-striped projects">
-                <thead>
-                    <tr>
-                        <th style="width: 1%">
-                            <input type="checkbox" name="checkAll" id="checkAll">
-                        </th>
-                        <th>Tên tour</th>
-                        <th>Ảnh</th>
-                        <th>Danh mục</th>
-                        <th>Giá</th>
-                        <th>Trạng thái</th>
-                        <th>Trang chủ</th>
-                        <th>Ngày tạo</th>
-                        <th>Người tạo</th>
-                        <th class="text-right">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tpl_content">
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer clearfix">
-            <div class="card-title">
-                <select class="ui dropdown small form-control" name="page" id="slChangPage">
-                    <option value="10" selected="selected">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
+            <div class="card-body p-0">
+                <table class="table table-striped projects" id="tblList">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">
+                                <input type="checkbox" name="checkAll" id="checkAll">
+                            </th>
+                            <th>Tên tour</th>
+                            <th>Ảnh</th>
+                            <th>Danh mục</th>
+                            <th>Giá</th>
+                            <th>Thứ tự</th>
+                            <th>Thứ tự home</th>
+                            <th>Trạng thái</th>
+                            <th>Trang chủ</th>
+                            <th>Ngày tạo</th>
+                            <th>Người tạo</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tpl_content">
+                    </tbody>
+                </table>
             </div>
-            <ul class="pagination pagination-sm m-0 float-right" id="pagination">
-            </ul>
+            <div class="card-footer clearfix">
+                <div class="card-title">
+                    <select class="ui dropdown small form-control" name="page" id="slChangPage">
+                        <option value="10" selected="selected">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <ul class="pagination pagination-sm m-0 float-right" id="pagination">
+                </ul>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
-
+        <!-- /.card -->
+    </form>
 </section>
 <!-- /.content -->
 @await Html.PartialAsync("_AddEditTourModel")
+@await Html.PartialAsync("_ListTourDateModel")
 <script type="x-tmpl-mustache" id="mp_template">
         {{#tourTag}}
         <tr>
@@ -144,6 +153,12 @@
             <td> {{category.name}}</td>
             <td>{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
             <td>
+                <input type="text" id="order{{id}}" class="form-control form-control-sm img-size-64" value="{{order}}" placeholder="số tt" name="order{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
+            </td>
+            <td>
+                <input type="text" id="homeorder{{id}}" class="form-control form-control-sm img-size-64" value="{{homeOrder}}" placeholder="số thứ tự" name="homeorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
+            </td>
+            <td>
                 {{#status}}<a href="#" data-id="{{id}}" id="btnStatus" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i>Hiện</a>{{/status}}
                 {{^status}}<a href="#" data-id="{{id}}" id="btnStatus" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
             </td>
@@ -154,9 +169,14 @@
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
             <td>{{ createBy.userName }}</td>
             <td class="text-right">
+                <a class="btn btn-primary btn-sm" href="#" data-id="{{id}}" id="lbtView"> <i class="fas fa-eye"> </i>({{ tourDates.length }}) Lịch trình </a>
                 <a class="btn btn-info btn-sm" href="#" data-id="{{id}}" id="lbtEdit"> <i class="fas fa-pencil-alt"> </i> Edit </a>
                 <a class="btn btn-danger btn-sm" href="#" data-id="{{id}}"  id="lbtDelete"> <i class="fas fa-trash"> </i> Delete </a>
             </td>
         </tr>
         {{/tourTag}}
 </script>
+
+
+
+

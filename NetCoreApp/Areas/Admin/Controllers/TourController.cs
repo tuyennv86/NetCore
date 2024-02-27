@@ -365,5 +365,86 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(id);
             }    
         }
+
+        [HttpPost]
+        public IActionResult UpdateOrder(int id, int order, int homeOrder)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _tourService.UpdateOrder(id, order, homeOrder);
+                _tourService.Save();
+                return new OkObjectResult(id);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetTourDateByTourID(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                var data = _tourDateService.GetAllByTourID(id);
+                return new OkObjectResult(data);
+            }
+        }
+        [HttpGet]
+        public IActionResult GetTourDateById(int id)
+        {
+            var model = _tourDateService.GetById(id);
+            return new OkObjectResult(model);
+        }
+        [HttpPost]
+        public IActionResult SaveTourDate(TourDateViewModel entity)
+        {
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return new BadRequestObjectResult(allErrors);
+            }
+            else
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (entity.Id == 0)
+                {
+                    entity.CreateById = new Guid(userId);
+                    entity.EditById = new Guid(userId);
+                    entity.DateModified = DateTime.Now;
+                    entity.DateCreated = DateTime.Now;
+                    entity.Status = Data.Enums.Status.Active;
+                    _tourDateService.Add(entity);
+                }
+                else
+                {                    
+                    entity.EditById = new Guid(userId);
+                    entity.DateModified = DateTime.Now;
+                    entity.Status = Data.Enums.Status.Active;                 
+                    _tourDateService.Update(entity);
+
+                }
+                _tourDateService.Save();
+                return new OkObjectResult(entity);
+            }
+        }
+        [HttpDelete]
+        public IActionResult DeleteTourDate(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _tourDateService.Delete(id);
+                _tourDateService.Save();
+                return new OkObjectResult(id);
+            }
+        }
     }
 }

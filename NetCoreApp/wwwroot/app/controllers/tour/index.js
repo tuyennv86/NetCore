@@ -5,7 +5,7 @@
         registerEvents();
         loadCategoryType();
         loadData(true);
-        
+        updateOrder();
     }
 
     let registerEvents = function () {        
@@ -237,6 +237,7 @@
                 }
             });
         });
+
         $('body').on('click', '#btnHomeStatus', function (e) {
             e.preventDefault();
             let id = $(this).attr('data-id');
@@ -327,6 +328,126 @@
             });
         });
 
+        // Star Tour Date
+        $('body').on('click', '#lbtView', function (e) {
+            e.preventDefault();
+            $('#modalTourDate').modal('show');
+            let id = $(this).attr('data-id');
+            $("#hidIdTour").val(id);
+            $.ajax({
+                type: "POST",
+                url: "/admin/tour/GetById",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.stopLoading();
+                    $("#sptourName").html(response.name);
+                },
+                error: function (status) {
+                    until.notify('Lỗi không xem được', 'error' + status);
+                    until.stopLoading();
+                }
+            });
+            loadTourDate(id);
+        });
+
+        $('body').on('click', '#btSaveTourDate', function (e) {
+            let id = $("#hidIdTime").val();
+            let tourId = $("#hidIdTour").val();
+            let name = $("#txtTourDateName").val();
+            let conten = $("#txtTourDateConten").summernote('code');
+
+            let dataPost = {
+                "Id": id,
+                "TourId": tourId,
+                "Name": name,
+                "Conten": conten
+            };
+            $.ajax({
+                type: "POST",
+                url: "/admin/Tour/SaveTourDate",
+                data: dataPost,
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    if (id > 0) {
+                        until.notify('Cập nhật thành công', 'success');
+                        $('#modalAddEdit').modal('hide');
+                    } else {
+                        until.notify('Thêm mới thành công', 'success');                                                
+                    }
+                    resetTourDate();
+                    loadTourDate(tourId);
+                    until.stopLoading();                    
+                },
+                error: function () {
+                    until.notify('Lỗi không cập nhập hoặc thêm mới được!', 'error');
+                    until.stopLoading();
+                }
+            });
+        });
+
+        $('body').on('click', '#lbtDelTourDate', function (e) {
+            e.preventDefault();
+            let tourId = $("#hidIdTour").val();
+            let id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Tour/DeleteTourDate",
+                        cache: false,
+                        data: { id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa thành công', 'success');
+                            until.stopLoading();
+                            loadTourDate(tourId);
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                            until.stopLoading();
+                        }
+                    });
+                }
+            });
+        });
+
+        $('body').on('click', '#lbtEditTourDate', function (e) {
+            e.preventDefault();            
+            let id = $(this).attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: "/admin/Tour/GetTourDateById",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {                   
+                    until.stopLoading();
+                    $("#hidIdTime").val(response.id);
+                    $("#txtTourDateName").val(response.name);
+                    $("#txtTourDateConten").summernote('code', response.conten);
+                    
+                },
+                error: function (status) {
+                    until.notify('Lỗi không lấy đươc dữ liệu', 'error' + status);
+                    until.stopLoading();
+                }
+            });
+        });
+        // End Tour Date
     }
     // láy danh sách các danh mục lên để tìm kiếm
     function loadCategoryType() {
@@ -393,8 +514,8 @@
             beforeSend: function () {
                 until.startLoading();
             },
-            success: function (response) {
-                let templateWithData = Mustache.render($("#mp_template").html(), {
+            success: function (response) {                
+                let templateWithData = Mustache.render($("#mp_template").html(), {                    
                     tourTag: response.results,
                     dateFormat: function () {
                         return function (timestamp, render) {
@@ -413,6 +534,30 @@
                     loadData();
                 }, isPageChanged);
                 
+                until.stopLoading();
+
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+
+    function loadTourDate(id) {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            url: '/admin/tour/GetTourDateByTourID',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                let templateWithData = Mustache.render($("#mp_tempTourdate").html(), {
+                    tourTagDate: response
+                });
+                $("#tpl_contentTourDate").empty().html(templateWithData);
                 until.stopLoading();
 
             }, error: function (status) {
@@ -534,6 +679,65 @@
                 until.stopLoading();
             }
         });
+    }
+
+    //update order
+    function updateOrder() {
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+
+                    $("#tblList tbody tr").each(function () {
+                        let order = $(this).find("input").eq(1).val();
+                        let homeorder = $(this).find("input").eq(2).val();
+                        let id = $(this).find('a').last().attr('data-id');
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/admin/Tour/UpdateOrder",
+                            cache: false,
+                            data: { Id: id, order: order, homeOrder: homeorder },
+                            dataType: "json",
+                            beforeSend: function () {
+                                until.startLoading();
+                            },
+                            success: function (response) {
+                                until.notify('Cập nhật thành công', 'success');
+                                until.stopLoading();
+                                loadData();
+                            },
+                            error: function (status) {
+                                until.notify('Lỗi cập nhật được được', 'error' + status);
+                                until.stopLoading();
+                            }
+                        });
+
+                    })
+
+                }
+            });
+            $('#myform').validate({
+
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('td').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+
+            });
+        });
+    }
+
+    function resetTourDate() {
+        $("#hidIdTime").val(0);        
+        $("#txtTourDateName").val('');
+        $("#txtTourDateConten").summernote('code', '');
     }
 
 }
