@@ -17,6 +17,7 @@ namespace NetCoreApp.Application.Interfaces
         void Update(ProductViewModel productVm);
 
         void Delete(int id);
+        public void DeleteAll(int[] listId);
 
         ProductViewModel GetById(int id);
 

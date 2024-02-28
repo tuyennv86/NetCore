@@ -72,7 +72,15 @@ namespace NetCoreApp.Application.Implementation
         {
             _productRepository.Remove(id);
         }
-
+        public void DeleteAll(int[] listId)
+        {
+            List<Product> products = new();
+            foreach (int id in listId)
+            {
+                products.Add(_productRepository.FindById(id));
+            }
+            _productRepository.RemoveMultiple(products);
+        }
         public void Dispose()
         {
             GC.SuppressFinalize(this);

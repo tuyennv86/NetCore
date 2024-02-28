@@ -1,4 +1,4 @@
-﻿var productController = function () {
+﻿let productController = function () {
 
     this.initialize = function () {        
                
@@ -6,7 +6,7 @@
         loadData(true);
     }
 
-    var registerEvents = function () { 
+    let registerEvents = function () { 
 
         loadCategories();
 
@@ -24,7 +24,49 @@
                 e.preventDefault();
                 loadData(true);
             }
-        });       
+        });
+        $('body').on('click', '#addProduct', function (e) {
+            e.preventDefault();
+            $('#modalAddEdit').modal('show');
+            loadCategoriesTotree();
+        });
+
+        $('body').on('click', '#btnDeleteAll', function (e) {
+            e.preventDefault();
+            let listId = new Array();
+            bootbox.confirm('Bạn có muốn xóa các hàng được chọn không?', function (result) {
+                if (result) {
+                    $("#tblList tbody tr").each(function () {
+
+                        let checkItem = $(this).find("input:checked");
+                        if (checkItem.is(":checked")) {
+                            listId.push($(this).find('a').last().attr('data-id'));
+                        }
+
+                    });
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Product/DeleteByListId",
+                        cache: false,
+                        data: { listId: listId },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa thành công', 'success');
+                            until.stopLoading();
+                            loadData();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                            until.stopLoading();
+                        }
+                    });
+                }
+            });
+        });
 
     }
 
@@ -37,7 +79,7 @@
                 until.startLoading();
             },
             success: function (response) {
-                var render = "<option value=''>--Chọn danh mục--</option>";
+                let render = "<option value=''>--Chọn danh mục--</option>";
                 $.each(response, function (i, item) {
                     render += "<option value='" + item.id + "'>" + item.name + "</option>"
                 });
@@ -49,7 +91,35 @@
         })
     }
 
-    var loadData = function (isPageChanged) {
+    function loadCategoriesTotree(selectID) {
+        let typeId = $("#hidCategoryType").val();
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            cache: false,
+            url: '/admin/category/index/' + typeId,
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false });
+                comboTree1.clearSelection();
+                comboTree1.setSource(until.createTreeSub(response));
+                if (selectID !== undefined) {
+                    comboTree1.setSelection([selectID]);
+                }
+                comboTree1.onChange(function () {
+                    $('#hidCategoryId').val(comboTree1.getSelectedIds());
+                });
+
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu", status);
+            }
+        })
+    }
+
+    let loadData = function (isPageChanged) {
         $.ajax({
             type: 'GET',           
             dataType: 'json',
@@ -64,7 +134,7 @@
                 until.startLoading();
             },
             success: function (response) {               
-                var templateWithData = Mustache.render($("#mp_template").html(), {
+                let templateWithData = Mustache.render($("#mp_template").html(), {
                     productTag: response.results,
                     dateFormat: function () {
                         return function (timestamp, render) {
