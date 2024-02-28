@@ -360,12 +360,16 @@
             let tourId = $("#hidIdTour").val();
             let name = $("#txtTourDateName").val();
             let conten = $("#txtTourDateConten").summernote('code');
+            let createDateTour = $("#hidCreateDateTour").val();
+            let createByTour = $("#hidCreateByTour").val();
 
             let dataPost = {
                 "Id": id,
                 "TourId": tourId,
                 "Name": name,
-                "Conten": conten
+                "Conten": conten,
+                "DateCreated": createDateTour,
+                "CreateById": createByTour
             };
             $.ajax({
                 type: "POST",
@@ -439,6 +443,8 @@
                     $("#hidIdTime").val(response.id);
                     $("#txtTourDateName").val(response.name);
                     $("#txtTourDateConten").summernote('code', response.conten);
+                    $("#hidCreateDateTour").val(response.dateCreated);
+                    $("#hidCreateByTour").val(response.createById);
                     
                 },
                 error: function (status) {
