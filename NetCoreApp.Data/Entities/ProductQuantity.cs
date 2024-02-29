@@ -7,7 +7,7 @@ namespace NetCoreApp.Data.Entities
     public class ProductQuantity : DomainEntity<int>
     {
         [Column(Order = 1)]
-        public int ProductId { get; set; }
+        public int ProductId { get; set; }        
 
         [Column(Order = 2)]
         public int SizeId { get; set; }

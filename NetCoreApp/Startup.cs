@@ -105,16 +105,14 @@ namespace NetCoreApp
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<DbInitializer>();
-            
-            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+                        
             services.AddTransient<ICategoryTypeRepository, CategoryTypeRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IFunctionRepository, FunctionRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
-
-            services.AddTransient<IProductCategoryService, ProductCategoryService>();
+                        
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryTypeService, CategoryTypeService>();

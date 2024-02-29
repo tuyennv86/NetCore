@@ -974,9 +974,8 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\F
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Function\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Home\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Login\Index.cshtml.g.cs
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\ProductCategory\Index.cshtml.g.cs
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\ProductCategory\_AddEditCategoryModel.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\Index.cshtml.g.cs
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\_AddEditProductModel.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\Index.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\_AddEditRole.cshtml.g.cs
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Role\_AssignPermission.cshtml.g.cs
@@ -1036,4 +1035,3 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\ref\NetCoreApp.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.pdb
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\NetCoreApp.genruntimeconfig.cache
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp\obj\Debug\net5.0\Razor\Areas\Admin\Views\Product\_AddEditProductModel.cshtml.g.cs

@@ -23,7 +23,6 @@ namespace NetCoreApp.Data.EF
         public DbSet<Language> Languages { set; get; }
         public DbSet<SystemConfig> SystemConfigs { get; set; }
         public DbSet<Function> Functions { get; set; }
-
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<Announcement> Announcements { set; get; }
@@ -38,15 +37,12 @@ namespace NetCoreApp.Data.EF
         public DbSet<Feedback> Feedbacks { set; get; }
         public DbSet<Footer> Footers { set; get; }
         public DbSet<Page> Pages { set; get; }
-        public DbSet<Product> Products { set; get; }
-        public DbSet<ProductCategory> ProductCategories { set; get; }
+        public DbSet<Product> Products { set; get; }        
         public DbSet<ProductImage> ProductImages { set; get; }
         public DbSet<ProductQuantity> ProductQuantities { set; get; }
         public DbSet<ProductTag> ProductTags { set; get; }
-
         public DbSet<Size> Sizes { set; get; }
         public DbSet<Slide> Slides { set; get; }
-
         public DbSet<Tag> Tags { set; get; }
 
         public DbSet<Permission> Permissions { get; set; }
@@ -57,7 +53,7 @@ namespace NetCoreApp.Data.EF
         public DbSet<AdvertistmentPosition> AdvertistmentPositions { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CategoryType> CategoryTypé { get; set; }
+        public DbSet<CategoryType> CategoryTypes { get; set; }
         public DbSet<Tour> Tours { get; set; }
         public DbSet<TourDate> TourDates { get; set; }
         public DbSet<TourImages> TourImages { get; set; }

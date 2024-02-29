@@ -109,9 +109,8 @@ namespace NetCoreApp.Data.Entities
         public string Tags { get; set; }
 
         [StringLength(255)]
-        public string Unit { get; set; }
-              
-        public virtual ICollection<ProductTag> ProductTags { set; get; }
+        public string Unit { get; set; }              
+        
         public string SeoPageTitle { set; get; }
 
         [Column(TypeName = "varchar(255)")]
@@ -130,5 +129,8 @@ namespace NetCoreApp.Data.Entities
         public Status Status { set; get; }
         public Guid CreateById { get; set; }
         public Guid EditById { get; set; }
+        public virtual ICollection<ProductTag> ProductTags { set; get; }
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
+        public virtual ICollection<ProductQuantity> ProductQuantities { get; set; }
     }
 }
