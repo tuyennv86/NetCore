@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Interfaces
 {
-    public interface IImagesService
+    public interface ITourImagesService
     {
         TourImagesViewModel Add(TourImagesViewModel imagesViewModel);
         void Update(TourImagesViewModel imagesViewModel);

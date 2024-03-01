@@ -67,23 +67,11 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     var entity = _productService.GetById(id);
                     if (!string.IsNullOrEmpty(entity.Image))
                     {
-                        //xóa lịch trình tour TourDate
-                        //_tourDateService.DeleteByTourID(id);
-                        ////xóa danh sách các ảnh liên quan Images
-                        //var images = _imagesService.GetAll(id);
-                        //foreach (TourImagesViewModel image in images)
-                        //{
-                        //    if (!string.IsNullOrEmpty(image.Name))
-                        //    {
-                        //        try
-                        //        {
-                        //            System.IO.File.Delete(_hostingEnvironment.WebRootPath + image.Name);
-                        //        }
-                        //        catch (Exception ex) { _logger.LogError(ex.Message); }
-                        //    }
-                        //}
-                        //_imagesService.DeleteByTourId(id);
-                        //xóa ảnh đại diện dang sách tour
+                        // xóa ảnh liên quan
+                        /*var productImages = */
+                        // xóa Tag liên quan
+                        // xóa mầu sắc size liên quan
+                        // xoa quantity liên quan
                         try
                         {
                             System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
@@ -92,9 +80,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                     }
                 }
                 _productService.DeleteAll(listId);
-                //_tourDateService.Save();
-                //_imagesService.Save();
-                //_tourService.Save();
+                _productService.Save();
                 return new OkObjectResult(listId);
             }
         }

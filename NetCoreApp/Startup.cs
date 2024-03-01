@@ -123,7 +123,7 @@ namespace NetCoreApp
             services.AddTransient<ITourDateRepository, TourDateRepository>();
             services.AddTransient<ITourDateService, TourDateService>();
             services.AddTransient<ITourImagesRepository, TourImagesRepository>();
-            services.AddTransient<IImagesService, ImagesService>();
+            services.AddTransient<ITourImagesService, TourImagesService>();
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();

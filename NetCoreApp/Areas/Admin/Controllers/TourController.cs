@@ -19,11 +19,11 @@ namespace NetCoreApp.Areas.Admin.Controllers
         private readonly ILogger _logger;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly ITourDateService _tourDateService;
-        private readonly IImagesService _imagesService;
+        private readonly ITourImagesService _imagesService;
         private readonly ICategoryTypeService _categoryTypeService;
 
         public TourController(ITourService tourService, ILogger<ProductController> logger, ICategoryTypeService categoryTypeService,
-            IWebHostEnvironment hostingEnvironment, ITourDateService tourDateService, IImagesService imagesService)
+            IWebHostEnvironment hostingEnvironment, ITourDateService tourDateService, ITourImagesService imagesService)
         {
             _tourService = tourService;
             _logger = logger;

@@ -9,13 +9,13 @@ using System.Linq;
 
 namespace NetCoreApp.Application.Implementation
 {
-    public class ImagesService : IImagesService
+    public class TourImagesService : ITourImagesService
     {
         private readonly ITourImagesRepository _imagesRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ImagesService(ITourImagesRepository imagesRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public TourImagesService(ITourImagesRepository imagesRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _imagesRepository = imagesRepository;
             _unitOfWork = unitOfWork;
