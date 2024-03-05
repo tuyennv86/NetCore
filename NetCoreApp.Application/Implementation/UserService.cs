@@ -58,6 +58,11 @@ namespace NetCoreApp.Application.Implementation
             
         }
 
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
         public async Task<List<AppUserViewModel>> GetAllAsync()
         {
             return await _mapper.ProjectTo<AppUserViewModel>(_userManager.Users).ToListAsync();

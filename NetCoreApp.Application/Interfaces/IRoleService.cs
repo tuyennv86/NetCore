@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Interfaces
 {
-    public interface IRoleService
+    public interface IRoleService:IDisposable
     {
         Task<bool> AddAsync(AnnouncementViewModel announcementVm, List<AnnouncementUserViewModel> announcementUsers, AppRoleViewModel roleVm);
 

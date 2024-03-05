@@ -53,7 +53,12 @@ namespace NetCoreApp.Application.Implementation
             _productImageRepository.RemoveMultiple(list);
         }
 
-        public List<ProductImageViewModel> GetAll(int ProductID)
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+        public List<ProductImageViewModel> GetAllByProductID(int ProductID)
         {            
             return _mapper.ProjectTo<ProductImageViewModel>(_productImageRepository.FindAll(x => x.ProductId == ProductID)).ToList();
         }

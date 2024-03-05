@@ -1,11 +1,12 @@
 ﻿using NetCoreApp.Application.ViewModels.System;
 using NetCoreApp.Utilities.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Interfaces
 {
-    public interface IUserService
+    public interface IUserService: IDisposable
     {
         Task<bool> AddAsync(AppUserViewModel userVm);
         Task DeleteAsync(string id);

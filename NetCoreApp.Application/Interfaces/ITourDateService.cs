@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Interfaces
 {
-    public interface ITourDateService
+    public interface ITourDateService: IDisposable
     {
         TourDateViewModel Add(TourDateViewModel tourViewModel);
         void Update(TourDateViewModel tourViewModel);

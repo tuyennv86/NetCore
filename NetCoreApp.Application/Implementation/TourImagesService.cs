@@ -4,6 +4,7 @@ using NetCoreApp.Application.ViewModels.Tour;
 using NetCoreApp.Data.Entities;
 using NetCoreApp.Data.IRepositories;
 using NetCoreApp.Infrastructure.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -64,7 +65,10 @@ namespace NetCoreApp.Application.Implementation
         {
             _unitOfWork.Commit();
         }
-
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
         public void Update(TourImagesViewModel imagesViewModel)
         {
             var entity = _mapper.Map<TourImagesViewModel, TourImages>(imagesViewModel);

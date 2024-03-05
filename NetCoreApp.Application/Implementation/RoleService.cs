@@ -75,6 +75,11 @@ namespace NetCoreApp.Application.Implementation
             await _roleManager.DeleteAsync(role);
         }
 
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
         public async Task<List<AppRoleViewModel>> GetAllAsync()
         {
             return await _mapper.ProjectTo<AppRoleViewModel>(_roleManager.Roles).ToListAsync();

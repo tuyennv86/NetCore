@@ -55,6 +55,11 @@ namespace NetCoreApp.Application.Implementation
             _tourDateRepository.RemoveMultiple(entities);
         }
 
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
         public List<TourDateViewModel> GetAll()
         {
             return _mapper.ProjectTo<TourDateViewModel>(_tourDateRepository.FindAll()).ToList();
