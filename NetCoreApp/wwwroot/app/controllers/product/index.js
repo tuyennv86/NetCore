@@ -4,12 +4,12 @@
                
         registerEvents();
         loadData(true);
+        //loadCategoriesTotree();
+        loadCategoryType();
     }
 
     let registerEvents = function () { 
-
-        loadCategories();
-
+        
         $('#slChangPage').on('change', function () {          
             until.configs.pageSize = $(this).val();
             until.configs.pageIndex = 1;
@@ -70,26 +70,27 @@
 
     }
 
-    function loadCategories() {
+    function loadCategoryType() {
+        let typeId = $("#hidCategoryType").val();
         $.ajax({
             type: 'GET',
-            dataType: 'json',           
-            url: '/admin/productcategory/GetAll',
+            dataType: 'json',
+            url: '/admin/category/index/' + typeId,
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
-                let render = "<option value=''>--Chọn danh mục--</option>";
+                let render = "<option value='0'>Chọn loại danh mục</option>";
                 $.each(response, function (i, item) {
                     render += "<option value='" + item.id + "'>" + item.name + "</option>"
                 });
-                $('#slCategory').html(render);                
+                $('#slCategory').html(render);
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }
+    }        
 
     function loadCategoriesTotree(selectID) {
         let typeId = $("#hidCategoryType").val();
@@ -118,6 +119,7 @@
             }
         })
     }
+
 
     let loadData = function (isPageChanged) {
         $.ajax({

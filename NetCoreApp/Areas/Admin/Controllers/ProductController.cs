@@ -1,18 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Category;
 using NetCoreApp.Application.ViewModels.Product;
-using NetCoreApp.Utilities.Dtos;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NetCoreApp.Areas.Admin.Controllers
-{   
+{
     public class ProductController : BaseController
     {
         private readonly IProductService _productService;
@@ -114,11 +109,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 _wholePriceService.DeleteByProductId(id);
 
                 _productService.Delete(id);
-
-                _productImageService.Save();
-                _productTagService.Save();
-                _productQuantityService.Save();
-                _wholePriceService.Save();                
+                       
                 _productService.Save();
 
                 return new OkObjectResult(id);

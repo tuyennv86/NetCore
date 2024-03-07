@@ -112,11 +112,20 @@ namespace NetCoreApp
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
+            services.AddTransient<IProductImageRepository, ProductImageRepository>();
+            services.AddTransient<IProductQuantityRepository, ProductQuantityRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<ISizeRepository, SizeRepository>();
+            services.AddTransient<IWholePriceRepository, WholePriceRepository>();
                         
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductImageService, ProductImageService>();
             services.AddTransient<ICategoryTypeService, CategoryTypeService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductTagService, ProductTagService>();
+            services.AddTransient<IProductQuantityService, ProductQuantityService>();
+            services.AddTransient<IWholePriceService, WholePriceService>();
 
             services.AddTransient<ITourRepository, TourRepository>();
             services.AddTransient<ITourService, TourService>();

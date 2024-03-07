@@ -53,6 +53,22 @@ namespace NetCoreApp.Areas.Admin.Controllers
             var models = _categoryService.GetAll();
             return new OkObjectResult(models);
         }
+
+        [HttpGet]
+        public IActionResult GetAllByTypeID(int typeID)
+        {
+            List<CategoryViewModel> models;
+            if (typeID == 0)
+            {
+                models = _categoryService.GetAll();
+            }
+            else
+            {
+                models = _categoryService.GetByType(typeID);
+            }
+            return new OkObjectResult(models);
+        }
+
         [Route("admin/category/index/{type}")]
         [HttpGet]
         public IActionResult GetAllByCategoryType(int type)

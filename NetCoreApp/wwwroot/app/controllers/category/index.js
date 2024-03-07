@@ -12,6 +12,9 @@
             loadCategories();
         });
 
+        $('#slcategoryTypeAdd').on('change', function () {
+            loadCategoriesTotree();
+        });
         $("#btnSearch").on('click', function () {
             loadCategories();
         });
@@ -366,22 +369,26 @@
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }       
-
-    // load danh sách các danh mục
+    }
+    
+    // load danh mục theo chủng loại
     function loadCategoriesTotree(selectID) {
-
+        let typeId = $("#slcategoryTypeAdd").val();
+        let dataPost = {
+            "typeID": typeId
+        };
         $.ajax({
             type: 'GET',
+            data: dataPost,
             dataType: 'json',
             cache: false,
-            url: '/admin/Category/GetAll',
+            url: '/admin/Category/GetAllByTypeID',
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
-                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false});
-               
+                console.log(response);
+                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false });
                 comboTree1.clearSelection();
                 comboTree1.setSource(until.createTreeSub(response));
                 if (selectID !== undefined) {
@@ -389,14 +396,44 @@
                 }
                 comboTree1.onChange(function () {
                     $('#hidCategoryId').val(comboTree1.getSelectedIds());
-                });                
+                });
 
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }      
+    }
+
+    // load toàn bộ danh sách các danh mục
+    //function loadCategoriesTotree(selectID) {
+
+    //    $.ajax({
+    //        type: 'GET',
+    //        dataType: 'json',
+    //        cache: false,
+    //        url: '/admin/Category/GetAll',
+    //        beforeSend: function () {
+    //            until.startLoading();
+    //        },
+    //        success: function (response) {
+    //            comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false});
+               
+    //            comboTree1.clearSelection();
+    //            comboTree1.setSource(until.createTreeSub(response));
+    //            if (selectID !== undefined) {
+    //                comboTree1.setSelection([selectID]);
+    //            }
+    //            comboTree1.onChange(function () {
+    //                $('#hidCategoryId').val(comboTree1.getSelectedIds());
+    //            });                
+
+    //            until.stopLoading();
+    //        }, error: function (status) {
+    //            until.notify("Không load được dữ liệu", status);
+    //        }
+    //    })
+    //}      
     
     const recursiveArraySort = (list, parent = { id: 0, level: 0 }) => {
         let result = [];      

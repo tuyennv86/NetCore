@@ -370,18 +370,22 @@
 
     // load danh sách các danh mục
     function loadCategoriesTotree(selectID) {
-
+        let typeId = $("#hidCategoryType").val();
+        let dataPost = {
+            "typeID": typeId
+        };
         $.ajax({
             type: 'GET',
+            data: dataPost,
             dataType: 'json',
             cache: false,
-            url: '/admin/Category/GetAll',
+            url: '/admin/Category/GetAllByTypeID',
             beforeSend: function () {
                 until.startLoading();
             },
             success: function (response) {
-                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false});
-               
+                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false });
+
                 comboTree1.clearSelection();
                 comboTree1.setSource(until.createTreeSub(response));
                 if (selectID !== undefined) {
@@ -389,14 +393,14 @@
                 }
                 comboTree1.onChange(function () {
                     $('#hidCategoryId').val(comboTree1.getSelectedIds());
-                });                
+                });
 
                 until.stopLoading();
             }, error: function (status) {
                 until.notify("Không load được dữ liệu", status);
             }
         })
-    }      
+    }
     
     const recursiveArraySort = (list, parent = { id: 0, level: 0 }) => {
         let result = [];      
