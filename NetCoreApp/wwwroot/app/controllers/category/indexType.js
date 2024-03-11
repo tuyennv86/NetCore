@@ -385,11 +385,15 @@
             },
             success: function (response) {
                 comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false });
-
-                comboTree1.clearSelection();
-                comboTree1.setSource(until.createTreeSub(response));
-                if (selectID !== undefined) {
-                    comboTree1.setSelection([selectID]);
+                if (response.length === 0) {
+                    comboTree1.clearSelection();
+                    comboTree1.setSource([{ id: 0, name: 'Root' }]);
+                } else {
+                    comboTree1.clearSelection();
+                    comboTree1.setSource(until.createTreeSub(response));
+                    if (selectID !== undefined) {
+                        comboTree1.setSelection([selectID]);
+                    }
                 }
                 comboTree1.onChange(function () {
                     $('#hidCategoryId').val(comboTree1.getSelectedIds());

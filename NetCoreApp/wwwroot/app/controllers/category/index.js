@@ -2,7 +2,7 @@
 
     this.initialize = function () {
         loadCategoryType();
-        loadCategories();
+        loadCategories();        
         registerEvents();
         updateOrder();
     }
@@ -388,11 +388,21 @@
             },
             success: function (response) {
                 console.log(response);
-                comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false });
-                comboTree1.clearSelection();
-                comboTree1.setSource(until.createTreeSub(response));
-                if (selectID !== undefined) {
-                    comboTree1.setSelection([selectID]);
+                if (response.length === 0) {
+                    comboTree1.clearSelection();                    
+                    comboTree1.setSource([{ id: 0, name: 'Root' }]);
+                } else {
+                    comboTree1 = $('#ddlCategory').comboTree({ isMultiple: false });
+                    comboTree1.clearSelection();
+
+                    let tree = until.createTreeSub(response);
+                    let parentITem = { id: 0, name: 'Root' };
+                    tree.unshift(parentITem);
+
+                    comboTree1.setSource(tree);
+                    if (selectID !== undefined) {
+                        comboTree1.setSelection([selectID]);
+                    }
                 }
                 comboTree1.onChange(function () {
                     $('#hidCategoryId').val(comboTree1.getSelectedIds());

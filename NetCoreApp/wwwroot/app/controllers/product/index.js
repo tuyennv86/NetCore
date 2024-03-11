@@ -195,4 +195,9 @@ $(document).ready(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
     });
 
+    $.datetimepicker.setLocale('vi');
+    $('#txtCreateDate').datetimepicker({
+        format: 'd/m/Y h:m',
+        mask: true
+    });
 });

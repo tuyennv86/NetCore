@@ -162,8 +162,8 @@
                 }
             }
         }
-        let parentITem = { id: 0, name: 'Root' };
-        tree.unshift(parentITem);
+        //let parentITem = { id: 0, name: 'Root' };
+        //tree.unshift(parentITem);
         return tree;
     },
     removeVietnamese: function (str) {
