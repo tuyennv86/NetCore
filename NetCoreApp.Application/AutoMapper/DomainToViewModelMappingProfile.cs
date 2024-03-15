@@ -2,6 +2,7 @@
 using NetCoreApp.Application.ViewModels.Category;
 using NetCoreApp.Application.ViewModels.Product;
 using NetCoreApp.Application.ViewModels.System;
+using NetCoreApp.Application.ViewModels.Tag;
 using NetCoreApp.Application.ViewModels.Tour;
 using NetCoreApp.Data.Entities;
 
@@ -15,6 +16,14 @@ namespace NetCoreApp.Application.AutoMapper
             CreateMap<Category, CategoryViewModel>();
             CreateMap<Function, FunctionViewModel>();
             CreateMap<Product, ProductViewModel>();
+
+            CreateMap<ProductImage, ProductImageViewModel>();
+            CreateMap<ProductQuantity, ProductQuantityViewModel>();
+            CreateMap<ProductTag, ProductTagViewModel>();
+            CreateMap<Tag, TagViewModel>();
+            CreateMap<Size, SizeViewModel>();
+            CreateMap<Color, ColorViewModel>();
+
             CreateMap<Tour, TourViewModel>();
             CreateMap<TourDate, TourDateViewModel>();
             CreateMap<TourImages, TourImagesViewModel>();

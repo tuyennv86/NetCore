@@ -3,6 +3,8 @@
     <link rel="stylesheet" href="~/admin/plugins/comboTree/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="~/admin/plugins/comboTree/comboTreePlugin.css" />
     <link rel="stylesheet" href="~/lib/datetimepicker/jquery.datetimepicker.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-tags/bootstrap-tagsinput.css" />*@
 }
 @section ScriptsProduct{
     <script type="text/javascript" src="~/admin/plugins/comboTree/comboTreePlugin.js"></script>
@@ -10,12 +12,16 @@
     <script type="text/javascript" src="~/lib/datetimepicker/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript" src="~/lib/moment/moment.min.js"></script>
     <script type="text/javascript" src="~/lib/bootbox/bootbox.min.js"></script>
+    @*<script type="text/javascript" src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap-tags/bootstrap-tagsinput.min.js"></script>*@
 
     <script type="text/javascript" src="~/app/controllers/product/index.js"></script>
     <script>
         var product = new productController();
         product.initialize();
     </script>
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtDescription" })
+    @await Html.PartialAsync("_Summernote", new { height = 200, selector = "#txtContent" })
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">

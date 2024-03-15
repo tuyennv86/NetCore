@@ -67,6 +67,10 @@
     {
       "library": "moment.js@2.29.4",
       "destination": "wwwroot/lib/moment/"
+    },
+    {
+      "library": "bootstrap-tagsinput@0.8.0",
+      "destination": "wwwroot/lib/bootstrap-tags/"
     }
   ]
 }

@@ -11,9 +11,9 @@ namespace NetCoreApp.Application.Interfaces
 
         PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
 
-        ProductViewModel Add(ProductViewModel productVm);
+        ProductViewModel Add(ProductViewModel productVm, List<ProductImageViewModel> productImages);
 
-        void Update(ProductViewModel productVm);
+        void Update(ProductViewModel productVm, List<ProductImageViewModel> productImages);
 
         void Delete(int id);
         public void DeleteAll(int[] listId);

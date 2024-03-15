@@ -1,10 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Category;
 using NetCoreApp.Application.ViewModels.Product;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Claims;
 
 namespace NetCoreApp.Areas.Admin.Controllers
 {
@@ -181,5 +186,120 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return new OkObjectResult(listId);
             }
         }
+
+        public IActionResult SaveEntity(ProductViewModel entity)
+        {
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return new BadRequestObjectResult(allErrors);
+            }
+            else
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                // cập nhật ảnh
+                if (entity.file != null)
+                {
+                    string pathPhoto = $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}";
+                    string folder = _hostingEnvironment.WebRootPath + pathPhoto;
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+
+                    string photoName = Path.GetFileName(entity.file.FileName);
+                    string tempfileName = "";
+                    string pathToCheck = Path.Combine(folder, photoName);
+
+                    if (System.IO.File.Exists(pathToCheck))
+                    {
+                        int counter = 1;
+                        while (System.IO.File.Exists(pathToCheck))
+                        {
+                            tempfileName = counter.ToString() + photoName;
+                            pathToCheck = pathPhoto + tempfileName;
+                            counter++;
+                        }
+                        photoName = tempfileName;
+                    }
+
+                    using FileStream stream = new(Path.Combine(folder, photoName), FileMode.Create);
+                    entity.file.CopyTo(stream);
+                    stream.Flush();
+                    // xóa ảnh cũ nếu trước khi update ảnh đại diện               
+                    if (!string.IsNullOrEmpty(entity.Image))
+                    {
+                        try
+                        {
+                            System.IO.File.Delete(_hostingEnvironment.WebRootPath + entity.Image);
+                        }
+                        catch (Exception ex) { _logger.LogError(ex.Message); }
+                    }
+                    // đổi lại thành ảnh mới
+
+                    entity.Image = Path.Combine(pathPhoto, photoName);
+                }
+                List<ProductImageViewModel> listProductImages = new();
+                if (entity.files != null)
+                {
+                    // list ảnh
+                    foreach (var file in entity.files)
+                    {
+                        string pathPhoto = $@"\Uploaded\Images\{DateTime.Now:yyyyMMdd}";
+                        string folder = _hostingEnvironment.WebRootPath + pathPhoto;
+                        if (!Directory.Exists(folder))
+                        {
+                            Directory.CreateDirectory(folder);
+                        }
+
+                        string photoName = Path.GetFileName(file.FileName);
+                        string tempfileName = "";
+                        string pathToCheck = Path.Combine(folder, photoName);
+
+                        if (System.IO.File.Exists(pathToCheck))
+                        {
+                            int counter = 1;
+                            while (System.IO.File.Exists(pathToCheck))
+                            {
+                                tempfileName = counter.ToString() + photoName;
+                                pathToCheck = pathPhoto + tempfileName;
+                                counter++;
+                            }
+                            photoName = tempfileName;
+                        }
+
+                        using FileStream stream = new(Path.Combine(folder, photoName), FileMode.Create);
+                        file.CopyTo(stream);
+                        stream.Flush();
+                        ProductImageViewModel productImage = new();
+
+                        string ImagePath = Path.Combine(pathPhoto, photoName);
+                        productImage.Path = ImagePath;
+                        productImage.ProductId = entity.Id;
+
+                        listProductImages.Add(productImage);
+                    }
+                }
+                // hêt list ảnh 
+
+                if (entity.Id == 0)
+                {
+                    entity.CreateById = new Guid(userId);
+                    entity.EditById = new Guid(userId);
+                    entity.DateModified = DateTime.Now;
+                    _productService.Add(entity, listProductImages);
+                }
+                else
+                {
+                    entity.EditById = new Guid(userId);
+                    entity.DateModified = DateTime.Now;
+                    _productService.Update(entity, listProductImages);
+                }
+
+                _productService.Save();
+                return new OkResult();
+            }
+        }
+
     }
 }

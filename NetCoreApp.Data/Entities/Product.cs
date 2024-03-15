@@ -19,7 +19,7 @@ namespace NetCoreApp.Data.Entities
 
         public Product(string name, int categoryId, string thumbnailImage,
             decimal price, decimal originalPrice, decimal? promotionPrice,
-            string description, string content, bool? homeFlag, bool? hotFlag,
+            string description, string content, bool? homeFlag, bool? hotFlag, int order, int homeOrder,
             string tags, string unit, Status status, string seoPageTitle,
             string seoAlias, string seoMetaKeyword, string seoMetaDescription)
         {
@@ -33,6 +33,8 @@ namespace NetCoreApp.Data.Entities
             Content = content;
             HomeFlag = homeFlag;
             HotFlag = hotFlag;
+            Order = order;
+            HomeOrder = homeOrder;
             Tags = tags;
             Unit = unit;
             Status = status;
@@ -46,10 +48,9 @@ namespace NetCoreApp.Data.Entities
 
         public Product(int id, string name, int categoryId, string thumbnailImage,
              decimal price, decimal originalPrice, decimal? promotionPrice,
-             string description, string content, bool? homeFlag, bool? hotFlag,
+             string description, string content, bool? homeFlag, bool? hotFlag, int order, int homeOrder,
              string tags, string unit, Status status, string seoPageTitle,
-             string seoAlias, string seoMetaKeyword,
-             string seoMetaDescription)
+             string seoAlias, string seoMetaKeyword, string seoMetaDescription)
         {
             Id = id;
             Name = name;
@@ -62,6 +63,8 @@ namespace NetCoreApp.Data.Entities
             Content = content;
             HomeFlag = homeFlag;
             HotFlag = hotFlag;
+            Order = order;
+            HomeOrder = homeOrder;
             Tags = tags;
             Unit = unit;
             Status = status;
@@ -88,7 +91,6 @@ namespace NetCoreApp.Data.Entities
         [Required]
         [DefaultValue(0)]
         public decimal Price { get; set; }
-
         public decimal? PromotionPrice { get; set; }
 
         [Required]
@@ -96,21 +98,18 @@ namespace NetCoreApp.Data.Entities
 
         [StringLength(255)]
         public string Description { get; set; }
-
         public string Content { get; set; }
-
         public bool? HomeFlag { get; set; }
-
         public bool? HotFlag { get; set; }
-
         public int? ViewCount { get; set; }
+        public int Order { get; set; }
+        public int HomeOrder { get; set; }
 
         [StringLength(255)]
         public string Tags { get; set; }
 
         [StringLength(255)]
-        public string Unit { get; set; }              
-        
+        public string Unit { get; set; }        
         public string SeoPageTitle { set; get; }
 
         [Column(TypeName = "varchar(255)")]

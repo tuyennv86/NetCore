@@ -32,7 +32,7 @@ namespace NetCoreApp.Application.Implementation
             _productTagRepository = productTagRepository;
         }
 
-        public ProductViewModel Add(ProductViewModel productVm)
+        public ProductViewModel Add(ProductViewModel productVm, List<ProductImageViewModel> productImages)
         {
             List<ProductTag> productTags = new();
             if (!string.IsNullOrEmpty(productVm.Tags))
@@ -62,6 +62,10 @@ namespace NetCoreApp.Application.Implementation
                 foreach (var productTag in productTags)
                 {
                     product.ProductTags.Add(productTag);
+                }
+                foreach(ProductImageViewModel productImage in productImages)
+                {
+                    product.ProductImages.Add(_mapper.Map<ProductImageViewModel, ProductImage>(productImage));
                 }
                 _productRepository.Add(product);
             }
@@ -127,9 +131,9 @@ namespace NetCoreApp.Application.Implementation
             _unitOfWork.Commit();
         }
 
-        public void Update(ProductViewModel productVm)
+        public void Update(ProductViewModel productVm, List<ProductImageViewModel> productImages)
         {
-            List<ProductTag> productTags = new List<ProductTag>();
+            List<ProductTag> productTags = new();
 
             if (!string.IsNullOrEmpty(productVm.Tags))
             {
@@ -158,6 +162,10 @@ namespace NetCoreApp.Application.Implementation
             foreach (var productTag in productTags)
             {
                 product.ProductTags.Add(productTag);
+            }
+            foreach (ProductImageViewModel productImage in productImages)
+            {
+                product.ProductImages.Add(_mapper.Map<ProductImageViewModel, ProductImage>(productImage));
             }
             _productRepository.Update(product);
         }

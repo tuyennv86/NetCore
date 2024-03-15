@@ -23,8 +23,10 @@ namespace NetCoreApp.Application.AutoMapper
 
             CreateMap<ProductViewModel, Product>()
                .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.Image, c.Price, c.OriginalPrice,
-               c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Tags, c.Unit, c.Status,
+               c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Order, c.HomeOrder, c.Tags, c.Unit, c.Status,
                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
+
+
 
             CreateMap<TourViewModel, Tour>()
                 .ConstructUsing(c => new Tour(c.Name, c.Preview, c.CategoryId, c.Order, c.HomeOrder, c.HomeStatus, c.Price, c.TimeTour,

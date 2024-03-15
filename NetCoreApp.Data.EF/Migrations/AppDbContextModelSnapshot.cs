@@ -941,6 +941,9 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Property<bool?>("HomeFlag")
                         .HasColumnType("bit");
 
+                    b.Property<int>("HomeOrder")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("HotFlag")
                         .HasColumnType("bit");
 
@@ -952,6 +955,9 @@ namespace NetCoreApp.Data.EF.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18,2)");

@@ -13,7 +13,6 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp.Infrastructure.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\bin\Debug\net5.0\NetCoreApp.Infrastructure.pdb
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.csproj.AssemblyReference.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.AssemblyInfoInputs.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.AssemblyInfo.cs

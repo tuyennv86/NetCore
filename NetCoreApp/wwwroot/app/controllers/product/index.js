@@ -16,6 +16,11 @@
             loadData(true);
         });
 
+        $("#txtName").on('keypress', function (e) {
+            let title = until.removeVietnamese($("#txtName").val());
+            $("#txtSeoAlias").val(title);
+        });
+
         $("#btnSearch").on('click', function () {
             loadData(true);
         });
@@ -68,6 +73,76 @@
             });
         });
 
+        // validator add and Edit
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    AddEditAction();
+                }
+            });
+            $('#frmMaintainance').validate({
+                rules: {
+                    txtName: {
+                        required: true
+                    },
+                    txtSeoPageTitle: {
+                        required: true
+                    },
+                    txtSeoAlias: {
+                        required: true
+                    },
+                    txtSeoKeyword: {
+                        required: true
+                    },
+                    txtSeoDescription: {
+                        required: true
+                    },
+                    txtOrder: {
+                        required: true,
+                        digits: true
+                    },
+                    txtHomeOrder: {
+                        required: true,
+                        digits: true
+                    },
+                    txtPrice: {
+                        required: true,
+                        digits: true
+                    },
+                    txtPromotionPrice: {
+                        required: true,
+                        digits: true
+                    },
+                    txtOriginalPrice: {
+                        required: true,
+                        digits: true
+                    },
+                    txtUnit: {
+                        required: true
+                    },
+                    txtDescription: {
+                        required: true
+                    },
+                    txtContent: {
+                        required: true
+                    },
+                    txtCreateDate: {
+                        required: true
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group .col-sm-10').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
     }
 
     function loadCategoryType() {
@@ -186,7 +261,71 @@
             }
         });
     }
-    
+
+    let AddEditAction = function () {
+        //let status = $('#ckStatus').prop('checked') === true ? 1 : 0;
+
+        let formData = new FormData();
+        formData.append("Id", $("#hidId").val());
+        formData.append("Name", $("#txtName").val());
+        formData.append("Preview", $("#txtPreview").val());
+        formData.append("CategoryId", $("#hidCategoryId").val());
+        formData.append("Order", $("#txtOrder").val());
+        formData.append("HomeOrder", $("#txtHomeOrder").val());
+        formData.append("HomeFlag", $('#ckHomeFlag').prop('checked'));
+        formData.append("HotFlag", $('#ckHotFlag').prop('checked'));
+        formData.append("Price", $("#txtPrice").val());
+        formData.append("PromotionPrice", $("#txtPromotionPrice").val());
+        formData.append("OriginalPrice", $("#txtOriginalPrice").val());
+        formData.append("Unit", $("#txtUnit").val());
+        formData.append("Image", $("#hidImage").val());
+        formData.append("Status", $("#ckStatus").prop('checked'));
+        formData.append("SeoPageTitle", $("#txtSeoPageTitle").val());
+        formData.append("SeoAlias", $("#txtSeoAlias").val());
+        formData.append("SeoKeywords", $("#txtSeoKeyword").val());
+        formData.append("SeoDescription", $("#txtSeoDescription").val());
+        formData.append("Tags", $("#txtTags").val());
+        formData.append("DateCreated", $("#txtCreateDate").val());
+        formData.append("CreateById", $("#hidCreateById").val());
+        formData.append("EditById", $("#hidEditById").val());
+        formData.append("file", $("#fuImage")[0].files[0]);
+
+        let totalFiles = document.getElementById("fuImageList").files.length;
+        for (let i = 0; i < totalFiles; i++) {
+            let file = document.getElementById("fuImageList").files[i];
+            formData.append("files", file);
+        }
+
+        let id = $("#hidId").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/Product/SaveEntity",
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                if (id > 0) {
+                    until.notify('Cập nhật thành công', 'success');
+                    resetFormMaintainance();
+                    $('#modalAddEdit').modal('hide');
+                } else {
+                    until.notify('Thêm mới thành công', 'success');
+                    resetFormMaintainance();
+                }
+                until.stopLoading();
+                loadData();
+            },
+            error: function (err) {
+                console.log(err);
+                until.notify('Lỗi không cập nhập hoặc thêm mới được!' + JSON.stringify(err), 'error');
+                until.stopLoading();
+            }
+        });
+    }
 }
 
 $(document).ready(function () {    
