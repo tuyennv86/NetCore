@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using NetCoreApp.Application.ViewModels.Category;
+using NetCoreApp.Application.ViewModels.System;
 using NetCoreApp.Data.Enums;
 using System;
 using System.Collections.Generic;
@@ -47,10 +48,11 @@ namespace NetCoreApp.Application.ViewModels.Product
         public string SeoDescription { set; get; }
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
-        public Status Status { set; get; }
+        public bool Status { set; get; }
         public Guid CreateById { get; set; }
         public Guid EditById { get; set; }
-
+        public AppUserViewModel CreateBy { set; get; }        
+        public AppUserViewModel EditBy { set; get; }
         public ICollection<ProductTagViewModel> ProductTags { set; get; }
         public ICollection<ProductImageViewModel> ProductImages { get; set; }
         public ICollection<ProductQuantityViewModel> ProductQuantities { get; set; }

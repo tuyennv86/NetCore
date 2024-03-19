@@ -262,30 +262,60 @@
         });
     }
 
+    function resetFormMaintainance() {      
+        loadCategoriesTotree();       
+        $("#hidId").val(0);
+        $("#txtName").val('');
+        $("#hidCategoryId").val(0);
+        $("#hidImage").val('');
+        $("#txtPrice").val(0);
+        $("#txtPromotionPrice").val(0);
+        $("#txtOriginalPrice").val(0);
+        $("#txtDescription").summernote('code','');
+        $('#txtContent').summernote('code','');
+        $('#ckHomeFlag').prop('checked', false);
+        $('#ckHotFlag').prop('checked', false);
+        $("hidViewCount").val(0);
+        $("#txtOrder").val(0);
+        $("#txtHomeOrder").val(0);
+        $("#txtTags").val('');
+        $("#txtUnit").val('');
+        $("#txtSeoPageTitle").val('');
+        $("#txtSeoAlias").val('');
+        $("#txtSeoKeyword").val('');
+        $("#txtSeoDescription").val('');
+        $("#txtCreateDate").val('');
+        $("#ckStatus").prop('checked', false);
+        $("#hidCreateById").val('');
+        $("#hidEditById").val('');
+    }
+
     let AddEditAction = function () {
         //let status = $('#ckStatus').prop('checked') === true ? 1 : 0;
 
         let formData = new FormData();
         formData.append("Id", $("#hidId").val());
         formData.append("Name", $("#txtName").val());
-        formData.append("Preview", $("#txtPreview").val());
         formData.append("CategoryId", $("#hidCategoryId").val());
-        formData.append("Order", $("#txtOrder").val());
-        formData.append("HomeOrder", $("#txtHomeOrder").val());
-        formData.append("HomeFlag", $('#ckHomeFlag').prop('checked'));
-        formData.append("HotFlag", $('#ckHotFlag').prop('checked'));
+        formData.append("Image", $("#hidImage").val());
         formData.append("Price", $("#txtPrice").val());
         formData.append("PromotionPrice", $("#txtPromotionPrice").val());
         formData.append("OriginalPrice", $("#txtOriginalPrice").val());
+        formData.append("Description", $("#txtDescription").summernote('code'));
+        formData.append("Content", $('#txtContent').summernote('code'));
+        formData.append("HomeFlag", $('#ckHomeFlag').prop('checked'));
+        formData.append("HotFlag", $('#ckHotFlag').prop('checked'));
+        formData.append("ViewCount", $("hidViewCount").val());
+        formData.append("Order", $("#txtOrder").val());
+        formData.append("HomeOrder", $("#txtHomeOrder").val());
+        formData.append("Tags", $("#txtTags").val());
         formData.append("Unit", $("#txtUnit").val());
-        formData.append("Image", $("#hidImage").val());
-        formData.append("Status", $("#ckStatus").prop('checked'));
         formData.append("SeoPageTitle", $("#txtSeoPageTitle").val());
         formData.append("SeoAlias", $("#txtSeoAlias").val());
         formData.append("SeoKeywords", $("#txtSeoKeyword").val());
-        formData.append("SeoDescription", $("#txtSeoDescription").val());
-        formData.append("Tags", $("#txtTags").val());
-        formData.append("DateCreated", $("#txtCreateDate").val());
+        formData.append("SeoDescription", $("#txtSeoDescription").val());       
+        formData.append("DateCreated", $("#txtCreateDate").val());        
+        formData.append("Status", $("#ckStatus").prop('checked'));
         formData.append("CreateById", $("#hidCreateById").val());
         formData.append("EditById", $("#hidEditById").val());
         formData.append("file", $("#fuImage")[0].files[0]);

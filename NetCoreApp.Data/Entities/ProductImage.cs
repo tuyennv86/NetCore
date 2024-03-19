@@ -6,7 +6,13 @@ namespace NetCoreApp.Data.Entities
 {
     [Table("ProductImages")]
     public class ProductImage : DomainEntity<int>
-    {
+    { 
+        public ProductImage(int productId, string path, string caption)
+        {
+            ProductId = productId;
+            Path = path;
+            Caption = caption;
+        }
         public int ProductId { get; set; }
 
         [ForeignKey("ProductId")]

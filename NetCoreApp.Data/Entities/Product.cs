@@ -10,17 +10,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace NetCoreApp.Data.Entities
 {
     [Table("Products")]
-    public class Product : DomainEntity<int>, ISwitchable, IDateTracking, IHasSeoMetaData, ICreateTracking
+    public class Product : DomainEntity<int>, IDateTracking, IHasSeoMetaData, ICreateTracking
     {
         public Product()
         {
             ProductTags = new List<ProductTag>();
+            ProductImages = new List<ProductImage>();
         }
 
         public Product(string name, int categoryId, string thumbnailImage,
             decimal price, decimal originalPrice, decimal? promotionPrice,
             string description, string content, bool? homeFlag, bool? hotFlag, int order, int homeOrder,
-            string tags, string unit, Status status, string seoPageTitle,
+            string tags, string unit, bool status, string seoPageTitle,
             string seoAlias, string seoMetaKeyword, string seoMetaDescription)
         {
             Name = name;
@@ -43,13 +44,13 @@ namespace NetCoreApp.Data.Entities
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
             ProductTags = new List<ProductTag>();
-
+            ProductImages = new List<ProductImage>();
         }
 
         public Product(int id, string name, int categoryId, string thumbnailImage,
              decimal price, decimal originalPrice, decimal? promotionPrice,
              string description, string content, bool? homeFlag, bool? hotFlag, int order, int homeOrder,
-             string tags, string unit, Status status, string seoPageTitle,
+             string tags, string unit, bool status, string seoPageTitle,
              string seoAlias, string seoMetaKeyword, string seoMetaDescription)
         {
             Id = id;
@@ -73,6 +74,7 @@ namespace NetCoreApp.Data.Entities
             SeoKeywords = seoMetaKeyword;
             SeoDescription = seoMetaDescription;
             ProductTags = new List<ProductTag>();
+            ProductImages = new List<ProductImage>();
 
         }
 
@@ -125,9 +127,15 @@ namespace NetCoreApp.Data.Entities
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
 
-        public Status Status { set; get; }
+        public bool Status { set; get; }
         public Guid CreateById { get; set; }
         public Guid EditById { get; set; }
+        
+        [ForeignKey("CreateById")]
+        public virtual AppUser CreateBy { set; get; }      
+        [ForeignKey("EditById")]
+        public virtual AppUser EditBy { set; get; }
+
         public virtual ICollection<ProductTag> ProductTags { set; get; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductQuantity> ProductQuantities { get; set; }

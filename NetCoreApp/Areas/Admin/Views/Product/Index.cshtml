@@ -97,6 +97,10 @@
                             <th>Danh mục</th>
                             <th>Giá</th>
                             <th>Trạng thái</th>
+                            <th>Trang chủ</th>
+                            <th>Nổi bật</th>
+                            <th>Thứ tự</th>
+                            <th>Thứ home</th>
                             <th>Ngày tạo</th>
                             <th>Người tạo</th>
                             <th class="text-right">Action</th>
@@ -141,17 +145,31 @@
                 <img  class="product-image-thumb img-size-64" src="/admin/dist/img/no_image_available.jpg">
             {{/image}}
             </td>
-            <td>{{Category.name}}</td>
+            <td>{{category.name}}</td>
             <td>{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
             <td>
                 {{#status}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/status}}
                 {{^status}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
             </td>
+            <td>
+                {{#homeFlag}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/homeFlag}}
+                {{^homeFlag}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/homeFlag}}
+            </td>
+            <td>
+                {{#hotFlag}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/hotFlag}}
+                {{^hotFlag}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/hotFlag}}
+            </td>
+            <td>
+                <input type="text" id="order{{id}}" class="form-control form-control-sm img-size-64" value="{{order}}" placeholder="số tt" name="order{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
+            </td>
+            <td>
+                <input type="text" id="homeorder{{id}}" class="form-control form-control-sm img-size-64" value="{{homeOrder}}" placeholder="số thứ tự" name="homeorder{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">
+            </td>
             <td> {{#dateFormat}}{{dateCreated }}{{/dateFormat}}</td>
-            <td> </td>
+            <td> {{ createBy.userName }}</td>
             <td class="text-right">
-                <a class="btn btn-info btn-sm" href="#" data-id="{{id}}"> id="btnEdit" <i class="fas fa-pencil-alt"> </i> Edit </a>
-                <a class="btn btn-danger btn-sm" href="#" data-id="{{id}}" id="btnDelete"> <i class="fas fa-trash"> </i> Delete </a>
+                <a class="btn btn-info btn-sm" href="#" data-id="{{id}}" id="lbtEdit"> <i class="fas fa-pencil-alt"> </i> Edit </a>
+                <a class="btn btn-danger btn-sm" href="#" data-id="{{id}}"  id="lbtDelete"> <i class="fas fa-trash"> </i> Delete </a>
             </td>
         </tr>
         {{/productTag}}

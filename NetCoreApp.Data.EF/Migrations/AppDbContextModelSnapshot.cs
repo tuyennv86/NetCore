@@ -983,8 +983,8 @@ namespace NetCoreApp.Data.EF.Migrations
                     b.Property<string>("SeoPageTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Tags")
                         .HasMaxLength(255)

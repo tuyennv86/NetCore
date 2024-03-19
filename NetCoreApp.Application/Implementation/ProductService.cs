@@ -32,7 +32,7 @@ namespace NetCoreApp.Application.Implementation
             _productTagRepository = productTagRepository;
         }
 
-        public ProductViewModel Add(ProductViewModel productVm, List<ProductImageViewModel> productImages)
+        public ProductViewModel Add(ProductViewModel productVm, List<ProductImageViewModel> productImagesVm)
         {
             List<ProductTag> productTags = new();
             if (!string.IsNullOrEmpty(productVm.Tags))
@@ -58,14 +58,17 @@ namespace NetCoreApp.Application.Implementation
                     };
                     productTags.Add(productTag);
                 }
+
                 var product = _mapper.Map<ProductViewModel, Product>(productVm);
                 foreach (var productTag in productTags)
                 {
                     product.ProductTags.Add(productTag);
                 }
-                foreach(ProductImageViewModel productImage in productImages)
+                
+                foreach(ProductImageViewModel productImageVm in productImagesVm)
                 {
-                    product.ProductImages.Add(_mapper.Map<ProductImageViewModel, ProductImage>(productImage));
+                    var productImage = _mapper.Map<ProductImageViewModel, ProductImage>(productImageVm);
+                    product.ProductImages.Add(productImage);
                 }
                 _productRepository.Add(product);
             }
@@ -97,10 +100,10 @@ namespace NetCoreApp.Application.Implementation
 
         public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
         {
-            var query = _productRepository.FindAll(x => x.Status == Status.Active);
+            var query = _productRepository.FindAll(x => x.Status);
             if (!string.IsNullOrEmpty(keyword))
                 query = query.Where(x => x.Name.Contains(keyword));
-            if (categoryId.HasValue)
+            if (categoryId.HasValue && categoryId != 0)
                 query = query.Where(x => x.CategoryId == categoryId.Value);
             int totalRow = query.Count();
             query = query.OrderByDescending(x => x.DateCreated).Skip((page - 1) * pageSize).Take(pageSize);

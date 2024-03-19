@@ -25,7 +25,7 @@ namespace NetCoreApp.Application.AutoMapper
                .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.Image, c.Price, c.OriginalPrice,
                c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Order, c.HomeOrder, c.Tags, c.Unit, c.Status,
                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
-
+            CreateMap<ProductImageViewModel, ProductImage>().ConstructUsing(c => new ProductImage(c.ProductId, c.Path, c.Caption));
 
 
             CreateMap<TourViewModel, Tour>()
