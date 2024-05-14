@@ -8,21 +8,18 @@ namespace NetCoreApp.Application.Interfaces
     public interface IProductService:IDisposable
     {
         List<ProductViewModel> GetAll();
-
         PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
-
         ProductViewModel Add(ProductViewModel productVm, List<ProductImageViewModel> productImagesVm);
-
         void Update(ProductViewModel productVm, List<ProductImageViewModel> productImages);
-
         void Delete(int id);
         public void DeleteAll(int[] listId);
-
         ProductViewModel GetById(int id);
-
         void ImportExcel(string filePath, int categoryId);
-
         void Save();
+        void UpdateStatus(int id);
+        void UpdateHomeFlag(int id);
+        void UpdateHotFlag(int id);
+        void UpdateOrder(int Id, int sortOrder, int homeOrder);
 
     }
 }

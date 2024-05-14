@@ -148,16 +148,16 @@
             <td>{{category.name}}</td>
             <td>{{#formatCurrency }}{{price}}{{/formatCurrency }}</td>
             <td>
-                {{#status}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/status}}
-                {{^status}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
+                {{#status}}<a href="#" data-id="{{id}}" id="btnStatus" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/status}}
+                {{^status}}<a href="#" data-id="{{id}}" id="btnStatus" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/status}}
             </td>
             <td>
-                {{#homeFlag}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/homeFlag}}
-                {{^homeFlag}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/homeFlag}}
+                {{#homeFlag}}<a href="#" data-id="{{id}}" id="btnHomeFlag" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/homeFlag}}
+                {{^homeFlag}}<a href="#" data-id="{{id}}" id="btnHomeFlag" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/homeFlag}}
             </td>
             <td>
-                {{#hotFlag}}<a href="#" data-id="{{id}}" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/hotFlag}}
-                {{^hotFlag}}<a href="#" data-id="{{id}}" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/hotFlag}}
+                {{#hotFlag}}<a href="#" data-id="{{id}}" id="btnHotFlag" class="badge bg-success"> <i class="fa fa-unlock" aria-hidden="true"></i> Hiện </a>{{/hotFlag}}
+                {{^hotFlag}}<a href="#" data-id="{{id}}" id="btnHotFlag" class="badge bg-danger"><i class="fa fa-lock" aria-hidden="true"></i> Ẩn</a>{{/hotFlag}}
             </td>
             <td>
                 <input type="text" id="order{{id}}" class="form-control form-control-sm img-size-64" value="{{order}}" placeholder="số tt" name="order{{id}}" data-rule-required="true" data-rule-digits="true" data-msg-required="không được bỏ trống" data-msg-digits="Chỉ nhập số">

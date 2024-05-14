@@ -64,6 +64,12 @@ namespace NetCoreApp.Areas.Admin.Controllers
             var model = _productService.GetAllPaging(categoryId, keyword, page, pageSize);
             return new OkObjectResult(model);
         }
+        [HttpGet]
+        public IActionResult GetById(int id)
+        {
+            var model = _productService.GetById(id);
+            return new OkObjectResult(model);
+        }
 
         [HttpDelete]
         public IActionResult Delete(int id)
@@ -302,5 +308,34 @@ namespace NetCoreApp.Areas.Admin.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult UpdateStatus(int id)
+        {
+            _productService.UpdateStatus(id);
+            _productService.Save();
+            return new OkObjectResult(id);
+        }
+        [HttpPost]
+        public IActionResult UpdateHomeFlag(int id)
+        {
+            _productService.UpdateHomeFlag(id);
+            _productService.Save();
+            return new OkObjectResult(id);
+        }
+        [HttpPost]
+        public IActionResult UpdateHotFlag(int id)
+        {
+            _productService.UpdateHotFlag(id);
+            _productService.Save();
+            return new OkObjectResult(id);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateOrder(int id, int order, int homeOrder)
+        {
+            _productService.UpdateOrder(id, order, homeOrder);
+            _productService.Save();
+            return new OkObjectResult(id);
+        }
     }
 }

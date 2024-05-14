@@ -100,7 +100,7 @@ namespace NetCoreApp.Application.Implementation
 
         public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
         {
-            var query = _productRepository.FindAll(x => x.Status);
+            var query = _productRepository.FindAll();
             if (!string.IsNullOrEmpty(keyword))
                 query = query.Where(x => x.Name.Contains(keyword));
             if (categoryId.HasValue && categoryId != 0)
@@ -170,6 +170,32 @@ namespace NetCoreApp.Application.Implementation
             {
                 product.ProductImages.Add(_mapper.Map<ProductImageViewModel, ProductImage>(productImage));
             }
+            _productRepository.Update(product);
+        }
+
+        public void UpdateStatus(int id)
+        {
+            var product = _productRepository.FindById(id);
+            product.Status = !product.Status;
+            _productRepository.Update(product);
+        }
+        public void UpdateHomeFlag(int id)
+        {
+            var product = _productRepository.FindById(id);
+            product.HomeFlag = !product.HomeFlag;
+            _productRepository.Update(product);
+        }
+        public void UpdateHotFlag(int id)
+        {
+            var product = _productRepository.FindById(id);
+            product.HotFlag = !product.HotFlag;
+            _productRepository.Update(product);
+        }
+        public void UpdateOrder(int Id, int sortOrder, int homeOrder)
+        {
+            var product = _productRepository.FindById(Id);
+            product.Order = sortOrder;
+            product.HomeOrder = homeOrder;
             _productRepository.Update(product);
         }
     }
