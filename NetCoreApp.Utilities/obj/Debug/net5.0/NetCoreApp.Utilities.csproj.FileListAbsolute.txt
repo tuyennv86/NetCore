@@ -14,6 +14,7 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\bin\Debug\net5.0\NetCoreApp.Util
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\bin\Debug\net5.0\NetCoreApp.Utilities.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\bin\Debug\net5.0\ref\NetCoreApp.Utilities.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\bin\Debug\net5.0\NetCoreApp.Utilities.pdb
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.csproj.AssemblyReference.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.GeneratedMSBuildEditorConfig.editorconfig
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.AssemblyInfoInputs.cache
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.AssemblyInfo.cs
@@ -21,4 +22,3 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Util
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\ref\NetCoreApp.Utilities.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.pdb
-E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Utilities\obj\Debug\net5.0\NetCoreApp.Utilities.csproj.AssemblyReference.cache

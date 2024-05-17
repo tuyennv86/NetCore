@@ -107,6 +107,33 @@
             $('#modalAddEdit').modal('show');
             loadCategoriesTotree();
         });
+        $('body').on('click', '#lbtView', function (e) {
+            e.preventDefault();
+            $('#modalAddEditExten').modal('show');
+            let id = $(this).attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: "/admin/Product/GetById",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.stopLoading();
+                    $("#hidId").val(response.id);
+                    $("#spName").html(response.name);
+                },
+                error: function (status) {
+                    until.notify('Lỗi không xem được' + status, 'error');
+                    until.stopLoading();
+                }
+            });                        
+
+            LoadDataColor();
+            LoadDataSize();
+        });
 
         $('body').on('click', '#btnDeleteAll', function (e) {
             e.preventDefault();
@@ -171,6 +198,61 @@
                 }
             });
         });
+        // xoa anh đại diện Edit
+        $('body').on('click', '#hplRemoveImg', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Product/DeleteImge",
+                        cache: false,
+                        data: { Id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa ảnh thành công', 'success');
+                            $("#image-holder").html('');
+                            loadData();
+                            until.stopLoading();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                        }
+                    });
+                }
+            });
+        });
+        // xóa ảnh liên quan khi edit
+        $('body').on('click', '#btnDeleteImgDetail', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Product/DeleteImageProduct",
+                        cache: false,
+                        data: { Id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa ảnh thành công', 'success');
+                            $('#li-' + id).remove();
+                            until.stopLoading();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được', 'error' + status);
+                        }
+                    });
+                }
+            });
+        });
 
         $('body').on('click', '#lbtEdit', function (e) {
             e.preventDefault();
@@ -178,7 +260,7 @@
             let id = $(this).attr('data-id');
 
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: "/admin/Product/GetById",
                 cache: false,
                 data: { id: id },
@@ -187,6 +269,9 @@
                     until.startLoading();
                 },
                 success: function (response) {
+
+                    //console.log(response);
+
                     until.stopLoading();
                     $("#hidId").val(response.id);
                     $("#txtName").val(response.name);
@@ -202,7 +287,7 @@
                     $("#txtPromotionPrice").val(response.promotionPrice);
                     $("#txtOriginalPrice").val(response.originalPrice);
                     $("#txtUnit").val(response.unit);                   
-                    $("#hidImage").val(response.Image);
+                    $("#hidImage").val(response.image);
                     if (response.image !== null) {
                         $("#image-holder").html('<img class="img-thumbnail-max400" src=' + response.image + '><br><a href="#" id="hplRemoveImg" data-id=' + response.id + '><i class="fa fa-trash" aria-hidden="true"></i> xóa ảnh</a>');
                     }              
@@ -225,11 +310,12 @@
 
                 },
                 error: function (status) {
-                    until.notify('Lỗi không xem được', 'error' + status);
+                    until.notify('Lỗi không xem được' + status, 'error');
                     until.stopLoading();
                 }
             });
         });
+
         // validator add and Edit
         $(function () {
             $.validator.setDefaults({
@@ -300,6 +386,87 @@
                 }
             });
         });
+
+        $('body').on('click', '#lbtDeleteColor', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Product/DeleteColor",
+                        cache: false,
+                        data: { id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa thành công', 'success');
+                            until.stopLoading();
+                            LoadDataColor();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được' + JSON.stringify(status), 'error');
+                            until.stopLoading();
+                        }
+                    });
+                }
+            });
+        });
+        $('body').on('click', '#lbtEditColor', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id'); 
+                $.ajax({
+                    type: "GET",
+                    url: "/admin/Product/GetByIdColor",
+                    cache: false,
+                    data: { id: id },
+                    dataType: "json",
+                    beforeSend: function () {
+                        until.startLoading();
+                    },
+                    success: function (response) {                       
+                        until.stopLoading();
+                        $("#hidId").val(response.id);
+                        $("#txtColorName").val(response.name);
+                        $("#txtColorCode").val(response.code);
+                        $('.my-colorpicker2 .fa-square').css('color', response.code);
+                    },
+                    error: function (status) {
+                        until.notify('Lỗi edit' + JSON.stringify(status), 'error');
+                        until.stopLoading();
+                    }
+                });               
+        });
+
+        $('body').on('click', '#lbtDeleteSize', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            bootbox.confirm('Bạn có muốn xóa không?', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/Product/DeleteSize",
+                        cache: false,
+                        data: { id: id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            until.notify('Xóa thành công', 'success');
+                            until.stopLoading();
+                            LoadDataSize();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi không xóa được' + JSON.stringify(status), 'error');
+                            until.stopLoading();
+                        }
+                    });
+                }
+            });
+        });
     }
 
     function loadCategoryType() {
@@ -351,7 +518,6 @@
             }
         })
     }
-
 
     let loadData = function (isPageChanged) {
         $.ajax({
@@ -445,6 +611,8 @@
         $("#ckStatus").prop('checked', false);
         $("#hidCreateById").val('');
         $("#hidEditById").val('');
+        $("#fuImageList").val('');
+        $("#fuImage").val('');
     }
 
     let AddEditAction = function () {
@@ -564,6 +732,45 @@
                 }
 
             });
+        });
+    }
+
+    function LoadDataColor() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/admin/product/GetAllColor',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                let templateWithData = Mustache.render($("#color-template").html(), {
+                    colorsTag: response
+                });
+                $("#list-color").empty().html(templateWithData);
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu" + status, status);
+            }
+        });
+    }
+    function LoadDataSize() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/admin/product/GetAllSize',
+            beforeSend: function () {
+                until.startLoading();
+            },
+            success: function (response) {
+                let templateWithData = Mustache.render($("#size-template").html(), {
+                    sizesTag: response
+                });
+                $("#list-size").empty().html(templateWithData);
+                until.stopLoading();
+            }, error: function (status) {
+                until.notify("Không load được dữ liệu" + status, status);
+            }
         });
     }
 }

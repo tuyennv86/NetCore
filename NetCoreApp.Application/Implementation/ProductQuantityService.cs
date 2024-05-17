@@ -7,24 +7,18 @@ using NetCoreApp.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Implementation
 {
     public class ProductQuantityService : IProductQuantityService
     {
-        private readonly IProductQuantityRepository _productQuantityRepository;
-        private readonly IColorRepository _colorRepository;
-        private readonly ISizeRepository _sizeRepository;
+        private readonly IProductQuantityRepository _productQuantityRepository;      
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ProductQuantityService(IProductQuantityRepository productQuantityRepository,IColorRepository colorRepository, ISizeRepository sizeRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductQuantityService(IProductQuantityRepository productQuantityRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _productQuantityRepository = productQuantityRepository;
-            _colorRepository = colorRepository;
-            _sizeRepository = sizeRepository;
+            _productQuantityRepository = productQuantityRepository;          
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }    
@@ -36,27 +30,13 @@ namespace NetCoreApp.Application.Implementation
         }
 
         public void Delete(int Id)
-        {
-            var entity = _productQuantityRepository.FindById(Id);
-            //delete Color and Size            
-            _colorRepository.Remove(entity.ColorId);
-            _sizeRepository.Remove(entity.SizeId);
+        {           
             _productQuantityRepository.Remove(Id);
         }
 
         public void DeleteByProductId(int ProductID)
         {
-            var entities = _productQuantityRepository.FindAll(x => x.ProductId).ToList();
-            List<Color> listColor = new();
-            List<Size> listSize = new();
-            foreach(ProductQuantity entiy in entities)
-            {
-                listColor.Add(_colorRepository.FindById(entiy.ColorId));
-                listSize.Add(_sizeRepository.FindById(entiy.SizeId));
-                
-            }
-            _colorRepository.RemoveMultiple(listColor);
-            _sizeRepository.RemoveMultiple(listSize);
+            var entities = _productQuantityRepository.FindAll(x => x.ProductId == ProductID).ToList();           
             _productQuantityRepository.RemoveMultiple(entities);
         }
 

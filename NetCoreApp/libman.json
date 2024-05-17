@@ -71,6 +71,10 @@
     {
       "library": "bootstrap-tagsinput@0.8.0",
       "destination": "wwwroot/lib/bootstrap-tags/"
+    },
+    {
+      "library": "bootstrap-colorpicker@3.4.0",
+      "destination": "wwwroot/lib/bootstrap-color/"
     }
   ]
 }

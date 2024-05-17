@@ -23,10 +23,14 @@ namespace NetCoreApp.Areas.Admin.Controllers
         private readonly IProductTagService _productTagService;
         private readonly IProductQuantityService _productQuantityService;
         private readonly IWholePriceService _wholePriceService;
+        private readonly IColorService _colorService;
+        private readonly ISizeService _sizeService;
 
         public ProductController(IProductService productService, ICategoryTypeService categoryTypeService, 
             ILogger<ProductController> logger, IWebHostEnvironment hostingEnvironment, IProductImageService productImageService, 
-            IProductTagService productTagService, IProductQuantityService productQuantityService, IWholePriceService wholePriceService)
+            IProductTagService productTagService, IProductQuantityService productQuantityService, IWholePriceService wholePriceService,
+            IColorService colorService, ISizeService sizeService
+            )
         {
             _productService = productService;
             _productImageService = productImageService;
@@ -36,6 +40,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _productTagService = productTagService;
             _productQuantityService = productQuantityService;
             _wholePriceService = wholePriceService;
+            _colorService = colorService;
+            _sizeService = sizeService;
         }
         public IActionResult Index(int? id)
         {            
@@ -71,6 +77,50 @@ namespace NetCoreApp.Areas.Admin.Controllers
             return new OkObjectResult(model);
         }
 
+        [HttpGet]
+        public IActionResult GetAllColor()
+        {
+            var data = _colorService.GetAll();
+            return new OkObjectResult(data);
+        }
+        [HttpGet]
+        public IActionResult GetByIdColor(int id)
+        {
+            return new OkObjectResult(_colorService.GetById(id));
+        }
+        [HttpGet]
+        public IActionResult GetAllSize()
+        {
+            return new OkObjectResult(_sizeService.GetAll());
+        }
+        [HttpDelete]
+        public IActionResult DeleteColor(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _colorService.Delete(id);
+                _colorService.Save();
+                return new ObjectResult(id);
+            }
+        }
+        [HttpDelete]
+        public IActionResult DeleteSize(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _sizeService.Delete(id);
+                _sizeService.Save();
+                return new ObjectResult(id);
+            }
+        }
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -336,6 +386,52 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _productService.UpdateOrder(id, order, homeOrder);
             _productService.Save();
             return new OkObjectResult(id);
+        }
+        [HttpDelete]
+        public IActionResult DeleteImge(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                var model = _productService.GetById(id);
+                if (!string.IsNullOrEmpty(model.Image))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + model.Image);
+                    }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
+                }
+                _productService.UpdateImageEmpty(id);
+                _productService.Save();
+                return new OkObjectResult(id);
+            }
+        }
+        [HttpDelete]
+        public IActionResult DeleteImageProduct(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                var imageProduct = _productImageService.GetById(id);
+                if (!string.IsNullOrEmpty(imageProduct.Path))
+                {
+                    try
+                    {
+                        System.IO.File.Delete(_hostingEnvironment.WebRootPath + imageProduct.Path);
+                    }
+                    catch (Exception ex) { _logger.LogError(ex.Message); }
+                }
+                _productImageService.Delete(id);
+                _productService.Save();
+                return new OkObjectResult(id);
+            }
         }
     }
 }

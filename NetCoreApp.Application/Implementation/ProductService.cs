@@ -2,7 +2,6 @@
 using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Product;
 using NetCoreApp.Data.Entities;
-using NetCoreApp.Data.Enums;
 using NetCoreApp.Data.IRepositories;
 using NetCoreApp.Infrastructure.Interfaces;
 using NetCoreApp.Utilities.Constants;
@@ -19,17 +18,19 @@ namespace NetCoreApp.Application.Implementation
         private readonly ITagRepository _tagRepository;
         private readonly IProductTagRepository _productTagRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IProductImageRepository _productImageRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;        
 
         public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper, 
-            ITagRepository tagRepository, IProductTagRepository productTagRepository)
+            ITagRepository tagRepository, IProductTagRepository productTagRepository, IProductImageRepository productImageRepository)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _tagRepository = tagRepository;
             _productTagRepository = productTagRepository;
+            _productImageRepository = productImageRepository;
         }
 
         public ProductViewModel Add(ProductViewModel productVm, List<ProductImageViewModel> productImagesVm)
@@ -121,7 +122,10 @@ namespace NetCoreApp.Application.Implementation
 
         public ProductViewModel GetById(int id)
         {
-            return _mapper.Map<Product, ProductViewModel>(_productRepository.FindById(id));
+            var product = _productRepository.FindById(id);
+            product.ProductImages = _productImageRepository.FindAll(x => x.ProductId == id).ToList();
+            var productVM = _mapper.Map<Product, ProductViewModel>(product);
+            return productVM;
         }
 
         public void ImportExcel(string filePath, int categoryId)
@@ -157,6 +161,7 @@ namespace NetCoreApp.Application.Implementation
                     {
                         TagId = tagId
                     };
+
                     productTags.Add(productTag);
                 }
             }
@@ -197,6 +202,13 @@ namespace NetCoreApp.Application.Implementation
             product.Order = sortOrder;
             product.HomeOrder = homeOrder;
             _productRepository.Update(product);
+        }
+
+        public void UpdateImageEmpty(int id)
+        {
+            var entity = _productRepository.FindById(id);
+            entity.Image = "";
+            _productRepository.Update(entity);
         }
     }
 }

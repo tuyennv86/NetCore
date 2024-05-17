@@ -125,6 +125,8 @@ namespace NetCoreApp
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductTagService, ProductTagService>();
             services.AddTransient<IProductQuantityService, ProductQuantityService>();
+            services.AddTransient<IColorService, ColorService>();
+            services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IWholePriceService, WholePriceService>();
 
             services.AddTransient<ITourRepository, TourRepository>();
@@ -132,7 +134,7 @@ namespace NetCoreApp
             services.AddTransient<ITourDateRepository, TourDateRepository>();
             services.AddTransient<ITourDateService, TourDateService>();
             services.AddTransient<ITourImagesRepository, TourImagesRepository>();
-            services.AddTransient<ITourImagesService, TourImagesService>();
+            services.AddTransient<ITourImagesService, TourImagesService>();            
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();

@@ -26,6 +26,8 @@ namespace NetCoreApp.Application.AutoMapper
                c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Order, c.HomeOrder, c.Tags, c.Unit, c.Status,
                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
             CreateMap<ProductImageViewModel, ProductImage>().ConstructUsing(c => new ProductImage(c.ProductId, c.Path, c.Caption));
+            CreateMap<ColorViewModel, Color>().ConstructUsing(c => new Color(c.Id, c.Name, c.Code));
+
 
 
             CreateMap<TourViewModel, Tour>()

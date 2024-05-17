@@ -20,6 +20,7 @@ namespace NetCoreApp.Application.Interfaces
         void UpdateHomeFlag(int id);
         void UpdateHotFlag(int id);
         void UpdateOrder(int Id, int sortOrder, int homeOrder);
+        void UpdateImageEmpty(int id);
 
     }
 }

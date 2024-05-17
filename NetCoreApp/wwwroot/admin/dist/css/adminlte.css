@@ -4910,7 +4910,9 @@ input[type="button"].btn-block {
 .card-footer:last-child {
   border-radius: 0 0 calc(0.25rem - 0) calc(0.25rem - 0);
 }
-
+.card-footer li{
+    list-style:none;
+}
 .card-header-tabs {
   margin-right: -0.625rem;
   margin-bottom: -0.75rem;

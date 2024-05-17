@@ -1,0 +1,158 @@
+﻿<div class="modal fade" id="modalAddEditExten" data-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><span id="spName"></span></h5>
+                    <input type="hidden" id="hidId" value="0" />
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form class="form-horizontal" id="frmColor" name="frmColor">
+                                <div class="card card-info">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Cập nhật màu</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Color Picker -->
+                                        <div class="form-group">
+                                            <label>Tên màu:</label>
+                                            <input type="hidden" id="hidId" />
+                                            <input type="text" class="form-control" id="txtColorName">
+                                        </div>
+                                        <!-- /.form group -->
+                                        <!-- Color Picker -->
+                                        <div class="form-group">
+                                            <label>Mã màu:</label>
+                                            <div class="input-group my-colorpicker2">
+                                                <input type="text" class="form-control" id="txtColorCode">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="fas fa-square"></i></span>
+                                                </div>
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+                                        <!-- /.form group -->
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary">Cập nhật</button>
+                                            <button type="button" class="btn btn-secondary">Xóa trắng</button>
+                                        </div>
+                                        <!-- /.form group -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </form>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Danh sách màu</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                @*<th style="width: 10px">#</th>*@
+                                                <th>Tên màu</th>
+                                                <th>Mã màu</th>
+                                                <th style="width: 160px"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list-color">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>                               
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col (left) -->
+                        <div class="col-md-6">
+                            <form class="form-horizontal" id="frmSize" name="frmSize">
+                                <div class="card card-success">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Cập nhật size</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Color Picker -->
+                                        <div class="form-group">
+                                            <label>Tên size:</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <!-- /.form group -->                                      
+                                        <!-- /.form group -->
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary">Cập nhật</button>
+                                            <button type="button" class="btn btn-secondary">Xóa trắng</button>
+                                        </div>
+                                        <!-- /.form group -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </form>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Danh sách Size</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                @*<th style="width: 10px">#</th>*@
+                                                <th>Size</th>                                               
+                                                <th style="width: 160px"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list-size">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col (right) -->
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>*@
+                    @*<button type="submit" class="btn btn-primary">Cập nhật</button>*@
+                </div>
+            
+        </div>
+    </div>
+</div>
+
+<script id="color-template" type="x-tmpl-mustache">
+    
+     {{#colorsTag}}
+    <tr>       
+        <td>{{name}}</td>
+        <td align="center">
+            <i class="fas fa-circle fa-2x" style="color: {{code}}"></i>
+        </td>
+        <td align="right">
+            <a class="btn-sm" href="#" data-id="{{id}}" id="lbtEditColor"> <i class="fas fa-pencil-alt"> </i> Edit </a>
+            <a class="btn-sm" href="#" data-id="{{id}}" id="lbtDeleteColor"> <i class="fas fa-trash"> </i> Delete </a>
+        </td>
+    </tr>
+    {{/colorsTag}}
+</script>
+<script id="size-template" type="x-tmpl-mustache">
+     {{#sizesTag}}
+    <tr>       
+        <td>{{name}}</td>
+        <td align="right">
+            <a class="btn-sm" href="#" data-id="{{id}}" id="lbtEditSize"> <i class="fas fa-pencil-alt"> </i> Edit </a>
+            <a class="btn-sm" href="#" data-id="{{id}}" id="lbtDeleteSize"> <i class="fas fa-trash"> </i> Delete </a>
+        </td>
+    </tr>
+    {{/sizesTag}}
+</script>
