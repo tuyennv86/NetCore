@@ -93,6 +93,12 @@ namespace NetCoreApp.Areas.Admin.Controllers
         {
             return new OkObjectResult(_sizeService.GetAll());
         }
+        [HttpGet]
+        public IActionResult GetByIdSize(int id)
+        {
+            return new OkObjectResult(_sizeService.GetById(id));
+        }
+
         [HttpDelete]
         public IActionResult DeleteColor(int id)
         {
@@ -432,6 +438,43 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 _productService.Save();
                 return new OkObjectResult(id);
             }
+        }
+
+        [HttpPost]
+        public IActionResult AddEditColor(ColorViewModel colorViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return new BadRequestObjectResult(allErrors);
+            }
+            else
+            {
+                if(colorViewModel.Id > 0)
+                {
+                    _colorService.Update(colorViewModel);
+                }else
+                {
+                    _colorService.Add(colorViewModel);
+                }
+                _colorService.Save();
+                return new OkObjectResult(colorViewModel);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AddEditSize(SizeViewModel sizeViewModel)
+        {
+            if (sizeViewModel.Id > 0)
+            {
+                _sizeService.Update(sizeViewModel);
+            }
+            else
+            {
+                _sizeService.Add(sizeViewModel);
+            }
+            _sizeService.Save();
+            return new OkObjectResult(sizeViewModel);
         }
     }
 }

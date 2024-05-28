@@ -27,6 +27,7 @@ namespace NetCoreApp.Application.AutoMapper
                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
             CreateMap<ProductImageViewModel, ProductImage>().ConstructUsing(c => new ProductImage(c.ProductId, c.Path, c.Caption));
             CreateMap<ColorViewModel, Color>().ConstructUsing(c => new Color(c.Id, c.Name, c.Code));
+            CreateMap<SizeViewModel, Size>().ConstructUsing(c => new Size(c.Id, c.Name));
 
 
 

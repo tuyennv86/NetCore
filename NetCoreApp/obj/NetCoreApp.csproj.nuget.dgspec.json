@@ -76,29 +76,12 @@
       }
     },
     "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj": {
-      "version": "1.0.0",
       "restore": {
         "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
         "projectName": "NetCoreApp.Data.EF",
         "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
-        "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
-        "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net5.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Welcome\\source\\repos\\Play.Catalog\\packages": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
         "frameworks": {
           "net5.0": {
-            "targetAlias": "net5.0",
             "projectReferences": {
               "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {
                 "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj"
@@ -111,75 +94,10 @@
               }
             }
           }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.AspNetCore.Identity": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[5.0.13, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[5.0.13, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[5.0.13, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[5.0.13, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[5.0.13, )"
-            },
-            "Microsoft.Extensions.Configuration": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
-            "Microsoft.Extensions.Configuration.FileExtensions": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
-            "Microsoft.Extensions.Configuration.Json": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
-        }
+        "net5.0": {}
       }
     },
     "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj": {

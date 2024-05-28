@@ -428,7 +428,7 @@
                     },
                     success: function (response) {                       
                         until.stopLoading();
-                        $("#hidId").val(response.id);
+                        $("#hidIdColor").val(response.id);
                         $("#txtColorName").val(response.name);
                         $("#txtColorCode").val(response.code);
                         $('.my-colorpicker2 .fa-square').css('color', response.code);
@@ -439,6 +439,70 @@
                     }
                 });               
         });
+        $('body').on('click', '#btnResetColor', function (e) {
+            e.preventDefault();
+            resetColor();
+        });
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+
+                    let formData = new FormData();
+                    formData.append("Id", $("#hidIdColor").val());
+                    formData.append("Name", $("#txtColorName").val());
+                    formData.append("Code", $("#txtColorCode").val());
+                    let id = $('#hidIdColor').val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/Product/AddEditColor",                        
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            if (id > 0) {
+                                until.notify('Cập nhật thành công', 'success');                                
+                            } else {
+                                until.notify('Thêm mới thành công', 'success');                          
+                                resetColor();
+                            }
+                            until.stopLoading();
+                            LoadDataColor();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi cập nhật được được', 'error' + status);
+                            until.stopLoading();
+                        }
+                    });
+
+                   
+                }
+            });
+            $('#frmColor').validate({
+                rules: {
+                    txtColorName: {
+                        required: true
+                    },
+                    txtColorCode: {
+                        required: true
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
 
         $('body').on('click', '#lbtDeleteSize', function (e) {
             e.preventDefault();
@@ -467,6 +531,89 @@
                 }
             });
         });
+        $('body').on('click', '#lbtEditSize', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: "/admin/Product/GetByIdSize",
+                cache: false,
+                data: { id: id },
+                dataType: "json",
+                beforeSend: function () {
+                    until.startLoading();
+                },
+                success: function (response) {
+                    until.stopLoading();
+                    $("#hidIdSize").val(response.id);
+                    $("#txtNameSize").val(response.name);                  
+                },
+                error: function (status) {
+                    until.notify('Lỗi edit' + JSON.stringify(status), 'error');
+                    until.stopLoading();
+                }
+            });
+        });
+        $('body').on('click', '#bntResetSize', function (e) {
+            e.preventDefault();
+            resetSize();
+        });
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+
+                    let formData = new FormData();
+                    formData.append("Id", $("#hidIdSize").val());
+                    formData.append("Name", $("#txtNameSize").val());
+                    let id = $('#hidIdSize').val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/Product/AddEditSize",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            until.startLoading();
+                        },
+                        success: function (response) {
+                            if (id > 0) {
+                                until.notify('Cập nhật thành công', 'success');
+                            } else {
+                                until.notify('Thêm mới thành công', 'success');
+                                resetSize();
+                            }
+                            until.stopLoading();
+                            LoadDataSize();
+                        },
+                        error: function (status) {
+                            until.notify('Lỗi cập nhật được được', 'error' + status);
+                            until.stopLoading();
+                        }
+                    });
+
+
+                }
+            });
+            $('#frmSize').validate({
+                rules: {
+                    txtNameSize: {
+                        required: true
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
     }
 
     function loadCategoryType() {
@@ -773,6 +920,17 @@
             }
         });
     }
+    function resetColor() {
+        $("#hidIdColor").val(0);
+        $("#txtColorName").val('');
+        $("#txtColorCode").val('');
+        $('.my-colorpicker2 .fa-square').css('color', '');
+    }
+    function resetSize() {
+        $("#hidIdSize").val(0);
+        $("#txtNameSize").val('');       
+    }
+    
 }
 
 $(document).ready(function () {    
