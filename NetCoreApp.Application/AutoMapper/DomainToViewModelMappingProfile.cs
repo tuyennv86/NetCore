@@ -23,7 +23,7 @@ namespace NetCoreApp.Application.AutoMapper
             CreateMap<Tag, TagViewModel>();
             CreateMap<Size, SizeViewModel>();
             CreateMap<Color, ColorViewModel>();
-
+            CreateMap<Bill, BillViewModel>();
             CreateMap<Tour, TourViewModel>();
             CreateMap<TourDate, TourDateViewModel>();
             CreateMap<TourImages, TourImagesViewModel>();

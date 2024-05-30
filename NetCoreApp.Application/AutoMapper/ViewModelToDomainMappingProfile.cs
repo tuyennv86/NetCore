@@ -29,7 +29,8 @@ namespace NetCoreApp.Application.AutoMapper
             CreateMap<ColorViewModel, Color>().ConstructUsing(c => new Color(c.Id, c.Name, c.Code));
             CreateMap<SizeViewModel, Size>().ConstructUsing(c => new Size(c.Id, c.Name));
             CreateMap<ProductQuantityViewModel, ProductQuantity>().ConstructUsing(c => new ProductQuantity(c.Id, c.ProductId, c.SizeId, c.ColorId, c.Quantity));
-
+            CreateMap<BillViewModel, Bill>().ConstructUsing(c => new Bill(c.Id, c.CustomerName, c.CustomerAddress, c.CustomerMobile, 
+                c.CustomerMessage, c.BillStatus, c.PaymentMethod, c.Status, c.CustomerId));
 
 
             CreateMap<TourViewModel, Tour>()
