@@ -54,8 +54,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
                 return View(model1);
             }
             return View(model);
-        }
-        
+        }        
 
         [HttpGet]
         public IActionResult GetAll()
@@ -89,6 +88,11 @@ namespace NetCoreApp.Areas.Admin.Controllers
             return new OkObjectResult(_colorService.GetById(id));
         }
         [HttpGet]
+        public IActionResult GetByIdQuantity(int id)
+        {
+            return new OkObjectResult(_productQuantityService.GetById(id));
+        }
+        [HttpGet]
         public IActionResult GetAllSize()
         {
             return new OkObjectResult(_sizeService.GetAll());
@@ -97,6 +101,11 @@ namespace NetCoreApp.Areas.Admin.Controllers
         public IActionResult GetByIdSize(int id)
         {
             return new OkObjectResult(_sizeService.GetById(id));
+        }
+        [HttpGet]
+        public IActionResult GetAllQuantityByProductId(int productId)
+        {
+            return new OkObjectResult(_productQuantityService.GetByProductId(productId));            
         }
 
         [HttpDelete]
@@ -476,5 +485,35 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _sizeService.Save();
             return new OkObjectResult(sizeViewModel);
         }
+
+        [HttpPost]
+        public IActionResult AddEditQuantity(ProductQuantityViewModel productQuantityViewModel)
+        {
+            if(productQuantityViewModel.Id > 0)
+            {
+                _productQuantityService.Update(productQuantityViewModel);
+            }
+            else
+            {
+                _productQuantityService.Add(productQuantityViewModel);
+            }
+            _productQuantityService.Save();
+            return new OkObjectResult(productQuantityViewModel);
+        }
+        [HttpPost]
+        public IActionResult DeleteQuantity(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _productQuantityService.Delete(id);
+                _productQuantityService.Save();
+                return new ObjectResult(id);
+            }
+        }
+
     }
 }

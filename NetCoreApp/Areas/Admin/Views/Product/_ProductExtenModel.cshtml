@@ -12,119 +12,175 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-
+                        <div class="col-md-3">
+                            <form class="form-horizontal" id="frmQuantity" name="frmQuantity">
+                                @Html.AntiForgeryToken()
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Cập nhật số lượng sản phẩm</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <input type="hidden" id="hidIdQuantity" value="0" />
+                                        <!-- Color Picker -->
+                                        <div class="form-group">
+                                            <label>Màu sản phẩm:</label>
+                                            <select class="form-control form-control-sm" name="slColor" id="slColor">
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Size sản phẩm:</label>
+                                            <select class="form-control form-control-sm" name="slSize" id="slSize">
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Số lượng:</label>
+                                            <input type="text" class="form-control" id="txtQuantity" name="txtQuantity">
+                                        </div>
+                                        <!-- /.form group -->
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                            <button type="button" class="btn btn-secondary" id="btnResetQuantity">Xóa trắng</button>
+                                        </div>
+                                        <!-- /.form group -->
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Danh sách số lượng</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Màu</th>
+                                                <th>Size</th>
+                                                <th>Số lượng</th>
+                                                <th style="width: 160px"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list-quantity">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <form class="form-horizontal" id="frmColor" name="frmColor">
-                                @Html.AntiForgeryToken()
-                                <div class="card card-info">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Cập nhật màu</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <!-- Color Picker -->
-                                        <div class="form-group">
-                                            <label>Tên màu:</label>
-                                            <input type="hidden" id="hidIdColor" value="0" />
-                                            <input type="text" class="form-control" id="txtColorName" name="txtColorName">
+                            <div class="col-md-6">
+                                <form class="form-horizontal" id="frmColor" name="frmColor">
+                                    @Html.AntiForgeryToken()
+                                    <div class="card card-info">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Cập nhật màu</h3>
                                         </div>
-                                        <!-- /.form group -->
-                                        <!-- Color Picker -->
-                                        <div class="form-group">
-                                            <label>Mã màu:</label>
-                                            <div class="input-group my-colorpicker2">
-                                                <input type="text" class="form-control" id="txtColorCode" name="txtColorCode">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="fas fa-square"></i></span>
-                                                </div>
+                                        <div class="card-body">
+                                            <!-- Color Picker -->
+                                            <div class="form-group">
+                                                <label>Tên màu:</label>
+                                                <input type="hidden" id="hidIdColor" value="0" />
+                                                <input type="text" class="form-control" id="txtColorName" name="txtColorName">
                                             </div>
-                                            <!-- /.input group -->
+                                            <!-- /.form group -->
+                                            <!-- Color Picker -->
+                                            <div class="form-group">
+                                                <label>Mã màu:</label>
+                                                <div class="input-group my-colorpicker2">
+                                                    <input type="text" class="form-control" id="txtColorCode" name="txtColorCode">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"><i class="fas fa-square"></i></span>
+                                                    </div>
+                                                </div>
+                                                <!-- /.input group -->
+                                            </div>
+                                            <!-- /.form group -->
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                                <button type="button" class="btn btn-secondary" id="btnResetColor">Xóa trắng</button>
+                                            </div>
+                                            <!-- /.form group -->
                                         </div>
-                                        <!-- /.form group -->
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                            <button type="button" class="btn btn-secondary" id="btnResetColor">Xóa trắng</button>
-                                        </div>
-                                        <!-- /.form group -->
+                                        <!-- /.card-body -->
                                     </div>
-                                    <!-- /.card-body -->
-                                </div>
-                            </form>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Danh sách màu</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                @*<th style="width: 10px">#</th>*@
-                                                <th>Tên màu</th>
-                                                <th>Mã màu</th>
-                                                <th style="width: 160px"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="list-color">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                        <!-- /.col (left) -->
-                        <div class="col-md-6">
-                            <form class="form-horizontal" id="frmSize" name="frmSize">
-                                @Html.AntiForgeryToken()
-                                <div class="card card-success">
+                                </form>
+                                <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Cập nhật size</h3>
+                                        <h3 class="card-title">Danh sách màu</h3>
                                     </div>
+                                    <!-- /.card-header -->
                                     <div class="card-body">
-
-                                        <div class="form-group">
-                                            <label>Tên size:</label>
-                                            <input type="hidden" id="hidIdSize" value="0" />
-                                            <input type="text" class="form-control" id="txtNameSize" name="txtNameSize">
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                            <button type="button" id="bntResetSize" class="btn btn-secondary">Xóa trắng</button>
-                                        </div>
-
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>                                                   
+                                                    <th>Tên màu</th>
+                                                    <th>Mã màu</th>
+                                                    <th style="width: 160px"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="list-color">
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                            </form>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Danh sách Size</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                @*<th style="width: 10px">#</th>*@
-                                                <th>Size</th>
-                                                <th style="width: 160px"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="list-size">
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <!-- /.card -->
                             </div>
-                            <!-- /.card -->
+                            <!-- /.col (left) -->
+                            <div class="col-md-6">
+                                <form class="form-horizontal" id="frmSize" name="frmSize">
+                                    @Html.AntiForgeryToken()
+                                    <div class="card card-success">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Cập nhật size</h3>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="form-group">
+                                                <label>Tên size:</label>
+                                                <input type="hidden" id="hidIdSize" value="0" />
+                                                <input type="text" class="form-control" id="txtNameSize" name="txtNameSize">
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                                <button type="button" id="bntResetSize" class="btn btn-secondary">Xóa trắng</button>
+                                            </div>
+
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </form>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Danh sách Size</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    @*<th style="width: 10px">#</th>*@
+                                                    <th>Size</th>
+                                                    <th style="width: 160px"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="list-size">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.col (right) -->
                         </div>
-                        <!-- /.col (right) -->
+
+
                     </div>
-
-
-                </div>
                 <div class="modal-footer">
                     @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>*@
                     @*<button type="submit" class="btn btn-primary">Cập nhật</button>*@
@@ -135,12 +191,12 @@
 </div>
 
 <script id="color-template" type="x-tmpl-mustache">
-    
+
      {{#colorsTag}}
-    <tr>       
+    <tr>
         <td>{{name}}</td>
         <td align="center">
-            <i class="fas fa-circle fa-2x" style="color: {{code}}"></i>
+            <i class="fas fa-circle fa-2x img-circle img-bordered-sm" style="color: {{code}}"></i>
         </td>
         <td align="right">
             <a class="btn-sm" href="#" data-id="{{id}}" id="lbtEditColor"> <i class="fas fa-pencil-alt"> </i> Edit </a>
@@ -159,4 +215,18 @@
         </td>
     </tr>
     {{/sizesTag}}
+</script>
+
+<script id="quantity-template" type="x-tmpl-mustache">
+     {{#quantity}}
+    <tr>
+        <td>{{color.name}} - <i class="fas fa-circle fa-2x img-circle img-bordered-sm" style="color: {{color.code}}"></i></td>
+        <td>{{size.name}}</td>
+        <td>{{quantity}}</td>
+        <td align="right">
+            <a class="btn-sm" href="#" data-id="{{id}}" id="lbtEditQuantity"> <i class="fas fa-pencil-alt"> </i> Edit </a>
+            <a class="btn-sm" href="#" data-id="{{id}}" id="lbtDeleteQuantity"> <i class="fas fa-trash"> </i> Delete </a>
+        </td>
+    </tr>
+    {{/quantity}}
 </script>
