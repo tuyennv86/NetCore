@@ -500,7 +500,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
             _productQuantityService.Save();
             return new OkObjectResult(productQuantityViewModel);
         }
-        [HttpPost]
+        [HttpDelete]
         public IActionResult DeleteQuantity(int id)
         {
             if (!ModelState.IsValid)

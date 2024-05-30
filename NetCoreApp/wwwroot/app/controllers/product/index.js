@@ -654,8 +654,7 @@
             });
         });
         $('body').on('click', '#lbtEditQuantity', function (e) {
-            e.preventDefault();
-            let productId = $("#hidId").val();
+            e.preventDefault();          
             let id = $(this).attr('data-id');
             $.ajax({
                 type: "GET",
@@ -686,8 +685,8 @@
                     let formData = new FormData();
                     formData.append("Id", $("#hidIdQuantity").val());
                     formData.append("ProductId", $("#hidId").val());
-                    formData.append("SizeId", $("#slColor").find(":selected").val());
-                    formData.append("ColorId", $("#slSize").find(":selected").val());
+                    formData.append("ColorId", $("#slColor").find(":selected").val());
+                    formData.append("SizeId", $("#slSize").find(":selected").val());
                     formData.append("Quantity", $("#txtQuantity").val());
                     let id = $('#hidIdQuantity').val();
                     let productId = $("#hidId").val();
