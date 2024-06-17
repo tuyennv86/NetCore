@@ -13,7 +13,9 @@ namespace NetCoreApp.Data.Entities
     public class Bill : DomainEntity<int>, ISwitchable, IDateTracking
     {
         public Bill()
-        { }
+        {
+            BillDetails = new List<BillDetail>();
+        }
 
         public Bill(string customerName, string customerAddress, string customerMobile, string customerMessage,
             BillStatus billStatus, PaymentMethod paymentMethod, Status status, Guid customerId)
@@ -26,6 +28,7 @@ namespace NetCoreApp.Data.Entities
             PaymentMethod = paymentMethod;
             Status = status;
             CustomerId = customerId;
+            BillDetails = new List<BillDetail>();
         }
 
         public Bill(int id, string customerName, string customerAddress, string customerMobile, string customerMessage,
@@ -40,6 +43,7 @@ namespace NetCoreApp.Data.Entities
             PaymentMethod = paymentMethod;
             Status = status;
             CustomerId = customerId;
+            BillDetails = new List<BillDetail>();
         }
 
         [Required]

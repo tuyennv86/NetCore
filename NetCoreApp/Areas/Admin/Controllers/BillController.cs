@@ -12,5 +12,7 @@ namespace NetCoreApp.Areas.Admin.Controllers
         {
             return View();
         }
+        
+
     }
 }

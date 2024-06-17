@@ -16,7 +16,6 @@ namespace NetCoreApp.Application.AutoMapper
             CreateMap<Category, CategoryViewModel>();
             CreateMap<Function, FunctionViewModel>();
             CreateMap<Product, ProductViewModel>();
-
             CreateMap<ProductImage, ProductImageViewModel>();
             CreateMap<ProductQuantity, ProductQuantityViewModel>();
             CreateMap<ProductTag, ProductTagViewModel>();
@@ -24,6 +23,7 @@ namespace NetCoreApp.Application.AutoMapper
             CreateMap<Size, SizeViewModel>();
             CreateMap<Color, ColorViewModel>();
             CreateMap<Bill, BillViewModel>();
+            CreateMap<BillDetail, BillDetailViewModel>();
             CreateMap<Tour, TourViewModel>();
             CreateMap<TourDate, TourDateViewModel>();
             CreateMap<TourImages, TourImagesViewModel>();

@@ -117,6 +117,8 @@ namespace NetCoreApp
             services.AddTransient<IColorRepository, ColorRepository>();
             services.AddTransient<ISizeRepository, SizeRepository>();
             services.AddTransient<IWholePriceRepository, WholePriceRepository>();
+            services.AddTransient<IBillRepository, BillRepository>();
+            services.AddTransient<IBillDetailRepository, BillDetailRepository>();
                         
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
@@ -128,6 +130,7 @@ namespace NetCoreApp
             services.AddTransient<IColorService, ColorService>();
             services.AddTransient<ISizeService, SizeService>();
             services.AddTransient<IWholePriceService, WholePriceService>();
+            services.AddTransient<IBillService, BillService>();
 
             services.AddTransient<ITourRepository, TourRepository>();
             services.AddTransient<ITourService, TourService>();

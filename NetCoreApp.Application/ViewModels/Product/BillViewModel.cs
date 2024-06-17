@@ -1,4 +1,4 @@
-﻿using NetCoreApp.Data.Entities;
+﻿using NetCoreApp.Application.ViewModels.System;
 using NetCoreApp.Data.Enums;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace NetCoreApp.Application.ViewModels.Product
         public DateTime DateModified { set; get; }       
         public Status Status { set; get; }
         public Guid CustomerId { set; get; }      
-        public AppUser User { set; get; }
-        public ICollection<BillDetail> BillDetails { set; get; }
+        public AppUserViewModel User { set; get; }
+        public ICollection<BillDetailViewModel> BillDetails { set; get; }
     }
 }

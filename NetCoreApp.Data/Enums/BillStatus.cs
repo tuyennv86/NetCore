@@ -2,6 +2,7 @@
 {
     public enum BillStatus
     {
+        All,
         New,
         InProgress,
         Returned,
