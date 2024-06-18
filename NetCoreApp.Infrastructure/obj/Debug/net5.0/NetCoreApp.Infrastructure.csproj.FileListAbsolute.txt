@@ -20,3 +20,4 @@ E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\ref\NetCoreApp.Infrastructure.dll
 E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.pdb
+E:\PROJECT\FameWeb\CoreApp\NetCoreApp.Infrastructure\obj\Debug\net5.0\NetCoreApp.Infrastructure.csproj.AssemblyReference.cache
