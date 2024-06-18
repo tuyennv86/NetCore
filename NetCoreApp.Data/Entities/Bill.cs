@@ -14,7 +14,7 @@ namespace NetCoreApp.Data.Entities
     {
         public Bill()
         {
-            BillDetails = new List<BillDetail>();
+          
         }
 
         public Bill(string customerName, string customerAddress, string customerMobile, string customerMessage,
@@ -28,7 +28,7 @@ namespace NetCoreApp.Data.Entities
             PaymentMethod = paymentMethod;
             Status = status;
             CustomerId = customerId;
-            BillDetails = new List<BillDetail>();
+           
         }
 
         public Bill(int id, string customerName, string customerAddress, string customerMobile, string customerMessage,
@@ -42,8 +42,7 @@ namespace NetCoreApp.Data.Entities
             BillStatus = billStatus;
             PaymentMethod = paymentMethod;
             Status = status;
-            CustomerId = customerId;
-            BillDetails = new List<BillDetail>();
+            CustomerId = customerId;            
         }
 
         [Required]

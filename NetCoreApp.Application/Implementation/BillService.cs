@@ -8,9 +8,8 @@ using NetCoreApp.Infrastructure.Interfaces;
 using NetCoreApp.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCoreApp.Application.Implementation
 {
@@ -18,23 +17,30 @@ namespace NetCoreApp.Application.Implementation
     {
         private readonly IBillRepository _billReposotory;
         private readonly IBillDetailRepository _billDetailRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
-        public BillService(IBillRepository billRepository, IBillDetailRepository billDetailRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        
+       
+        public BillService(IBillRepository billRepository, IBillDetailRepository billDetailRepository, IProductRepository productRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _billReposotory = billRepository;
             _billDetailRepository = billDetailRepository;
+            _productRepository = productRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public BillViewModel Add(BillViewModel billViewModel, List<BillDetailViewModel> billDetailViewModels)
+        public BillViewModel Add(BillViewModel billViewModel)
         {
-            var bill = _mapper.Map<BillViewModel, Bill>(billViewModel);
-            foreach (BillDetailViewModel billDetailViewModel in billDetailViewModels) {
-                bill.BillDetails.Add(_mapper.Map<BillDetail>(billDetailViewModel));
+            var order = _mapper.Map<BillViewModel, Bill>(billViewModel);
+            var orderDetails = _mapper.Map<List<BillDetailViewModel>, List<BillDetail>>(billViewModel.BillDetails);
+            foreach (var detail in orderDetails)
+            {
+                var product = _productRepository.FindById(detail.ProductId);
+                detail.Price = product.Price;
             }
-            _billReposotory.Add(bill);
+            order.BillDetails = orderDetails;
+            _billReposotory.Add(order);
             return billViewModel;
         }
 
@@ -51,7 +57,13 @@ namespace NetCoreApp.Application.Implementation
             GC.SuppressFinalize(this);
         }
 
-        public PagedResult<BillViewModel> GetAllPageding(Status status, BillStatus billStatus, string customerName, string customerAddress, string customerMobile, int pageIndex, int pageSize)
+        public BillViewModel GetById(int id)
+        {
+            var model = _billReposotory.FindById(id);
+            return _mapper.Map<Bill, BillViewModel>(model);
+        }
+
+        public PagedResult<BillViewModel> GetAllPageding(Status status, BillStatus billStatus, string customerName, string customerAddress, string customerMobile, string startDate, string endDate, int pageIndex, int pageSize)
         {
             var query = _billReposotory.FindAll();
             if (status != Status.All)
@@ -64,7 +76,16 @@ namespace NetCoreApp.Application.Implementation
                 query = query.Where(x => x.CustomerAddress.Contains(customerAddress));
             if (!string.IsNullOrEmpty(customerMobile))
                 query = query.Where(x => x.CustomerMobile.Contains(customerMobile));
-
+            if (!string.IsNullOrEmpty(startDate))
+            {
+                DateTime start = DateTime.ParseExact(startDate, "dd/MM/yyyy", CultureInfo.GetCultureInfo("vi-VN"));
+                query = query.Where(x => x.DateCreated <= start);
+            }
+            if (!string.IsNullOrEmpty(endDate))
+            {
+                DateTime end = DateTime.ParseExact(endDate, "dd/MM/yyyy", CultureInfo.GetCultureInfo("vi-VN"));
+                query = query.Where(x => x.DateCreated <= end);
+            }
             int totalRow = query.Count();
             query = query.OrderByDescending(x => x.DateCreated).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             var data = _mapper.ProjectTo<BillViewModel>(query).ToList();
@@ -96,6 +117,6 @@ namespace NetCoreApp.Application.Implementation
             var bill = _billReposotory.FindById(id);
             bill.Status = status;
             _billReposotory.Update(bill);
-        }
+        }        
     }
 }

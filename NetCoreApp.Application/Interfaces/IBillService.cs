@@ -9,11 +9,12 @@ namespace NetCoreApp.Application.Interfaces
 {
     public interface IBillService: IDisposable
     {
-        PagedResult<BillViewModel> GetAllPageding(Status status, BillStatus billStatus, string customerName, string customerAddress, string customerMobile, int pageIndex, int pageSize);
+        BillViewModel GetById(int id);
+        PagedResult<BillViewModel> GetAllPageding(Status status, BillStatus billStatus, string customerName, string customerAddress, string customerMobile, string startDate, string endDate, int pageIndex, int pageSize);
         void UpdateStatus(int id, Status status);
         void UpdateBillStatus(int id, BillStatus billStatus);
         void Delete(int id);
-        BillViewModel Add(BillViewModel billViewModel, List<BillDetailViewModel> billDetailViewModels);
+        BillViewModel Add(BillViewModel billViewModel);
         void Save();
     }
 }
