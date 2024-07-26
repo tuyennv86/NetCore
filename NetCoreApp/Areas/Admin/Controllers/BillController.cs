@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NetCoreApp.Application.Implementation;
+using NetCoreApp.Application.Interfaces;
 using NetCoreApp.Application.ViewModels.Product;
 using NetCoreApp.Data.Enums;
 
@@ -7,8 +8,8 @@ namespace NetCoreApp.Areas.Admin.Controllers
 {
     public class BillController : BaseController
     {
-        private readonly BillService _billService;
-        public BillController(BillService billService)
+        private readonly IBillService _billService;
+        public BillController(IBillService billService)
         {
             _billService = billService;
         }

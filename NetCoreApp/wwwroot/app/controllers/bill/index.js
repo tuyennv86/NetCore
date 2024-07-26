@@ -4,27 +4,27 @@
                
         registerEvents();
         loadData(true);
-        updateOrder();
+      /*  updateOrder();*/
     }
 
     let registerEvents = function () {
        
-        $('#slChangPage').on('change', function () {           
-            until.configs.pageSize = $(this).val();
-            until.configs.pageIndex = 1;
-            loadData(true);
-        });
+        //$('#slChangPage').on('change', function () {           
+        //    until.configs.pageSize = $(this).val();
+        //    until.configs.pageIndex = 1;
+        //    loadData(true);
+        //});
 
         $("#btnSearch").on('click', function () {            
             loadData(true);
         });
 
-        $("#txtSearch").on('keypress', function (e) {          
-            if (e.which === 13) {
-                e.preventDefault();
-                loadData(true);
-            }
-        });
+        //$("#txtSearch").on('keypress', function (e) {          
+        //    if (e.which === 13) {
+        //        e.preventDefault();
+        //        loadData(true);
+        //    }
+        //});
         
         //$('body').on('click', '#lbtEdit', function (e) {
         //    e.preventDefault();
@@ -184,23 +184,43 @@
         $.ajax({
             type: 'GET',           
             dataType: 'json',
-            data: {             
-                keyWord: $('#txtSearch').val(),
-                page: until.configs.pageIndex,
+            data: {
+                status: $('#slStatus').val(),
+                billStatus: $('#slBillStatus').val(),
+                customerName: $('#txtCustomerName').val(),
+                customerMobile: $('#txtCustomerMobile').val(),
+                startDate: $('#txtStartDate').val(),
+                endDate: $('#txtEndDate').val(),
+                pageIndex: until.configs.pageIndex,
                 pageSize: until.configs.pageSize
             },
-            url: '/admin/categoryType/GetByPageding',
+            url: '/admin/Bill/GetAllPageding',
             beforeSend: function () {
                 until.startLoading();
             },
-            success: function (response) {               
+            success: function (response) {
+
+                console.log(response.results);
+
                 let templateWithData = Mustache.render($("#mp_template").html(), {
-                    categoryTypeTag: response.results,
+                    billTag: response.results,
                     dateFormat: function () {
                         return function (timestamp, render) {
                             return new Date(render(timestamp).trim()).toLocaleString('en-GB', { timeZone: 'UTC' });
                         };
+                    },
+                    formatCurrency: function () {
+                        return function (variable, render) {
+                            return render(variable).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "$&,");
+                        }
                     }
+                    //, fomartStatus: function () {
+                    //    return function (status, render) {
+                    //        if (status === 1)
+                    //            return render('Chưa active');
+                    //        else return render('Active');
+                    //    }
+                    //}
                 });                
                 $("#tpl_content").empty().html(templateWithData);
                
@@ -347,6 +367,40 @@ $(document).ready(function () {
 
     $("#checkAll").change(function () {
         $('input:checkbox').not(this).prop('checked', this.checked);
-    });    
+    });
+    $.datetimepicker.setLocale('vi');
+    $('#txtStartDate').datetimepicker({
+        format: 'd/m/Y'
+        //,
+        //mask: true
+    });
+    $('#txtEndDate').datetimepicker({
+        format: 'd/m/Y'
+        //,
+        //mask: true
+    });
+
+
+    //$('#txtStartDate').datetimepicker({
+    //    format: 'd/m/Y',
+    //    mask: true,
+    //    onShow: function (ct) {
+    //        this.setOptions({
+    //            maxDate: jQuery('#txtEndDate').val() ? jQuery('#txtEndDate').val() : false
+    //        })
+    //    },
+    //    timepicker: false
+    //});
+    //$('#txtEndDate').datetimepicker({
+    //    format: 'd/m/Y',
+    //    mask: true,
+    //    onShow: function (ct) {
+    //        this.setOptions({
+    //            minDate: jQuery('#txtEndDate').val() ? jQuery('#txtEndDate').val() : false
+    //        })
+    //    },
+    //    timepicker: false
+    //});
+  
 
 });
