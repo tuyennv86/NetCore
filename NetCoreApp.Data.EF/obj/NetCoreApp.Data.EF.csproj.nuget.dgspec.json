@@ -10,11 +10,11 @@
         "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
         "projectName": "NetCoreApp.Data.EF",
         "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\NetCoreApp.Data.EF.csproj",
-        "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\tuyennv\\.nuget\\packages\\",
         "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data.EF\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tuyennv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Welcome\\source\\repos\\Play.Catalog\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -117,11 +116,11 @@
         "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj",
         "projectName": "NetCoreApp.Data",
         "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\NetCoreApp.Data.csproj",
-        "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\tuyennv\\.nuget\\packages\\",
         "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tuyennv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -129,7 +128,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Welcome\\source\\repos\\Play.Catalog\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -210,11 +208,11 @@
         "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
         "projectName": "NetCoreApp.Infrastructure",
         "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\tuyennv\\.nuget\\packages\\",
         "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tuyennv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -222,7 +220,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Welcome\\source\\repos\\Play.Catalog\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -275,11 +272,11 @@
         "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
         "projectName": "NetCoreApp.Utilities",
         "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\NetCoreApp.Utilities.csproj",
-        "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\tuyennv\\.nuget\\packages\\",
         "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Utilities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tuyennv\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -287,7 +284,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\Welcome\\source\\repos\\Play.Catalog\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

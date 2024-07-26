@@ -7263,7 +7263,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Welcome\\.nuget\\packages\\": {}
+    "C:\\Users\\tuyennv\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -7271,11 +7271,11 @@
       "projectUniqueName": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
       "projectName": "NetCoreApp.Infrastructure",
       "projectPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\NetCoreApp.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\Welcome\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\tuyennv\\.nuget\\packages\\",
       "outputPath": "E:\\PROJECT\\FameWeb\\CoreApp\\NetCoreApp.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Welcome\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tuyennv\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7283,7 +7283,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Welcome\\source\\repos\\Play.Catalog\\packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
